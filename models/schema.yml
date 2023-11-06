@@ -3,6 +3,7 @@ version: 1
 sources:
 
   - name: aircall
+    database: bluwalk-data-warehouse
     tables:
       - name: call_created
       - name: call_answered
@@ -10,6 +11,7 @@ sources:
       - name: call_ringing_on_agent
   
   - name: aircall_v2
+    database: bluwalk-data-warehouse
     tables:
       - name: call_created
       - name: call_answered
@@ -17,20 +19,24 @@ sources:
       - name: call_ringing_on_agent
   
   - name: analytics_249934410
+    database: bluwalk-data-warehouse
     tables:
       - name: events_*
 
   - name: analytics_323684004
+    database: bluwalk-data-warehouse
     tables:
       - name: events_*
 
   - name: bluwalk_website_prod
+    database: bluwalk-data-warehouse
     tables:
       - name: account_created
       - name: application_submitted
       - name: nps_response_submitted
 
   - name: bolt
+    database: bluwalk-data-warehouse
     tables:
       - name: order_log
       - name: daily_report_summary
@@ -38,40 +44,49 @@ sources:
       - name: driver_performance
   
   - name: bp
+    database: bluwalk-data-warehouse
     tables:
       - name: invoice_transactions
       - name: transactions
 
   - name: correos
+    database: bluwalk-data-warehouse
     tables:
       - name: correos_daily_report
 
   - name: drivfit
+    database: bluwalk-data-warehouse
     tables:
       - name: customer_survey
 
   - name: facebook_ads
+    database: bluwalk-data-warehouse
     tables:
       - name: insights
       - name: ads
   
-   - name: free_now
+  - name: free_now
+    database: bluwalk-data-warehouse
     tables:
       - name: booking_history
 
   - name: gcloud
+    database: bluwalk-data-warehouse
     tables:
       - name: cloudaudit_googleapis_com_data_access_*
   
   - name: generic
+    database: bluwalk-data-warehouse
     tables:
       - name: calendar
 
   - name: google_ads
+    database: bluwalk-data-warehouse
     tables:
       - name: campaign_performance_reports
 
   - name: google_sheets
+    database: bluwalk-data-warehouse
     tables:
       - name: user_own_vehicles
       - name: churn_prevention
@@ -79,6 +94,7 @@ sources:
       - name: fin_month_closing
 
   - name: hubspot
+    database: bluwalk-data-warehouse
     tables:
       - name: contact
       - name: deal
@@ -102,6 +118,7 @@ sources:
       - name: users
 
   - name: mercadao
+    database: bluwalk-data-warehouse
     tables:
       - name: account_status_log
       - name: daily_order_summary
@@ -109,10 +126,12 @@ sources:
       - name: order_log
 
   - name: monday
-  tables:
-    - name: issue_tracker_log
+    database: bluwalk-data-warehouse
+    tables:
+      - name: issue_tracker_log
 
   - name: odoo_realtime
+    database: bluwalk-data-warehouse
     tables:
       - name: account_account
       - name: account_analytic_account
@@ -156,15 +175,18 @@ sources:
       - name: vehicle_rental
 
   - name: prio
+    database: bluwalk-data-warehouse
     tables:
       - name: ev_transactions
 
   - name: talkdesk
+    database: bluwalk-data-warehouse
     tables:
       - name: calls
       - name: flows
 
   - name: tracker_logs
+    database: bluwalk-data-warehouse
     tables:
       - name: close_period_log
 
@@ -181,6 +203,7 @@ sources:
         - name: payment_transactions
   
   - name: zendesk
+    database: bluwalk-data-warehouse
     tables:
       - name: attachments
       - name: group_memberships
