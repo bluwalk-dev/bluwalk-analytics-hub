@@ -17,6 +17,6 @@ SELECT
     rp.create_date as create_date
     
 FROM {{ ref('stg_odoo__res_partners') }} rp
-LEFT JOIN {{ ref('dim_locations') }} l on rp.operation_city_id = l.location_id
+LEFT JOIN {{ ref('dim_locations__version2') }} l on rp.operation_city_id = l.location_id
 WHERE rp.active is true
 ORDER BY contact_id DESC

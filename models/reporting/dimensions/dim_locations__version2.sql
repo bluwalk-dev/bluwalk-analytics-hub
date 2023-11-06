@@ -1,3 +1,5 @@
+{{ config(alias='dim_locations') }}
+
 SELECT
     CAST(rcc.id as INT64) AS location_id,
     CAST(rcc.name as STRING) AS name,

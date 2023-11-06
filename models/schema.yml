@@ -1,4 +1,4 @@
-version: 1
+version: 2
 
 sources:
 
@@ -191,17 +191,17 @@ sources:
       - name: close_period_log
 
   - name: uber
-      database: bluwalk-data-warehouse
-      tables:
-        - name: driver_activity
-        - name: driver_status
-        - name: trip_activity
-        - name: driver_performance
-        - name: driver_quality
-        - name: payment_ledger
-        - name: payments_order
-        - name: payment_transactions
-  
+    database: bluwalk-data-warehouse
+    tables:
+      - name: driver_activity
+      - name: driver_status
+      - name: trip_activity
+      - name: driver_performance
+      - name: driver_quality
+      - name: payment_ledger
+      - name: payments_order
+      - name: payment_transactions
+
   - name: zendesk
     database: bluwalk-data-warehouse
     tables:

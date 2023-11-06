@@ -1,3 +1,5 @@
+{{ config(alias='dim_users') }}
+
 SELECT 
     ru.id as user_id,
     e.contact_id,
