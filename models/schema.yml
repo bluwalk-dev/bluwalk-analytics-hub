@@ -149,6 +149,7 @@ sources:
       - name: fuel
       - name: fuel_card_log
       - name: hr_employee
+      - name: hr_department
       - name: ir_translation
       - name: product_product
       - name: product_template
