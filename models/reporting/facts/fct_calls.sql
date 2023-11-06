@@ -21,4 +21,4 @@ FROM (
 ) a
 LEFT JOIN {{ ref('dim_employees') }} b ON a.agent_email = b.employee_email
 LEFT JOIN {{ ref('stg_hubspot__contacts') }} c ON a.contact_phone_nr = c.property_hs_calculated_phone_number
-ORDER BY a.end_time DESC
+ORDER BY a.start_time DESC

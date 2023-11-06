@@ -17,7 +17,7 @@ WITH call_ended_log AS (
         number_name,
         asset,
         loaded_at
-    FROM {{ ref('stg_aircall__call_ended') }}
+    FROM {{ ref('stg_aircallV2__call_ended') }}
 )
 
 SELECT * EXCEPT (__row_number) FROM (
