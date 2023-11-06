@@ -2,7 +2,7 @@ with
 
 source as (
     SELECT *
-    FROM {{ source('odoo_realtime', 'hr_employee') }}
+    FROM {{ source('odoo_realtime', 'hr_department') }}
 ),
 
 transformation as (

@@ -3,7 +3,7 @@ with
 source as (
     select
         *
-    from {{ source('hubspot', 'team') }}
+    from {{ source('hubspot', 'team_user') }}
 ),
 
 transformation as (
