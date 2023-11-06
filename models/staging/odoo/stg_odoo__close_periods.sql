@@ -1,3 +1,19 @@
-select
-    *
-from {{ source('odoo_realtime', 'close_period') }}
+with
+
+source as (
+    select
+        *
+    from {{ source('google_cloud_postgresql_public', 'close_period') }}
+),
+
+transformation as (
+
+    select
+        
+        * EXCEPT(_fivetran_synced, _fivetran_deleted)
+
+    from source
+
+)
+
+select * from transformation

@@ -2,13 +2,13 @@ with
 
 source as (
     SELECT *
-    FROM {{ source('odoo_realtime', 'hr_department') }}
+    FROM {{ source('google_cloud_postgresql_public', 'hr_department') }}
 ),
 
 transformation as (
 
     select
-        *
+        * EXCEPT(_fivetran_synced, _fivetran_deleted)
     from source
 
 )

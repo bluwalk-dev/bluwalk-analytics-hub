@@ -3,14 +3,14 @@ with
 source as (
     select
         *
-    from {{ source('odoo_realtime', 'account_partial_reconcile') }}
+    from {{ source('google_cloud_postgresql_public', 'account_partial_reconcile') }}
 ),
 
 transformation as (
 
     select
         
-        *
+        * EXCEPT(_fivetran_synced, _fivetran_deleted)
 
     from source
 

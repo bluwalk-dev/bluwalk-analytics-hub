@@ -14,7 +14,7 @@ FROM {{ ref('fct_accounting_analytic_lines') }} a
 LEFT JOIN {{ ref('dim_products') }} b ON a.product_id = b.product_id
 LEFT JOIN {{ ref('dim_users') }} c on a.account_owner_contact_id = c.contact_id
 WHERE
-    user_transaction IS TRUE AND 
+    b.user_transaction IS TRUE AND 
     a.move_id IS NULL AND
     a.account_type = 'User'
 ORDER BY date DESC

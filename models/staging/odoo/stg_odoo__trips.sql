@@ -3,7 +3,7 @@ with
 source as (
     select
         *
-    from {{ source('odoo_realtime', 'trips') }}
+    from {{ source('google_cloud_postgresql_public', 'trips') }}
 ),
 
 transformation as (

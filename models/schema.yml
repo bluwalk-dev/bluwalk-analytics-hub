@@ -135,7 +135,7 @@ sources:
     tables:
       - name: issue_tracker_log
 
-  - name: odoo_realtime
+  - name: google_cloud_postgresql_public
     database: bluwalk-data-warehouse
     tables:
       - name: account_account
