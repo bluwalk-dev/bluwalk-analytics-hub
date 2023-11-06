@@ -1,8 +1,0 @@
-SELECT
-    CAST(date_time AS DATE) date,
-    agent_employee_id,
-    agent_name,
-    AVG(normalized_score) average_rating
-FROM {{ ref('fct_tickets_ratings') }} l
-GROUP BY date, agent_employee_id, agent_name
-ORDER BY date DESC
