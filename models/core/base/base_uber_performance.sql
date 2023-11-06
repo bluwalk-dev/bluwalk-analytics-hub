@@ -37,7 +37,7 @@ WITH current_version AS (
     LEFT JOIN tripDistance ta on ta.date = da.date and ta.partner_account_uuid = da.partner_account_uuid
     LEFT JOIN netEarnings po on po.date = da.date and po.partner_account_uuid = da.partner_account_uuid
     LEFT JOIN {{ ref('dim_partners_accounts') }} upa on da.partner_account_uuid = upa.partner_account_uuid
-    LEFT JOIN {{ ref('dim_users__version2') }} u on upa.contact_id = u.contact_id
+    LEFT JOIN {{ ref('dim_users') }} u on upa.contact_id = u.contact_id
 
 ), 
     deprecated_version AS (
@@ -58,7 +58,7 @@ WITH current_version AS (
             a.trip_distance,
             NULL netEarnings
         FROM {{ ref('stg_uber__performance') }} a
-        LEFT JOIN {{ ref('dim_users__version2') }} u on a.contact_id = u.contact_id
+        LEFT JOIN {{ ref('dim_users') }} u on a.contact_id = u.contact_id
     )
 
 SELECT * FROM current_version

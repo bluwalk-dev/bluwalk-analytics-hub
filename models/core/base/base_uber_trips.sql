@@ -17,7 +17,7 @@ SELECT
     ta.trip_distance
 from {{ ref('stg_uber__trips') }} ta
 LEFT JOIN {{ ref('dim_partners_accounts') }} upa on ta.partner_account_uuid = upa.partner_account_uuid
-LEFT JOIN {{ ref('dim_users__version2') }} u on u.contact_id = upa.contact_id
+LEFT JOIN {{ ref('dim_users') }} u on u.contact_id = upa.contact_id
 LEFT JOIN {{ ref('dim_vehicle_contracts') }} z ON ta.vehicle_plate = z.vehicle_plate
 WHERE 
     ta.request_timestamp < CAST(IFNULL(z.end_date, current_date) as TIMESTAMP) AND 

@@ -15,5 +15,5 @@ SELECT
     a.distance_driven trip_distance,
     a.gross_revenue * 0.75 estimated_net_earnings
 FROM {{ ref('stg_bolt__performance') }} a
-LEFT JOIN {{ ref('dim_users__version2') }} u on a.contact_id = u.contact_id
+LEFT JOIN {{ ref('dim_users') }} u on a.contact_id = u.contact_id
 WHERE (a.online_minutes > 0 AND a.nr_trips > 0)

@@ -10,6 +10,6 @@ SELECT DISTINCT
     CAST(CAST(customer_rating AS INT64)/4 AS NUMERIC) as normalized_score,
     comment feedback_comment
 FROM {{ ref('stg_odoo__support_tickets') }} st
-LEFT JOIN {{ ref('dim_users__version2') }} u ON st.partner_id = u.contact_id
-LEFT JOIN {{ ref('dim_employees__version2') }} e ON st.responsible_id = e.employee_user_id
+LEFT JOIN {{ ref('dim_users') }} u ON st.partner_id = u.contact_id
+LEFT JOIN {{ ref('dim_employees') }} e ON st.responsible_id = e.employee_user_id
 WHERE customer_rating is not null

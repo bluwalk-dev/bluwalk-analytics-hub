@@ -16,8 +16,8 @@ LEFT JOIN {{ ref('stg_talkdesk__flows') }} b on a.interaction_id = b.interaction
 LEFT JOIN {{ ref('int_zendesk_tickets_last_state') }} c on a.interaction_id = c.external_id
 LEFT JOIN {{ ref('int_zendesk_users_last_state') }} d on cast(c.requester_id as INT64) = CAST(d.id AS INT64)
 LEFT JOIN {{ ref('base_talkdesk_agents') }} e on a.agent_name = e.agent_name
-LEFT JOIN {{ ref("dim_employees__version2") }} f ON e.agent_email = f.employee_email
-LEFT JOIN {{ ref('dim_users__version2') }} g ON CAST(d.external_id AS INT64) = g.user_id
+LEFT JOIN {{ ref("dim_employees") }} f ON e.agent_email = f.employee_email
+LEFT JOIN {{ ref('dim_users') }} g ON CAST(d.external_id AS INT64) = g.user_id
 WHERE 
     b.flow_name ="Bluwalk 29/4" AND 
     b.step_name like "survey%" AND 
