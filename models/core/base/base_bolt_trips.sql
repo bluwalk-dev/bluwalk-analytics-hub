@@ -18,7 +18,7 @@ SELECT
 FROM {{ ref('stg_bolt__trips') }} ta
 LEFT JOIN {{ ref('stg_bolt__performance') }} dp ON ta.driver_name = dp.driver_name AND ta.request_date = dp.date
 LEFT JOIN {{ ref('dim_partners_accounts') }} upa on dp.partner_account_uuid = upa.partner_account_uuid
-LEFT JOIN {{ ref('dim_users') }} u on u.contact_id = upa.contact_id
+LEFT JOIN {{ ref('dim_users__version2') }} u on u.contact_id = upa.contact_id
 LEFT JOIN {{ ref('dim_vehicle_contracts') }} z ON ta.vehicle_plate = z.vehicle_plate
 WHERE 
     ta.request_timestamp < CAST(IFNULL(z.end_date, current_date) as TIMESTAMP) AND 

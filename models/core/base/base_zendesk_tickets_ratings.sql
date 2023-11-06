@@ -12,6 +12,6 @@ SELECT
 FROM {{ ref('int_zendesk_tickets_last_state') }} a
 left join {{ ref('int_zendesk_users_last_state') }} b on CAST(a.assignee_id AS INT64) = CAST(b.id AS INT64)
 left join {{ ref('int_zendesk_users_last_state') }} c on CAST(a.requester_id AS INT64) = CAST(c.id AS INT64)
-LEFT JOIN {{ ref("dim_employees") }} e ON b.email = e.employee_email
-LEFT JOIN {{ ref('dim_users') }} u ON CAST(c.external_id AS INT64) = u.user_id
+LEFT JOIN {{ ref("dim_employees__version2") }} e ON b.email = e.employee_email
+LEFT JOIN {{ ref('dim_users__version2') }} u ON CAST(c.external_id AS INT64) = u.user_id
 WHERE satisfaction_rating_score IN ('good', 'bad')
