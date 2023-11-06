@@ -1,0 +1,27 @@
+SELECT
+    a.job_order_id,
+    a.job_order_name,
+    a.job_order_status,
+    a.statement,
+    a.contact_id,
+    a.user_partner_uuid,
+    a.location,
+    a.start_date,
+    a.end_date,
+    a.sales_gross,
+    a.sales_net,
+    a.sales_taxes,
+    a.sales_tax_rate,
+    a.partner_fee_gross,
+    a.partner_fee_net,
+    a.partner_fee_taxes,
+    a.partner_fee_tax_rate,
+    a.partner_payout,
+    b.partner_id,
+    b.partner_name,
+    b.partner_stream,
+    b.partner_contact_id,
+    a.nr_trips
+FROM {{ ref('stg_odoo__trips') }} a
+LEFT JOIN {{ ref('dim_partners') }} b ON a.res_sales_partner_id = b.partner_id
+

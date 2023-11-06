@@ -1,0 +1,195 @@
+version: 1
+
+sources:
+
+  - name: aircall
+    tables:
+      - name: call_created
+      - name: call_answered
+      - name: call_ended
+      - name: call_ringing_on_agent
+  
+  - name: aircall_v2
+    tables:
+      - name: call_created
+      - name: call_answered
+      - name: call_ended
+      - name: call_ringing_on_agent
+  
+  - name: analytics_249934410
+    tables:
+      - name: events_*
+
+  - name: analytics_323684004
+    tables:
+      - name: events_*
+
+  - name: bluwalk_website_prod
+    tables:
+      - name: account_created
+      - name: application_submitted
+      - name: nps_response_submitted
+
+  - name: bolt
+    tables:
+      - name: order_log
+      - name: daily_report_summary
+      - name: daily_report_trips
+      - name: driver_performance
+  
+  - name: bp
+    tables:
+      - name: invoice_transactions
+      - name: transactions
+
+  - name: correos
+    tables:
+      - name: correos_daily_report
+
+  - name: drivfit
+    tables:
+      - name: customer_survey
+
+  - name: facebook_ads
+    tables:
+      - name: insights
+      - name: ads
+  
+   - name: free_now
+    tables:
+      - name: booking_history
+
+  - name: gcloud
+    tables:
+      - name: cloudaudit_googleapis_com_data_access_*
+  
+  - name: generic
+    tables:
+      - name: calendar
+
+  - name: google_ads
+    tables:
+      - name: campaign_performance_reports
+
+  - name: google_sheets
+    tables:
+      - name: user_own_vehicles
+      - name: churn_prevention
+      - name: uncollectible_recovery
+      - name: fin_month_closing
+
+  - name: hubspot
+    tables:
+      - name: contact
+      - name: deal
+      - name: deal_contact
+      - name: deal_pipeline
+      - name: deal_pipeline_stage
+      - name: deal_stage
+      - name: merged_deal
+      - name: owner
+      - name: owner_team
+      - name: property
+      - name: property_option
+      - name: pipelines
+      - name: team
+      - name: team_user
+      - name: ticket
+      - name: ticket_contact
+      - name: ticket_engagement
+      - name: ticket_pipeline
+      - name: ticket_pipeline_stage
+      - name: users
+
+  - name: mercadao
+    tables:
+      - name: account_status_log
+      - name: daily_order_summary
+      - name: training_schedule
+      - name: order_log
+
+  - name: monday
+  tables:
+    - name: issue_tracker_log
+
+  - name: odoo_realtime
+    tables:
+      - name: account_account
+      - name: account_analytic_account
+      - name: account_analytic_line
+      - name: account_partial_reconcile
+      - name: account_move_line
+      - name: account_move
+      - name: account_journal
+      - name: account_payment
+      - name: booking
+      - name: close_period
+      - name: fleet_vehicle
+      - name: fleet_vehicle_model
+      - name: fleet_vehicle_model_brand
+      - name: fuel
+      - name: fuel_card_log
+      - name: hr_employee
+      - name: ir_translation
+      - name: product_product
+      - name: product_template
+      - name: product_category
+      - name: rate_base
+      - name: rental_contract
+      - name: res_country_city
+      - name: res_country
+      - name: res_partner
+      - name: res_sales_partner
+      - name: res_sales_partner_type
+      - name: res_sales_partner_account
+      - name: res_sales_partner_account_log
+      - name: res_users
+      - name: sale_order
+      - name: sale_order_line
+      - name: segment
+      - name: support_stage
+      - name: support_ticket
+      - name: support_ticket_category
+      - name: support_ticket_theme
+      - name: trips
+      - name: vehicle_category
+      - name: vehicle_rental
+
+  - name: prio
+    tables:
+      - name: ev_transactions
+
+  - name: talkdesk
+    tables:
+      - name: calls
+      - name: flows
+
+  - name: tracker_logs
+    tables:
+      - name: close_period_log
+
+  - name: uber
+      database: bluwalk-data-warehouse
+      tables:
+        - name: driver_activity
+        - name: driver_status
+        - name: trip_activity
+        - name: driver_performance
+        - name: driver_quality
+        - name: payment_ledger
+        - name: payments_order
+        - name: payment_transactions
+  
+  - name: zendesk
+    tables:
+      - name: attachments
+      - name: group_memberships
+      - name: groups
+      - name: organizations
+      - name: satisfaction_ratings
+      - name: ticket_events
+      - name: ticket_fields
+      - name: ticket_forms
+      - name: ticket_metrics
+      - name: tickets
+      - name: users
