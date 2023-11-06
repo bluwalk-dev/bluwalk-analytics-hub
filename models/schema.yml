@@ -84,6 +84,11 @@ sources:
     database: bluwalk-data-warehouse
     tables:
       - name: campaign_performance_reports
+  
+  - name: google_workspace
+    database: bluwalk-data-warehouse
+    tables:
+      - name: users
 
   - name: google_sheets
     database: bluwalk-data-warehouse
