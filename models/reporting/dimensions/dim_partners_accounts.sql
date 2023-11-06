@@ -7,5 +7,5 @@ SELECT
     a.state,
     a.create_date
 FROM {{ ref('stg_odoo__res_sales_partner_accounts') }} a
-LEFT JOIN {{ ref('dim_partners__version2') }} b ON a.res_sales_partner_id = b.partner_id
-LEFT JOIN {{ ref('dim_users__version2') }} c ON a.partner_id = c.contact_id
+LEFT JOIN {{ ref('dim_partners') }} b ON a.res_sales_partner_id = b.partner_id
+LEFT JOIN {{ ref('dim_users') }} c ON a.partner_id = c.contact_id

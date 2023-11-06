@@ -1,5 +1,3 @@
-{{ config(alias='dim_partners') }}
-
 SELECT
     rsp.id as partner_id,
     rsp.name as partner_name,

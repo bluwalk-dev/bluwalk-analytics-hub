@@ -30,6 +30,6 @@ left join {{ ref('stg_odoo__vehicle_categories') }} vc on rb.vehicle_category_id
 left join {{ ref('stg_odoo__segments') }} s on vc.segment_id = s.id
 left join {{ ref('dim_accounting_analytic_accounts') }} aaa on rc.billing_account_id = aaa.account_id
 left join {{ ref('dim_vehicles') }} fv on rc.vehicle_id = fv.vehicle_id
-left join {{ ref('dim_users__version2') }} u on aaa.account_owner_contact_id = u.contact_id
+left join {{ ref('dim_users') }} u on aaa.account_owner_contact_id = u.contact_id
 WHERE rc.active is true
 ORDER BY start_date DESC

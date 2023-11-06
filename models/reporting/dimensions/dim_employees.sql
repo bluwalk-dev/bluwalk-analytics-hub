@@ -1,5 +1,3 @@
-{{ config(alias="dim_employees") }}
-
 with
     googleusers as (
         select a.*

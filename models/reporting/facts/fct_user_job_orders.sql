@@ -23,5 +23,5 @@ SELECT
     b.partner_contact_id,
     a.nr_trips
 FROM {{ ref('stg_odoo__trips') }} a
-LEFT JOIN {{ ref('dim_partners__version2') }} b ON a.res_sales_partner_id = b.partner_id
+LEFT JOIN {{ ref('dim_partners') }} b ON a.res_sales_partner_id = b.partner_id
 

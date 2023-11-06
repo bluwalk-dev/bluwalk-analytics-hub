@@ -1,5 +1,3 @@
-{{ config(alias='dim_products') }}
-
 WITH productNameTranslation AS (
   SELECT res_id id, value product_name
   FROM {{ ref('stg_odoo__ir_translations') }}
