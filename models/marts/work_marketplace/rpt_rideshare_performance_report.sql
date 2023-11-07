@@ -6,7 +6,7 @@ topDriverNetEarnings AS (
     max(total_income) AS top_income
   FROM {{ ref('agg_wm_weekly_rideshare_income') }}
   GROUP BY statement
-), 
+)
 
 churnList as (
     WITH activeUsers AS (
@@ -28,20 +28,20 @@ churnList as (
     )
     SELECT 
         au1.user_id, 
-        au1.year_week, 
+        au1.year_week statement, 
     CASE WHEN au2.user_id IS NULL THEN 'Churned' ELSE 'Retained' END AS Status
     FROM activeUsers au1
     LEFT JOIN nextPaymentCycles npc  ON au1.year_week = npc.year_week 
     LEFT JOIN activeUsers au2  ON au1.user_id = au2.user_id AND npc.next_year_week = au2.year_week
-    ORDER BY au1.user_id, au1.yearWeek
+    ORDER BY au1.user_id, au1.year_week
 ), 
 
 userDimension AS (
   select distinct
     contact_id 
-  from {{ ref('stg_hubspot__deal') }} a
+  from {{ ref('stg_hubspot__deals') }} a
   left join {{ ref('dim_users') }} ru on CAST(a.property_odoo_user_id AS INT64) = ru.user_id
-  where hs_is_closed_won IS true and deal_pipeline_id = '155110085' and odoo_user_id is not null
+  where property_hs_is_closed_won IS true and deal_pipeline_id = '155110085' and property_odoo_user_id is not null
 )
 
 
@@ -62,9 +62,12 @@ SELECT
     cd.user_id,
     db.balance AS driver_balance,
     tpd.top_income,
-    cl.Status as churnStatus,
+    CASE WHEN
+        cd.statement = (SELECT last_statement FROM {{ ref('util_last_statement') }}) THEN ''
+        ELSE cl.Status
+    END AS churnStatus,
     CASE WHEN db.balance < 0 THEN "Low" ELSE CASE WHEN db.balance > 190 THEN "Top" ELSE "Regular" END END userSegment,
-    CASE WHEN ud.contact_id IS NULL THEN 'Rented' ELSE 'Connected' END AS user_dimension,
+    CASE WHEN ud.contact_id IS NULL THEN 'Rented' ELSE 'Connected' END user_dimension,
     m1.total_worked_days,
     m1.percentage_over_130,
     ROUND(m2.nr_trips_5TO9/m1.total_worked_days*100,2) percentage_trips_5TO9,
@@ -74,7 +77,7 @@ FROM {{ ref('agg_wm_weekly_rideshare_performance') }} cd
 JOIN {{ ref('util_week_intervals') }} pd ON cd.statement = pd.year_week
 LEFT JOIN {{ ref('agg_wm_weekly_rideshare_income') }} ne ON cd.contact_id = ne.contact_id AND cd.statement = ne.statement
 LEFT JOIN {{ ref('agg_wm_weekly_user_balance') }} db ON cd.contact_id = db.contact_id AND cd.statement = db.statement
-LEFT JOIN churnList cl ON cl.userID = aru.userId AND cd.statement = cl.yearWeek
+LEFT JOIN churnList cl ON cl.user_id = cd.user_id AND cd.statement = cl.statement
 LEFT JOIN userDimension ud ON ud.contact_id = cd.contact_id
 LEFT JOIN topDriverNetEarnings tpd ON tpd.statement = cd.statement
 /* Performance Metrics */

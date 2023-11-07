@@ -1,8 +1,9 @@
-select
+SELECT
   a.date,
   a.statement,
   c.user_id,
-  c.contact_id,
+  a.account_owner_contact_id,
+  a.contact_id, 
   b.product_group,
   b.product_category,
   b.product_name,
