@@ -6,7 +6,7 @@ topDriverNetEarnings AS (
     max(total_income) AS top_income
   FROM {{ ref('agg_wm_weekly_rideshare_income') }}
   GROUP BY statement
-)
+),
 
 churnList as (
     WITH activeUsers AS (
