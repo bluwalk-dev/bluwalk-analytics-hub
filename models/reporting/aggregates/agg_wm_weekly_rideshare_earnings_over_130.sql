@@ -9,7 +9,7 @@ FROM (
         date, 
         statement,
         CASE WHEN SUM(amount) >= 130 THEN 1 ELSE 0 END AS greater_than_or_equal_to_130
-    from {{ ref('fct_rt_userTransactionLedger') }}
+    from {{ ref('fct_user_financial_transactions') }}
     where product_name IN ('Trips - Uber', 'Trips - Bolt') and date >= '2023-01-01'
     group by date, statement, contact_id
 )

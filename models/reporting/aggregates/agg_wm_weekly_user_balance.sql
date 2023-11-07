@@ -1,6 +1,6 @@
 SELECT
     contact_id,
     statement,
-    SUM(amount) AS balance
+    ROUND(SUM(amount),2) AS balance
 FROM {{ ref('fct_user_financial_transactions') }}
 GROUP BY contact_id, statement
