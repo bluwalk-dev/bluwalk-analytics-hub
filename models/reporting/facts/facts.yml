@@ -1,6 +1,5 @@
-version: 2
-
 models:
+
   - name: fct_calls
     description: "A fact table that consolidates call data from various systems, providing a unified view of all call activities. It includes key metrics and dimensions to analyze call performance and outcomes."
     columns:
@@ -95,3 +94,4 @@ models:
         description: "The time taken to resolve the ticket, measured in hours."
       - name: first_reply_time
         description: "The time taken for the agent to give the first reply to the ticket, measured in hours."
+
