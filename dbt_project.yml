@@ -34,7 +34,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   bluwalk:
     core:
-      +schema: "{{ generate_schema_name('core') }}"
+      +schema: core
       materialized: view
     incremental:
       +schema: incremental
