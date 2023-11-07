@@ -4,7 +4,7 @@ SELECT
     COALESCE(SUM(b.nr_inbound_calls),0) nr_inbound_calls,
     CASE
         WHEN COALESCE(SUM(b.nr_inbound_calls), 0) > 0 THEN
-            SUM(c.nr_missed_calls) / NULLIF(SUM(b.nr_inbound_calls), 0)
+            ROUND(SUM(c.nr_missed_calls) / NULLIF(SUM(b.nr_inbound_calls), 0),4)
         ELSE
             NULL
     END AS missed_call_ratio
@@ -26,4 +26,5 @@ LEFT JOIN (
     GROUP BY date
 ) c ON a.date = c.date
 WHERE a.year_month <= CAST(FORMAT_DATE('%Y%m', CURRENT_DATE()) AS INT64)
+GROUP BY a.year_month
 ORDER BY a.year_month DESC

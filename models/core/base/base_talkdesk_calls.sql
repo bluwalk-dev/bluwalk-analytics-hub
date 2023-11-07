@@ -8,7 +8,7 @@ SELECT
     customer_phone_nr contact_phone_nr,
     duration_in_seconds duration,
     internal_line_nr,
-    '' internal_line_name,
+    b.team_name internal_line_name,
     b.agent_email,
     recording_link
 FROM {{ ref('stg_talkdesk__calls') }} a

@@ -13,8 +13,8 @@ transformation as (
         * EXCEPT(_fivetran_synced, _fivetran_deleted)
 
     from source
+    where _fivetran_deleted IS FALSE
 
 )
 
 select * from transformation
-where _fivetran_deleted IS FALSE

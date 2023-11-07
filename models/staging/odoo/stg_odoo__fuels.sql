@@ -17,8 +17,7 @@ transformation as (
             CAST(quantity AS NUMERIC))) AS surrogateKey
 
     from source
-
+    where _fivetran_deleted IS FALSE
 )
 
 select * from transformation
-where _fivetran_deleted IS FALSE

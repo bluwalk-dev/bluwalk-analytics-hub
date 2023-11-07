@@ -24,7 +24,7 @@ transformation as (
         CAST(call_end_time AS DATETIME) as call_end_time,
         FORMAT_TIMESTAMP('%Y-%m-%dT%H:%M:%S',PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', CAST(call_start_time AS STRING), 'Europe/Lisbon')) AS call_start_timestamp,
         FORMAT_TIMESTAMP('%Y-%m-%dT%H:%M:%S',PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', CAST(call_end_time AS STRING), 'Europe/Lisbon')) AS call_end_timestamp,
-        LEFT(bluwalk_phone, 13) as internal_line_nr,
+        IF(bluwalk_phone = 'N/A', '',LEFT(bluwalk_phone, 13)) as internal_line_nr,
         CAST(customer_phone AS STRING) customer_phone_nr,
         CAST(IF(agent_name = 'If-No-Answer Agent', NULL, agent_name) AS STRING) as agent_name,
         CAST(talk_time AS TIME) as duration,
