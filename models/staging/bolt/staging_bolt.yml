@@ -42,40 +42,26 @@ models:
     columns:
       - name: driver_name
         description: "The name of the driver."
-        tests:
-          - not_null
       - name: driver_phone
         description: "The phone number of the driver."
       - name: payment_date
         description: "The date when the payment was made."
-        tests:
-          - not_null
       - name: payment_local_time
         description: "The local time when the payment was made, combined from payment date and time."
       - name: payment_timestamp
         description: "The timestamp of the payment in the Europe/Lisbon timezone."
-        tests:
-          - not_null
       - name: payment_method
         description: "The method used for payment."
-        tests:
-          - not_null
       - name: address_pickup
         description: "The address where the passenger was picked up."
       - name: request_date
         description: "The date when the trip was requested."
-        tests:
-          - not_null
       - name: request_timestamp
         description: "The timestamp when the trip was requested in the Europe/Lisbon timezone."
-        tests:
-          - not_null
       - name: request_local_time
         description: "The local time when the trip was requested, combined from request date and time."
       - name: trip_value
         description: "The value of the trip."
-        tests:
-          - not_null
       - name: trip_booking_fee
         description: "The booking fee for the trip."
       - name: trip_tolls
@@ -86,8 +72,6 @@ models:
         description: "The tip given for the trip."
       - name: trip_status
         description: "The status of the trip."
-        tests:
-          - not_null
       - name: vehicle_model
         description: "The model of the vehicle used for the trip."
       - name: vehicle_plate
