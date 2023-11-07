@@ -4,7 +4,7 @@ SELECT
     COALESCE(b.nr_inbound_calls,0) nr_inbound_calls,
     CASE
         WHEN COALESCE(b.nr_inbound_calls, 0) > 0 THEN
-            c.nr_missed_calls / NULLIF(b.nr_inbound_calls, 0)
+            ROUND(c.nr_missed_calls / NULLIF(b.nr_inbound_calls, 0),4)
         ELSE
             NULL
     END AS missed_call_ratio

@@ -14,4 +14,5 @@ LEFT JOIN (
     WHERE retained = 'Não'
     GROUP BY contacted_at) b ON  c.date = b.contacted_at
 WHERE c.year_month <= CAST(FORMAT_DATE('%Y%m', CURRENT_DATE()) AS INT64)
+GROUP BY c.year_month
 ORDER BY c.year_month DESC
