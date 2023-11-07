@@ -6,4 +6,3 @@ FROM {{ ref('util_calendar') }} a
 LEFT JOIN {{ ref('fct_tickets') }} b ON a.date = CAST(b.create_date AS DATE)
 WHERE agent_team = 'Customer Service'
 GROUP BY year_month
-ORDER BY year_month DESC

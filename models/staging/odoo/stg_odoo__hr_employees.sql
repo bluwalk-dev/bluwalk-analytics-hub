@@ -14,3 +14,4 @@ transformation as (
 )
 
 SELECT * FROM transformation
+where _fivetran_deleted IS FALSE

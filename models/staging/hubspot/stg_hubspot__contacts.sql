@@ -257,8 +257,8 @@ transformation as (
         CAST(property_zip AS STRING) zip 
 
     FROM source
-    WHERE _fivetran_deleted IS FALSE
 
 )
 
-select * from transformation
+SELECT * FROM transformation
+WHERE _fivetran_deleted IS FALSE
