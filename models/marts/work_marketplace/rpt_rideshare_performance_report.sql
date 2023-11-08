@@ -8,7 +8,17 @@ topDriverNetEarnings AS (
   GROUP BY statement
 ),
 
-churnList as (
+balance_without_damages AS (
+    SELECT
+        contact_id,
+        statement,
+        ROUND(SUM(amount),2) AS balance
+    FROM {{ ref('fct_user_financial_transactions') }}
+    WHERE product_id NOT IN (42,44)
+    GROUP BY contact_id, statement
+),
+
+churn_list as (
     WITH activeUsers AS (
         SELECT DISTINCT
             user_id,
@@ -76,8 +86,8 @@ SELECT
 FROM {{ ref('agg_wm_weekly_rideshare_performance') }} cd
 JOIN {{ ref('util_week_intervals') }} pd ON cd.statement = pd.year_week
 LEFT JOIN {{ ref('agg_wm_weekly_rideshare_income') }} ne ON cd.contact_id = ne.contact_id AND cd.statement = ne.statement
-LEFT JOIN {{ ref('agg_wm_weekly_user_balance') }} db ON cd.contact_id = db.contact_id AND cd.statement = db.statement
-LEFT JOIN churnList cl ON cl.user_id = cd.user_id AND cd.statement = cl.statement
+LEFT JOIN balance_without_damages db ON cd.contact_id = db.contact_id AND cd.statement = db.statement
+LEFT JOIN churn_list cl ON cl.user_id = cd.user_id AND cd.statement = cl.statement
 LEFT JOIN userDimension ud ON ud.contact_id = cd.contact_id
 LEFT JOIN topDriverNetEarnings tpd ON tpd.statement = cd.statement
 /* Performance Metrics */
