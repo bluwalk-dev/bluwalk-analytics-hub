@@ -74,8 +74,8 @@ SELECT
     CASE WHEN
         cd.statement = (SELECT last_statement FROM {{ ref('util_last_statement') }}) THEN ''
         ELSE cl.Status
-    END AS churnStatus,
-    CASE WHEN db.balance < 0 THEN "Low" ELSE CASE WHEN db.balance > 190 THEN "Top" ELSE "Regular" END END userSegment,
+    END AS churn_status,
+    CASE WHEN db.balance < 0 THEN "Low" ELSE CASE WHEN db.balance > 190 THEN "Top" ELSE "Regular" END END user_segment,
     CASE WHEN ud.contact_id IS NULL THEN 'Rented' ELSE 'Connected' END user_dimension,
     m1.total_worked_days,
     m1.percentage_over_130,
