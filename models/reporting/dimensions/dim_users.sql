@@ -6,6 +6,7 @@ SELECT
     e.short_name as name,
     e.phone,
     e.email,
+    e.vat,
     e.language,
     e.timezone,
     e.address,
