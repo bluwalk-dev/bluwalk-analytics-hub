@@ -10,9 +10,14 @@ transformation as (
 
     select
         
-        * EXCEPT(_fivetran_synced, _fivetran_deleted)
+        CAST (pipeline_id AS STRING) AS pipeline_id,
+        CAST (active AS BOOL) AS active,
+        CAST (label AS STRING) AS label,
+        CAST (created_at AS TIMESTAMP) AS created_at,
+        CAST (updated_at AS TIMESTAMP) AS updated_at
 
     from source
+    where _fivetran_deleted is false
 
 )
 

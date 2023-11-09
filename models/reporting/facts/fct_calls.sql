@@ -6,8 +6,8 @@ SELECT
     a.start_time, 
     a.end_time, 
     a.contact_phone_nr,
-    CAST(c.odoo_partner_id AS INT64) contact_id,
-    CAST(c.odoo_user_id AS INT64) user_id,
+    c.contact_id,
+    c.user_id,
     a.duration,
     a.internal_line_nr, 
     a.internal_line_name,
@@ -20,5 +20,5 @@ FROM (
     SELECT * FROM {{ ref('base_aircall_calls') }}
 ) a
 LEFT JOIN {{ ref('dim_employees') }} b ON a.agent_email = b.employee_email
-LEFT JOIN {{ ref('stg_hubspot__contacts') }} c ON a.contact_phone_nr = c.hs_calculated_phone_number
+LEFT JOIN {{ ref('base_hubspot_contacts') }} c ON a.contact_phone_nr = c.contact_phone_nr
 ORDER BY a.start_time DESC
