@@ -3,15 +3,16 @@ with
 source as (
     select
         *
-    from {{ source('hubspot', 'merged_deal') }}
+    from {{ source('hubspot', 'deal_contact') }}
 ),
 
 transformation as (
 
     select
-        
+
+        CAST (contact_id AS INT64) AS contact_id,
         CAST (deal_id AS INT64) AS deal_id,
-        CAST (merged_deal_id AS INT64) AS merged_deal_id,
+        CAST (type_id AS INT64) AS type_id
 
     from source
 

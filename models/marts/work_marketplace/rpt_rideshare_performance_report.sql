@@ -50,8 +50,7 @@ userDimension AS (
   select distinct
     contact_id 
   from {{ ref('stg_hubspot__deals') }} a
-  left join {{ ref('dim_users') }} ru on CAST(a.property_odoo_user_id AS INT64) = ru.user_id
-  where property_hs_is_closed_won IS true and deal_pipeline_id = '155110085' and property_odoo_user_id is not null
+  where is_closed_won IS true and deal_pipeline_id = '155110085' and user_id is not null
 )
 
 
