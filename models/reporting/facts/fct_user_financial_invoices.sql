@@ -10,6 +10,7 @@ SELECT
     b.id,
     b.name,
     b.year_month,
+    b.year_week,
     b.date,
     b.invoice_date,
     b.invoice_due_date,
