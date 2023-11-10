@@ -28,6 +28,12 @@ sources:
     tables:
       - name: events_*
 
+  - name: appmaker
+    database: bluwalk-data-warehouse
+    tables:
+      - name: driver_ledger_table
+      - name: driver_statement
+
   - name: bluwalk_website_prod
     database: bluwalk-data-warehouse
     tables:
