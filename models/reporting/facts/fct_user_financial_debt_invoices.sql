@@ -2,6 +2,7 @@ SELECT
     id,
     name,
     year_month,
+    year_week,
     date,
     invoice_date,
     invoice_due_date,
