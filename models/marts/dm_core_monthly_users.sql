@@ -32,7 +32,7 @@ LEFT JOIN {{ ref('agg_wm_monthly_churn_rate') }} churnedUsers ON cal.year_month 
 LEFT JOIN {{ ref('agg_wm_monthly_growth_rate') }} growthUsers ON cal.year_month = growthUsers.year_month
 LEFT JOIN {{ ref('agg_marketing_monthly_website_traffic') }} website ON cal.year_month = website.year_month
 LEFT JOIN {{ ref('agg_wm_monthly_signups') }} signup ON cal.year_month = signup.year_month
--- The WHERE clause filters for months after 2020 and ensures the end_date is not in the future
-WHERE cal.year > 2020 AND cal.end_date <= current_date()
+-- The WHERE clause filters for months after 2020 and ensures the start_date is not in the future
+WHERE cal.year > 2020 AND cal.start_date <= current_date()
 -- Ordering results by year_month descending to get the most recent data first
 ORDER BY cal.year_month DESC
