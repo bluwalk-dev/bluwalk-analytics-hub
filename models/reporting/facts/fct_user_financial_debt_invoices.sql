@@ -7,7 +7,7 @@ SELECT
     invoice_due_date,
     reference,
     contact_id,
-    payment_state
+    payment_state,
     amount_untaxed,
     amount_tax,
     amount_total,
