@@ -3,6 +3,7 @@ SELECT
     a.name,
     a.date,
     c.year_month,
+    c.year_week,
     a.invoice_date,
     a.invoice_date_due invoice_due_date,
     a.ref reference,
