@@ -1,5 +1,7 @@
 SELECT
   a.year_month,
+  a.start_date,
+  a.end_date,
   COALESCE(b.amount_invoiced, 0) amount_invoiced,
   COALESCE(c.amount_recovered, 0) amount_recovered,
   COALESCE(d.amount_recovered_non_cash, 0) amount_recovered_non_cash,
