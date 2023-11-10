@@ -1,6 +1,7 @@
 -- Selecting key business metrics for each month
 SELECT
     cal.year_month,                 -- The year and month from the calendar table
+    cal.start_date,                 -- The start date of the month from the calendar table
     cal.end_date,                   -- The end date of the month from the calendar table
     -- Coalescing the number of active users with 0 in case there's no matching record
     IFNULL(activeUsers.nr_active_users, 0) as nr_active_users,
