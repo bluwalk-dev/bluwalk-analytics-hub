@@ -2,6 +2,7 @@ SELECT
     a.id,
     a.name,
     a.date,
+    c.year_month,
     a.invoice_date,
     a.invoice_date_due invoice_due_date,
     a.ref reference,
@@ -19,12 +20,13 @@ SELECT
         ELSE NULL
     END move_type,
     a.journal_id,
-    b.name journal_name,
-    a.partner_id entity_id,
+    b.journal_name,
+    a.partner_id contact_id,
     a.amount_untaxed_signed amount_untaxed,
     a.amount_tax_signed amount_tax,
     a.amount_total_signed amount_total,
     a.amount_residual_signed amount_due,
     a.invoice_payment_state payment_state
 FROM {{ ref('stg_odoo__account_moves') }} a
-LEFT JOIN {{ ref('dim_accounting_journals') }} b ON a.journal_id = b.id
+LEFT JOIN {{ ref('dim_accounting_journals') }} b ON a.journal_id = b.journal_id
+LEFT JOIN {{ ref('util_calendar') }} c ON c.date = a.date

@@ -7,7 +7,7 @@ select
     a.move_name,
     a.parent_state move_state,
     a.journal_id,
-    b.name journal_name,
+    b.journal_name,
     a.ref,
     a.account_id,
     c.name account_name,
@@ -16,8 +16,11 @@ select
     a.credit,
     a.balance,
     a.tax_line_id,
-    a.analytic_account_id
+    a.analytic_account_id,
+    a.full_reconcile_id,
+    a.payment_id,
+    a.create_date
 from {{ ref('stg_odoo__account_move_lines') }} a
-left join {{ ref('dim_accounting_journals') }} b ON a.journal_id = b.id
+left join {{ ref('dim_accounting_journals') }} b ON a.journal_id = b.journal_id
 left join {{ ref('dim_accounting_accounts') }} c ON a.account_id = c.id
 ORDER BY date DESC
