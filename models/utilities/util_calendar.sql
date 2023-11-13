@@ -20,6 +20,7 @@ transformation as (
         CAST(semana as INT) as week,
         CAST(payment_cycle as INT) as year_week,
         CAST(ano_mes as INT) as year_month,
+        CAST(CONCAT(CAST(ano as INT), 'Q', CAST(trimestre as INT)) AS STRING) as year_quarter,
         CAST(payroll_month as INT) as year_month_payroll
     FROM source
 
