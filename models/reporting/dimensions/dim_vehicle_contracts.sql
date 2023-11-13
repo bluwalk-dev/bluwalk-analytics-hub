@@ -1,6 +1,8 @@
 SELECT 	
 	rc.id vehicle_contract_id,
-	fv.vehicle_plate,
+	fv.vehicle_id,
+    fv.vehicle_plate,
+    fv.vehicle_brand_model,
 	fv.vehicle_brand,
 	fv.vehicle_model,
 	aaa.account_owner_contact_id contact_id,
@@ -20,8 +22,17 @@ SELECT
 	vc.name vehicle_code,
     vc.category vehicle_category_letter,
     vc.vehicle_category_type vehicle_body_letter,
+    fv.vehicle_transmission,
 	IFNULL(vc.transmission, fv.vehicle_transmission) vehicle_transmission_letter,
-	IFNULL(vc.fuel, fv.vehicle_fuel_type_code) vehicle_fuel_letter,
+	CASE 
+        WHEN IFNULL(vc.fuel, fv.vehicle_fuel_type_code) = 'D' THEN 'diesel'
+        WHEN IFNULL(vc.fuel, fv.vehicle_fuel_type_code) IN ('E','F') THEN 'electric'
+        WHEN IFNULL(vc.fuel, fv.vehicle_fuel_type_code) = 'H' THEN 'hybrid'
+        WHEN IFNULL(vc.fuel, fv.vehicle_fuel_type_code) = 'L' THEN 'lpg'
+        WHEN IFNULL(vc.fuel, fv.vehicle_fuel_type_code) = 'G' THEN 'gasoline'
+        ELSE NULL 
+    END vehicle_fuel_type,
+    IFNULL(vc.fuel, fv.vehicle_fuel_type_code) vehicle_fuel_letter,
     rc.rental_contract as vehicle_contract_type
 FROM {{ ref('stg_odoo__rental_contracts') }} rc
 left join {{ ref('stg_odoo__rate_bases') }} rb on rc.rate_base_id = rb.id

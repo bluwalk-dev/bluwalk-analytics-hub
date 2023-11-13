@@ -5,6 +5,7 @@ SELECT
 	fv.vin_sn vehicle_vin,
 	fvmb.name vehicle_brand,
 	fvm.name vehicle_model,
+    CONCAT(fvmb.name, ' ', fvm.name) vehicle_brand_model,
 	fv.vehicle_model_version,	
 	fv.transmission vehicle_transmission,
     CASE 
