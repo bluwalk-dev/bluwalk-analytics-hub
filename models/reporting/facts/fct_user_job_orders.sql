@@ -4,6 +4,7 @@ SELECT
     a.job_order_status,
     a.statement,
     a.contact_id,
+    c.user_id,
     a.user_partner_uuid,
     a.location,
     a.start_date,
@@ -24,4 +25,5 @@ SELECT
     a.nr_trips
 FROM {{ ref('stg_odoo__trips') }} a
 LEFT JOIN {{ ref('dim_partners') }} b ON a.res_sales_partner_id = b.partner_id
+LEFT JOIN {{ ref('dim_users') }} c ON a.contact_id = c.contact_id
 
