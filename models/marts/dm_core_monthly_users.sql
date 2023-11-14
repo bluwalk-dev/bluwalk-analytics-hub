@@ -18,11 +18,17 @@ SELECT
     -- Coalescing the number of signups with 0
     IFNULL(signup.nr_signups, 0) as nr_signups,
     -- Coalescing the churn rate with 0
-    IFNULL(churnedUsers.churn_rate, 0) as churn_rate,
+    IFNULL(ROUND(churnedUsers.churn_rate, 4), 0) as churn_rate,
     -- Calculating the retention rate as 1 minus the churn rate, defaulting to 1 (100%) if no churn data
-    1-IFNULL(churnedUsers.churn_rate, 0) as retention_rate,
+    1-IFNULL(ROUND(churnedUsers.churn_rate, 4), 0) as retention_rate,
     -- Coalescing the growth rate with 0
-    IFNULL(growthUsers.growth_rate, 0) as growth_rate
+    IFNULL(ROUND(growthUsers.growth_rate, 4), 0) as growth_rate,
+    CASE
+        WHEN activeUsers.nr_active_users = 0 THEN NULL
+        ELSE ROUND(revenue.amount / activeUsers.nr_active_users, 2)
+    END AS revenue_per_active_user,
+    IFNULL(ROUND(nps.nps_score, 2),0) nps_score,
+    ROUND(1/IFNULL(churnedUsers.churn_rate, 0), 4) lifespan
 -- The FROM clause begins with the calendar utility table, which likely includes all months within the dataset
 FROM {{ ref('util_month_intervals') }} cal
 -- Each of the following LEFT JOINs connects a monthly aggregate table to the calendar on year_month
@@ -33,7 +39,11 @@ LEFT JOIN {{ ref('agg_wm_monthly_churn_rate') }} churnedUsers ON cal.year_month 
 LEFT JOIN {{ ref('agg_wm_monthly_growth_rate') }} growthUsers ON cal.year_month = growthUsers.year_month
 LEFT JOIN {{ ref('agg_marketing_monthly_website_traffic') }} website ON cal.year_month = website.year_month
 LEFT JOIN {{ ref('agg_wm_monthly_signups') }} signup ON cal.year_month = signup.year_month
+LEFT JOIN {{ ref('agg_finances_monthly_revenue') }} revenue ON cal.year_month = revenue.year_month
+LEFT JOIN {{ ref('agg_customer_service_monthly_nps') }} nps ON cal.year_month = nps.year_month
 -- The WHERE clause filters for months after 2020 and ensures the start_date is not in the future
-WHERE cal.year > 2020 AND cal.start_date <= current_date()
+WHERE 
+    cal.year > 2020 AND 
+    cal.start_date <= current_date()
 -- Ordering results by year_month descending to get the most recent data first
 ORDER BY cal.year_month DESC
