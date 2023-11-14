@@ -13,6 +13,7 @@ SELECT DISTINCT
     f.user_id,
     a.owner_id hs_owner_id,
     IFNULL ( CONCAT(c.first_name, ' ', c.last_name), 'no-agent' ) owner_name,
+    k.activation_team owner_team,
     k.marketing_point_score,
     j.activation_point_score
 FROM {{ ref("stg_hubspot__deals") }} a
