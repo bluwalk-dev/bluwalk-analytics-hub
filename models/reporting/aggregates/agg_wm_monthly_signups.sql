@@ -2,7 +2,7 @@
 SELECT
     a.year_month, -- Selecting the year and month from the calendar table
     count(b.user_id) as nr_signups -- Counting the number of users who signed up in each year_month
-FROM 
+FROM
     {{ ref('util_calendar') }} a -- Referencing a utility calendar table which likely has a row for each day
 LEFT JOIN 
     {{ ref('dim_users') }} b -- Left joining the dimension table for users

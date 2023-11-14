@@ -50,4 +50,4 @@ models:
       materialized: view
     utilities:
       +schema: utilities
-      materialized: table
+      materialized: view
