@@ -28,7 +28,10 @@ SELECT
         ELSE ROUND(revenue.amount / activeUsers.nr_active_users, 2)
     END AS revenue_per_active_user,
     IFNULL(ROUND(nps.nps_score, 2),0) nps_score,
-    ROUND(1/IFNULL(churnedUsers.churn_rate, 0), 4) lifespan
+    CASE 
+        WHEN churnedUsers.churn_rate IS NULL OR churnedUsers.churn_rate = 0 THEN NULL
+        ELSE ROUND(1 / churnedUsers.churn_rate, 4)
+    END lifespan
 -- The FROM clause begins with the calendar utility table, which likely includes all months within the dataset
 FROM {{ ref('util_month_intervals') }} cal
 -- Each of the following LEFT JOINs connects a monthly aggregate table to the calendar on year_month

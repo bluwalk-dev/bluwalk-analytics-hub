@@ -26,7 +26,8 @@ churn_list as (
         FROM {{ ref('fct_user_activity') }} au
         WHERE 
           user_id is not null AND 
-          partner_stream = 'Rideshare' AND 
+          partner_stream = 'Rideshare' AND
+          partner_marketplace = 'Work' AND
           date > '2021-06-01'
         
     ), nextPaymentCycles AS (
