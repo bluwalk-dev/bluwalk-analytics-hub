@@ -8,11 +8,8 @@ WITH
     ), 
 
     service_marketplace AS (
-        SELECT * FROM {{ ref('int_user_fuel_energy_activity') }}
-        UNION ALL
-        SELECT * FROM {{ ref('int_user_vehicle_connected_activity') }}
-        UNION ALL
-        SELECT * FROM {{ ref('int_user_vehicle_rental_activity') }}
+        SELECT * 
+        FROM {{ ref('agg_sm_daily_activity') }}
 )
 
 SELECT
