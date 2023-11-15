@@ -26,7 +26,7 @@ churn_list as (
         FROM {{ ref('agg_cm_daily_activity') }} au
         WHERE 
           user_id is not null AND 
-          partner_stream = 'Rideshare' AND
+          partner_category = 'Rideshare' AND
           partner_marketplace = 'Work' AND
           date > '2021-06-01'
         
