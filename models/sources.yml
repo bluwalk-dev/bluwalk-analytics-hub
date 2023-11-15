@@ -155,6 +155,7 @@ sources:
       - name: booking
       - name: close_period
       - name: fleet_vehicle
+      - name: fleet_vehicle_insurance
       - name: fleet_vehicle_model
       - name: fleet_vehicle_model_brand
       - name: fuel

@@ -3,7 +3,9 @@ SELECT
     rsp.name as partner_name,
     rsp.partner_id as partner_contact_id,
     ent.full_name as partner_contact_name,
-    REPLACE(INITCAP(rspt.partner_type),'_',' ') as partner_stream,
+    REPLACE(INITCAP(rspt.partner_type),'_',' ') as partner_category,
+    'Subscription' as partner_category_type,
+    'Work' as partner_marketplace,
     rc.name as partner_country,
     rc.code as partner_country_code
 FROM {{ ref('stg_odoo__res_sales_partners') }} rsp

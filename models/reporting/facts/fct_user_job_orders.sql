@@ -20,7 +20,7 @@ SELECT
     a.partner_payout,
     b.partner_id,
     b.partner_name,
-    b.partner_stream,
+    b.partner_category,
     b.partner_contact_id,
     a.nr_trips
 FROM {{ ref('stg_odoo__trips') }} a
