@@ -23,7 +23,7 @@ churn_list as (
         SELECT DISTINCT
             user_id,
             year_week
-        FROM {{ ref('fct_user_activity') }} au
+        FROM {{ ref('agg_cm_daily_activity') }} au
         WHERE 
           user_id is not null AND 
           partner_stream = 'Rideshare' AND

@@ -8,7 +8,7 @@ SELECT * FROM (
         contact_id, -- The associated contact ID for the user
         min(year_month) as year_month, -- The earliest month of user activity indicating first activation
         'new' as activation_type -- Labeling this row as representing a 'new' activation
-    FROM {{ ref('fct_user_activity') }} -- Reference to a user activity fact table
+    FROM {{ ref('agg_cm_daily_activity') }} -- Reference to a user activity fact table
     WHERE partner_marketplace = 'Work'
     GROUP BY user_id, contact_id
     -- Note: The original GROUP BY included 'partner_id', 'partner_name', and 'partner_stream' which are not selected,
@@ -29,7 +29,7 @@ SELECT * FROM (
             user_id,
             contact_id,
             year_month
-        FROM {{ ref('fct_user_activity') }}
+        FROM {{ ref('agg_cm_daily_activity') }}
         WHERE partner_marketplace = 'Work') au
         
         -- This CROSS JOIN will combine all records from au with all records from lcu, 
@@ -41,7 +41,7 @@ SELECT * FROM (
         (SELECT 
             year_month, 
             user_id 
-        FROM {{ ref('fct_user_monthly_churns') }}) lcu
+        FROM {{ ref('agg_activation_monthly_churns') }}) lcu
     WHERE 
         au.year_month > lcu.year_month AND -- The condition that ensures we're looking at activity after a churn
         au.user_id = lcu.user_id -- Making sure we're matching the same users in both derived tables

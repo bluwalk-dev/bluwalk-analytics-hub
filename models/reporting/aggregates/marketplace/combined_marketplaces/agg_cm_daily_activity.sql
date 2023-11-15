@@ -4,7 +4,7 @@ WITH
     
     work_marketplace AS (
         SELECT * 
-        FROM {{ ref('int_user_job_activity') }}
+        FROM {{ ref('agg_wm_daily_activity') }}
     ), 
 
     service_marketplace AS (
