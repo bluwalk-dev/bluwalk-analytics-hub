@@ -44,10 +44,13 @@ sources:
   - name: bolt
     database: bluwalk-data-warehouse
     tables:
-      - name: order_log
       - name: daily_report_summary
       - name: daily_report_trips
+      - name: driver_engagement
       - name: driver_performance
+      - name: earnings_history
+      - name: order_log
+      - name: trips_history
   
   - name: bp
     database: bluwalk-data-warehouse

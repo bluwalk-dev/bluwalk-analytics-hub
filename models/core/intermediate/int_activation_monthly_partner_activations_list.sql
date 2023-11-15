@@ -22,8 +22,8 @@ SELECT * FROM (
     SELECT 
         au.user_id, -- The ID of the user
         au.contact_id, -- The associated contact ID for the user
-        partner_name,
-        partner_marketplace,
+        au.partner_name,
+        au.partner_marketplace,
         min(au.year_month) AS year_month, -- The earliest month of reactivation after being churned
         'reactivation' as activation_type -- Labeling this row as representing a 'reactivation'
     FROM 
@@ -34,7 +34,7 @@ SELECT * FROM (
             partner_name,
             partner_marketplace,
             year_month
-        FROM {{ ref('agg_cm_daily_activity') }} au
+        FROM {{ ref('agg_cm_daily_activity') }}) au
         
         -- This CROSS JOIN will combine all records from au with all records from lcu, 
         -- which is typically not performant and may not be necessary.
@@ -47,14 +47,14 @@ SELECT * FROM (
             partner_name,
             partner_marketplace,
             user_id 
-        FROM {{ ref('int_retention_monthly_partner_list_churns') }}) lcu
+        FROM {{ ref('int_retention_monthly_partner_churns_list') }}) lcu
     WHERE
         au.year_month > lcu.year_month AND -- The condition that ensures we're looking at activity after a churn
-        au.user_id = lcu.user_id -- Making sure we're matching the same users in both derived tables
-        au.partner_name = lcu.partner_name
+        au.user_id = lcu.user_id AND -- Making sure we're matching the same users in both derived tables
+        au.partner_name = lcu.partner_name AND
         au.partner_marketplace = lcu.partner_marketplace
     
-    GROUP BY lcu.year_month, au.user_id, au.contact_id, partner_name, partner_marketplace
+    GROUP BY lcu.year_month, au.user_id, au.contact_id, au.partner_name, au.partner_marketplace
     -- Note: Since 'lcu.year_month' is used in the GROUP BY, it should be included in the SELECT clause, or it could lead to an error.
 )
 ORDER BY year_month DESC -- Ordering the entire set of activations by year_month in descending order

@@ -27,7 +27,7 @@ LEFT JOIN (
 ) b ON 
         b.year_month = a.next_year_month AND  -- Matches to check if the user is active in the subsequent month
         a.partner_name = b.partner_name AND
-        a.partner_marketplace = b.partner_marketplace
+        a.partner_marketplace = b.partner_marketplace AND
         a.lost_user_id = b.user_id -- Ensures the same user is compared across months
 WHERE 
     b.user_id IS NULL AND -- Filters to include only users who are not active in the subsequent month
