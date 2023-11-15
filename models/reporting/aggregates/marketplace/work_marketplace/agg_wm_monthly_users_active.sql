@@ -8,8 +8,7 @@ FROM (
         year_month, -- The month and year of the activity
         user_id, -- The unique identifier of a user
         contact_id -- The unique identifier of a contact (possibly associated with the user)
-    FROM {{ ref('agg_cm_daily_activity') }} -- Reference to the user activity fact table within the DBT model
-    WHERE partner_marketplace = 'Work'
+    FROM {{ ref('agg_wm_daily_activity') }} -- Reference to the user activity fact table within the DBT model
     -- Using DISTINCT ensures that each user_id and contact_id combination is counted only once per year_month
 )
 -- GROUP BY to aggregate the distinct user activity counts by year_month
