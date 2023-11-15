@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 SELECT * FROM (
     SELECT DISTINCT
         a.user_id,

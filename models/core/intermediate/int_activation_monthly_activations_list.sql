@@ -10,7 +10,7 @@ SELECT * FROM (
         min(year_month) as year_month, -- The earliest month of user activity indicating first activation
         'new' as activation_type -- Labeling this row as representing a 'new' activation
     FROM {{ ref('agg_cm_daily_activity') }} -- Reference to a user activity fact table
-    GROUP BY user_id, contact_id
+    GROUP BY user_id, contact_id, partner_marketplace
     -- Note: The original GROUP BY included 'partner_id', 'partner_name', and 'partner_stream' which are not selected,
     -- this seems to be an error and might cause the query to fail. They should either be included in the SELECT or removed from GROUP BY.
 
@@ -21,7 +21,7 @@ SELECT * FROM (
     SELECT 
         au.user_id, -- The ID of the user
         au.contact_id, -- The associated contact ID for the user
-        partner_marketplace,
+        au.partner_marketplace,
         min(au.year_month) AS year_month, -- The earliest month of reactivation after being churned
         'reactivation' as activation_type -- Labeling this row as representing a 'reactivation'
     FROM 
@@ -31,7 +31,7 @@ SELECT * FROM (
             contact_id,
             partner_marketplace,
             year_month
-        FROM {{ ref('agg_cm_daily_activity') }} au
+        FROM {{ ref('agg_cm_daily_activity') }}) au
         
         -- This CROSS JOIN will combine all records from au with all records from lcu, 
         -- which is typically not performant and may not be necessary.
@@ -43,13 +43,13 @@ SELECT * FROM (
             year_month, 
             partner_marketplace,
             user_id 
-        FROM {{ ref('int_retention_monthly_list_churns') }}) lcu
+        FROM {{ ref('int_retention_monthly_churns_list') }}) lcu
     WHERE 
         au.year_month > lcu.year_month AND -- The condition that ensures we're looking at activity after a churn
-        au.user_id = lcu.user_id -- Making sure we're matching the same users in both derived tables
+        au.user_id = lcu.user_id AND -- Making sure we're matching the same users in both derived tables
         au.partner_marketplace = lcu.partner_marketplace
     
-    GROUP BY lcu.year_month, au.user_id, au.contact_id, partner_marketplace
+    GROUP BY lcu.year_month, au.user_id, au.contact_id, au.partner_marketplace
     -- Note: Since 'lcu.year_month' is used in the GROUP BY, it should be included in the SELECT clause, or it could lead to an error.
 )
 ORDER BY year_month DESC -- Ordering the entire set of activations by year_month in descending order

@@ -1,27 +1,28 @@
+/* More than one rental_contract per day, same vehicle_plate! */
+
 SELECT
     upa.partner_id,
     upa.partner_name,
     upa.contact_id,
     u.user_id,
-    upa.partner_account_uuid,
+    ta.partner_account_uuid,
     ta.driver_name,
     ta.vehicle_plate,
     z.vehicle_contract_type,
     z.vehicle_contract_id,
-    ta.request_timestamp,
-    ta.request_local_time,
-    ta.address_pickup,
-    TIMESTAMP(NULL) as dropoff_timestamp,
-    DATETIME(NULL) as dropoff_local_time,
-    CAST(NULL AS STRING) as address_dropoff,
-    NULL as trip_distance
+    ta.accepted_time request_timestamp,
+    ta.accepted_time_local request_local_time,
+    ta.pickup_address,
+    ta.drop_off_time as dropoff_timestamp,
+    ta.drop_off_time_local as dropoff_local_time,
+    ta.drop_off_address as address_dropoff,
+    ta.ride_distance as trip_distance
 FROM {{ ref('stg_bolt__trips') }} ta
-LEFT JOIN {{ ref('stg_bolt__performance') }} dp ON ta.driver_name = dp.driver_name AND ta.request_date = dp.date
-LEFT JOIN {{ ref('dim_partners_accounts') }} upa on dp.partner_account_uuid = upa.partner_account_uuid
+LEFT JOIN {{ ref('dim_partners_accounts') }} upa on ta.partner_account_uuid = upa.partner_account_uuid
 LEFT JOIN {{ ref('dim_users') }} u on u.contact_id = upa.contact_id
 LEFT JOIN {{ ref('dim_vehicle_contracts') }} z ON ta.vehicle_plate = z.vehicle_plate
 WHERE 
-    ta.request_timestamp < CAST(IFNULL(z.end_date, current_date) as TIMESTAMP) AND 
-    ta.request_timestamp > CAST(z.start_date AS TIMESTAMP) AND
-    trip_status = 'Concluída'
-ORDER BY request_timestamp DESC
+    ta.accepted_time < CAST(IFNULL(z.end_date, current_date) as TIMESTAMP) AND 
+    ta.accepted_time > CAST(z.start_date AS TIMESTAMP) AND
+    order_state = 'finished'
+ORDER BY accepted_time DESC
