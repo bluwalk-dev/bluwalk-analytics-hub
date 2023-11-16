@@ -1,5 +1,7 @@
 SELECT 
     a.date,
+    a.year_week,
+    a.year_month,
     b.number_of_ratings,
     b.average_rating,
     c.nr_tickets_first_reply_time,
