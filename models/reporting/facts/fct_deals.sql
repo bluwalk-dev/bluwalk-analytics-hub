@@ -1,5 +1,6 @@
 SELECT DISTINCT
     a.deal_id,
+    a.deal_name,
     a.deal_pipeline_id,
     b.label deal_pipeline_name,
     IFNULL(a.fuel_energy_partner_name, IF(a.training_tvde_partner_name = 'false', 'ACP', a.training_tvde_partner_name)) partner_name,

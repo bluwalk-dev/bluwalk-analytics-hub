@@ -11,6 +11,7 @@ transformation as (
     select
         
         CAST (deal_id AS INT64) AS deal_id,
+        CAST (property_dealname AS STRING) AS deal_name,
         CAST (deal_pipeline_id AS STRING) AS deal_pipeline_id,
         CAST (deal_pipeline_stage_id AS STRING) AS deal_pipeline_stage_id,
         CAST (is_deleted AS BOOL) AS is_deleted,
@@ -54,7 +55,6 @@ f0_
 "CAST (property_customer_name AS STRING) AS customer_name,"
 "CAST (property_customer_tax_id AS STRING) AS customer_tax_id,"
 "CAST (property_days_to_close AS FLOAT64) AS days_to_close,"
-"CAST (property_dealname AS STRING) AS dealname,"
 "CAST (property_flag_bridge AS STRING) AS flag_bridge,"
 "CAST (property_gmc_training_date AS STRING) AS gmc_training_date,"
 "CAST (property_gmc_training_location AS STRING) AS gmc_training_location,"
