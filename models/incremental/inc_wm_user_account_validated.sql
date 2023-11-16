@@ -13,7 +13,7 @@ SELECT
   a.user_id,  -- The user ID from the base HubSpot deals model
   'Uber' as partner_name,  -- Hardcoded value of 'Uber' to indicate the partner name
   c.account_validated_date  -- The account validation date from the CTE
-FROM {{ ref("fct_deals_all") }} a  -- Reference to the base deals model
+FROM {{ ref("fct_deals") }} a  -- Reference to the base deals model
 LEFT JOIN {{ ref("dim_partners_accounts") }} b ON a.contact_id = b.contact_id  -- Joining on contacts to get partner accounts
 LEFT JOIN uberDriverStatus c ON b.partner_account_uuid = c.driver_uuid  -- Joining with the CTE to get the driver status information
 WHERE

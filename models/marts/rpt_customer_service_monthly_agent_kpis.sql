@@ -1,7 +1,6 @@
 WITH month_agents AS (
-    SELECT DISTINCT b.year_month, a.agent_name
-    FROM {{ ref('agg_customer_service_monthly_agent_first_reply') }} a
-    CROSS JOIN {{ ref('agg_customer_service_monthly_agent_first_reply') }} b
+    SELECT DISTINCT year_month, agent_name
+    FROM {{ ref('agg_customer_service_monthly_agent_first_reply') }}
 )
 
 SELECT

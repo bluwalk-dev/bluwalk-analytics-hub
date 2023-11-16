@@ -4,7 +4,7 @@ SELECT
   tl.training_time,
   tl.training_outcome,
   tl.training_location
-FROM {{ ref("fct_deals_all") }} dl
+FROM {{ ref("fct_deals") }} dl
 LEFT JOIN {{ ref("stg_mercadao__training_schedule") }} tl ON dl.contact_id = tl.contact_id
 WHERE
     tl.contact_id IS NOT NULL AND
