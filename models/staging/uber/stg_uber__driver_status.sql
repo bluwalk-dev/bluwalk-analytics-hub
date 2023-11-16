@@ -10,7 +10,7 @@ transformation as (
 
     SELECT 
 
-        CAST(driverUuid AS STRING) driver_uuid,
+        CAST(driverUuid AS STRING) partner_account_uuid,
         CAST(firstName AS STRING) first_name,
         CAST(lastName AS STRING) last_name,
         CAST(phone AS STRING) phone,
@@ -19,7 +19,7 @@ transformation as (
         CAST(onboardingStatus AS STRING) onboarding_status,
         status,
         timestamp,
-        CAST(loadTimestamp AS INT64) AS load_timestamp
+        TIMESTAMP_MILLIS(loadTimestamp) AS extraction_ts
 
     FROM source
 
