@@ -3,7 +3,12 @@ SELECT DISTINCT
     a.deal_name,
     a.deal_pipeline_id,
     b.label deal_pipeline_name,
-    IFNULL(a.fuel_energy_partner_name, IF(a.training_tvde_partner_name = 'false', 'ACP', a.training_tvde_partner_name)) partner_name,
+    k.partner_marketplace,
+    CASE
+        WHEN deal_pipeline_id = '180181749' THEN IF(a.training_tvde_partner_name = 'false', 'ACP', a.training_tvde_partner_name)
+        WHEN deal_pipeline_id = '180181752' THEN a.fuel_energy_partner_name
+        ELSE k.partner_name
+    END partner_name,
     a.deal_pipeline_stage_id,
     a.create_date create_datetime,
     i.date create_date,
