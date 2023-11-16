@@ -1,11 +1,11 @@
 -- CTE to gather information about Uber drivers who have completed their onboarding
 WITH uberDriverStatus AS (
     SELECT
-        driver_uuid,  -- Unique identifier for the driver
+        partner_account_uuid,  -- Unique identifier for the driver
         DATETIME(MIN(extraction_ts), 'Europe/Lisbon') as account_validated_date  -- The earliest timestamp converted to a date indicating when the account was validated
     FROM {{ ref("stg_uber__driver_status") }}  -- Reference to the staging model for uber driver status
     WHERE onboarding_status = 'ONBOARDING_STATUS_ACTIVE'  -- Filter for drivers who are active
-    GROUP BY driver_uuid  -- Grouping by driver to ensure unique driver records
+    GROUP BY partner_account_uuid  -- Grouping by driver to ensure unique driver records
 )
 
 -- Main query to select deals and associated Uber driver information
