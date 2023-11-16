@@ -22,6 +22,7 @@ transformation as (
         CAST (owner_id AS INT64) AS owner_id,
         CAST (property_fen_partner_name AS STRING) AS fuel_energy_partner_name,
         CAST (property_ttv_partner_name AS STRING) AS training_tvde_partner_name,
+        CAST (IFNULL(property_vdf_licenseplate, property_vpc_licenseplate) AS STRING) AS vehicle_plate,
         CAST (property_closedate AS TIMESTAMP) AS close_date,
         CAST (property_createdate AS TIMESTAMP) AS create_date
 
