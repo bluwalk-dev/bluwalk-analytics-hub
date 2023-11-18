@@ -10,8 +10,8 @@ mercadao_accounts_created AS (
     LEFT JOIN {{ ref("dim_users") }} b ON a.user_id = b.user_id
     LEFT JOIN {{ ref("base_mercadao_accounts") }} c 
     ON (
-        b.email = c.shopper_email OR 
-        RIGHT(b.phone,9) = c.shopper_phone_number)
+        b.user_email = c.shopper_email OR 
+        RIGHT(b.user_phone,9) = c.shopper_phone_number)
     WHERE 
         deal_pipeline_stage_id = '324018669' AND 
         c.partner_account_uuid IS NOT NULL

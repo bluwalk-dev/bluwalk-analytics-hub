@@ -1,7 +1,7 @@
 -- This query selects various user activities and performance metrics from related tables
 SELECT
   a.user_id, -- Unique identifier for the user from the dim_users table
-  a.email AS user_email, -- User's email address, aliased as user_email
+  a.user_email, -- User's email address
   b.vehicle_contract_type, -- Type of vehicle contract the user has (from ridesharing activity data)
   b.ridesharing_last_activity, -- The last activity date for ridesharing
   c.groceries_last_activity, -- The last activity date for grocery services

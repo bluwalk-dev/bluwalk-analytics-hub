@@ -42,7 +42,6 @@ SELECT
 FROM {{ ref("stg_odoo__hr_employees") }} a
 LEFT JOIN {{ ref("stg_odoo__hr_departments") }} aa ON a.department_id = aa.id
 LEFT JOIN {{ ref("dim_countries") }} b ON a.country_id = b.country_id
-LEFT JOIN {{ ref("dim_contacts") }} c ON a.user_partner_id = c.contact_id
 LEFT JOIN googleusers d ON a.work_email = d.primary_email
 LEFT JOIN {{ ref("base_hubspot_users") }} e ON a.work_email = e.email
 ORDER BY a.id DESC

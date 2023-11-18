@@ -1,6 +1,6 @@
 SELECT
     a.user_id,
-    b.email user_email,
+    b.user_email,
     a.vehicle_plate,
     a.vehicle_brand_model,
     a.vehicle_fuel_type,

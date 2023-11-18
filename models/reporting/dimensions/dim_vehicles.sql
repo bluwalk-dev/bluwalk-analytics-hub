@@ -1,19 +1,34 @@
+/*
+  This model enriches the fleet vehicle data from the stg_odoo__fleet_vehicles source
+  by joining it with vehicle models, brands, and country dimension tables. It provides
+  a comprehensive view of vehicle details including model, brand, transmission type,
+  fuel type, and associated country information.
+*/
+
 SELECT 
-	fv.id vehicle_id,
-	c.country_name as vehicle_country,
-	fv.license_plate vehicle_plate,
-	fv.vin_sn vehicle_vin,
-	fvmb.name vehicle_brand,
-	fvm.name vehicle_model,
-    CONCAT(fvmb.name, ' ', fvm.name) vehicle_brand_model,
-	fv.vehicle_model_version,	
-	fv.transmission vehicle_transmission,
+    fv.id as vehicle_id,  -- Unique identifier for the vehicle
+    c.country_name as vehicle_country,  -- Country name where the vehicle is registered
+    fv.license_plate as vehicle_plate,  -- License plate number of the vehicle
+    fv.vin_sn as vehicle_vin,  -- Vehicle Identification Number (VIN)
+    fvmb.name as vehicle_brand,  -- Brand name of the vehicle
+    fvm.name as vehicle_model,  -- Model name of the vehicle
+
+    -- Concatenating brand and model for a full name representation
+    CONCAT(fvmb.name, ' ', fvm.name) as vehicle_brand_model,
+
+    fv.vehicle_model_version,  -- Version of the vehicle model
+    fv.transmission as vehicle_transmission,  -- Transmission type of the vehicle
+
+    -- Transmission code: 'M' for manual, 'A' for automatic, NULL for others
     CASE 
         WHEN fv.transmission = 'manual' THEN 'M'
         WHEN fv.transmission = 'automatic' THEN 'A'
         ELSE NULL 
-    END vehicle_transmission_code,
-    fv.fuel_type vehicle_fuel_type,
+    END as vehicle_transmission_code,
+
+    fv.fuel_type as vehicle_fuel_type,  -- Fuel type of the vehicle
+
+    -- Fuel type code: 'D' for diesel, 'E' for electric, etc.
     CASE 
         WHEN fv.fuel_type = 'diesel' THEN 'D'
         WHEN fv.fuel_type = 'electric' THEN 'E'
@@ -21,12 +36,14 @@ SELECT
         WHEN fv.fuel_type = 'lpg' THEN 'L'
         WHEN fv.fuel_type = 'gasoline' THEN 'G'
         ELSE NULL 
-    END vehicle_fuel_type_code,
-    fv.color vehicle_color,
-	fv.seats vehicle_nr_seats,
-	fv.doors vehicle_nr_doors
-FROM {{ ref('stg_odoo__fleet_vehicles') }} fv
-left join {{ ref('stg_odoo__fleet_vehicle_models') }} fvm on fv.model_id = fvm.id
-left join {{ ref('stg_odoo__fleet_vehicle_model_brands') }} fvmb on fv.brand_id = fvmb.id
-left join {{ ref('dim_countries') }} c on fv.vehicle_country_id = c.country_id
-where active is TRUE
+    END as vehicle_fuel_type_code,
+
+    fv.color as vehicle_color,  -- Color of the vehicle
+    fv.seats as vehicle_nr_seats,  -- Number of seats in the vehicle
+    fv.doors as vehicle_nr_doors  -- Number of doors in the vehicle
+
+FROM {{ ref('stg_odoo__fleet_vehicles') }} fv  -- Source table: staged fleet vehicles data
+LEFT JOIN {{ ref('stg_odoo__fleet_vehicle_models') }} fvm ON fv.model_id = fvm.id  -- Joining with vehicle models
+LEFT JOIN {{ ref('stg_odoo__fleet_vehicle_model_brands') }} fvmb ON fv.brand_id = fvmb.id  -- Joining with vehicle brands
+LEFT JOIN {{ ref('dim_countries') }} c ON fv.vehicle_country_id = c.country_id  -- Joining with country dimension table
+WHERE active IS TRUE  -- Filtering only active vehicles

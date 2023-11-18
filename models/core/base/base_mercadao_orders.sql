@@ -4,7 +4,7 @@ SELECT
     b.partner_name,                -- Partner name from the partners accounts dimension
     c.contact_id,                  -- Contact ID from the users dimension
     c.user_id,                     -- User ID from the users dimension
-    c.name,                        -- User's name from the users dimension
+    c.user_name,                        -- User's name from the users dimension
     a.partner_account_uuid,        -- Partner account UUID from the subquery 'a'
     a.date,                        -- Date of the order from the subquery 'a'
     a.nr_orders,                   -- Number of orders from the subquery 'a'

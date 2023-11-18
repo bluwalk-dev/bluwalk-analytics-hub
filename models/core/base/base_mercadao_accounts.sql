@@ -3,7 +3,7 @@ SELECT
     b.partner_name,
     c.contact_id,
     c.user_id,
-    c.name,
+    c.user_name,
     a.partner_account_uuid,
     a.account_status,
     a.shopper_email,
