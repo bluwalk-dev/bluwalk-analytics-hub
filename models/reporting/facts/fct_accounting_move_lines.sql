@@ -10,8 +10,8 @@ select
     b.journal_name,
     a.ref,
     a.account_id,
-    c.name account_name,
-    c.code account_code,
+    c.account_name,
+    c.account_code,
     a.debit,
     a.credit,
     a.balance,
@@ -22,5 +22,5 @@ select
     a.create_date
 from {{ ref('stg_odoo__account_move_lines') }} a
 left join {{ ref('dim_accounting_journals') }} b ON a.journal_id = b.journal_id
-left join {{ ref('dim_accounting_accounts') }} c ON a.account_id = c.id
+left join {{ ref('dim_accounting_accounts') }} c ON a.account_id = c.account_id
 ORDER BY date DESC

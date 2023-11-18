@@ -2,7 +2,7 @@ SELECT
     rsp.id as partner_id,
     rsp.name as partner_name,
     rsp.partner_id as partner_contact_id,
-    ent.full_name as partner_contact_name,
+    ent.contact_full_name as partner_contact_name,
     REPLACE(INITCAP(rspt.partner_type),'_',' ') as partner_category,
     'Subscription' as partner_category_type,
     'Work' as partner_marketplace,

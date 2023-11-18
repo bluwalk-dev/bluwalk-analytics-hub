@@ -7,9 +7,9 @@ select
     a.product_id,
     a.categ_id product_category_id,
     a.account_id,
-    c.account_type,
-    c.account_name,
-    c.account_owner_contact_id,
+    c.analytic_account_type,
+    c.analytic_account_name,
+    c.analytic_account_owner_contact_id,
     a.move_id,
     b.move_name,
     a.ref reference,
@@ -36,5 +36,5 @@ select
     a.payment_cycle statement
 from {{ ref('stg_odoo__account_analytic_lines') }} a
 left join {{ ref('fct_accounting_move_lines') }} b ON a.move_id = b.id
-left join {{ ref('dim_accounting_analytic_accounts') }} c ON a.account_id = c.account_id
+left join {{ ref('dim_accounting_analytic_accounts') }} c ON a.account_id = c.analytic_account_id
 ORDER BY date DESC

@@ -8,7 +8,7 @@ SELECT
     a.station_name,
     a.station_type,
     a.supplier_id supplier_contact_id,
-    c.short_name supplier_name,
+    c.contact_short_name supplier_name,
     a.product,
     ROUND(a.quantity, 2) quantity,
     a.measurement_unit,

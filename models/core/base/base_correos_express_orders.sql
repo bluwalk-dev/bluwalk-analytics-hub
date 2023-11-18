@@ -1,7 +1,7 @@
 SELECT 
     b.contact_id,
     b.user_id,
-    b.name,
+    b.user_name,
     a.date,
     a.user_delivery_route,
     a.vehicle_license_plate,
@@ -10,5 +10,5 @@ SELECT
     a.unit_value,
     a.total_value
 FROM {{ ref("stg_correos_express__orders_report") }} a
-LEFT JOIN {{ ref('dim_users') }} b on b.vat = a.user_vat
+LEFT JOIN {{ ref('dim_users') }} b on b.user_vat = a.user_vat
 ORDER BY date DESC
