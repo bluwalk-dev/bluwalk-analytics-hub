@@ -3,7 +3,7 @@ with
 source as (
     select
         *
-    from {{ source('hubspot', 'pipelines') }}
+    from {{ source('generic', 'quarter_params') }}
 ),
 
 transformation as (

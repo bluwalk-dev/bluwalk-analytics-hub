@@ -18,12 +18,14 @@ SELECT
     a.partner_fee_taxes,
     a.partner_fee_tax_rate,
     a.partner_payout,
-    b.partner_id,
+    b.partner_key,
+    b.sales_partner_id,
     b.partner_name,
     b.partner_category,
     b.partner_contact_id,
     a.nr_trips
 FROM {{ ref('stg_odoo__trips') }} a
-LEFT JOIN {{ ref('dim_partners') }} b ON a.res_sales_partner_id = b.partner_id
+LEFT JOIN {{ ref('dim_partners') }} b ON a.res_sales_partner_id = b.sales_partner_id
 LEFT JOIN {{ ref('dim_users') }} c ON a.contact_id = c.contact_id
+WHERE partner_marketplace = 'Work'
 

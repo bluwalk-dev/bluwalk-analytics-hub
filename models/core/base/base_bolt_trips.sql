@@ -1,7 +1,8 @@
 /* More than one rental_contract per day, same vehicle_plate! */
 
 SELECT
-    upa.partner_id,
+    upa.partner_key,
+    upa.sales_partner_id,
     upa.partner_name,
     upa.contact_id,
     u.user_id,
