@@ -1,7 +1,7 @@
 SELECT DISTINCT
     b.user_id,
     b.contact_id,
-    NULL partner_id,
+    '' partner_key,
     '' partner_name,
     'Vehicle' partner_stream,
     'Service' partner_marketplace,

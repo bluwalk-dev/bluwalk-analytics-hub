@@ -1,6 +1,7 @@
 -- Main query to retrieve order details along with partner and user information
 SELECT 
-    b.partner_id,                  -- Partner ID from the partners accounts dimension
+    b.partner_key,
+    b.sales_partner_id,                  -- Partner ID from the partners accounts dimension
     b.partner_name,                -- Partner name from the partners accounts dimension
     c.contact_id,                  -- Contact ID from the users dimension
     c.user_id,                     -- User ID from the users dimension

@@ -3,7 +3,7 @@ WITH month_partner AS (
     SELECT * FROM 
     {{ ref('util_month_intervals') }}
     CROSS JOIN
-    {{ ref('stg_hubspot__pipelines') }}
+    {{ ref('fct_quarter_params') }}
     WHERE
         year > 2020 AND 
         start_date <= current_date() AND

@@ -42,7 +42,7 @@ LEFT JOIN {{ ref("stg_hubspot__deal_contacts") }} e ON a.deal_id = e.deal_id
 LEFT JOIN {{ ref("base_hubspot_contacts") }} f ON f.hs_contact_id = e.contact_id
 LEFT JOIN {{ ref("util_calendar") }} h ON CAST(a.close_date AS DATE) = h.date
 LEFT JOIN {{ ref("util_calendar") }} i ON CAST(a.create_date AS DATE) = i.date
-LEFT JOIN {{ ref("stg_hubspot__pipelines") }} j ON j.pipeline_id = a.deal_pipeline_id AND h.year_quarter = j.year_quarter
-LEFT JOIN {{ ref("stg_hubspot__pipelines") }} k ON k.pipeline_id = a.deal_pipeline_id AND i.year_quarter = k.year_quarter
+LEFT JOIN {{ ref("fct_quarter_params") }} j ON j.hs_pipeline_id = a.deal_pipeline_id AND h.year_quarter = j.year_quarter
+LEFT JOIN {{ ref("fct_quarter_params") }} k ON k.hs_pipeline_id = a.deal_pipeline_id AND i.year_quarter = k.year_quarter
 WHERE a.is_deleted = FALSE AND d.deal_id IS NULL  -- Filters for non-deleted and non-merged deals
 ORDER BY a.create_date DESC                        -- Orders the results by create date in descending order

@@ -15,7 +15,7 @@ WITH
 SELECT
     user_id,
     contact_id,
-    partner_id,
+    partner_key,
     partner_name,
     partner_category,
     partner_marketplace,

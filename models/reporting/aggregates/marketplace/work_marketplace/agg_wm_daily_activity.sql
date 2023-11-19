@@ -4,7 +4,7 @@ SELECT * FROM (
     SELECT DISTINCT
         a.user_id,
         a.contact_id,
-        b.partner_id,
+        b.partner_key,
         b.partner_name,
         b.partner_category,
         'Work' partner_marketplace,

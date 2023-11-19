@@ -7,7 +7,7 @@ WITH fuel_and_energy AS (
 SELECT DISTINCT
     a.user_id,
     a.contact_id,
-    NULL partner_id,
+    '' partner_key,
     supplier_name partner_name,
     'Fuel and Energy' partner_stream,
     'Service' partner_marketplace,

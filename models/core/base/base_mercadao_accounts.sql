@@ -1,5 +1,6 @@
 SELECT 
-    b.partner_id,
+    b.partner_key,
+    b.sales_partner_id,
     b.partner_name,
     c.contact_id,
     c.user_id,

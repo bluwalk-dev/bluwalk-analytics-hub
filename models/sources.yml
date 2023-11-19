@@ -88,6 +88,7 @@ sources:
     database: bluwalk-data-warehouse
     tables:
       - name: calendar
+      - name: quarter_params
 
   - name: google_ads
     database: bluwalk-data-warehouse
@@ -121,7 +122,6 @@ sources:
       - name: owner_team
       - name: property
       - name: property_option
-      - name: pipelines
       - name: team
       - name: team_user
       - name: ticket
@@ -178,6 +178,8 @@ sources:
       - name: res_sales_partner_type
       - name: res_sales_partner_account
       - name: res_sales_partner_account_log
+      - name: res_service_partner
+      - name: res_service_partner_type
       - name: res_users
       - name: sale_order
       - name: sale_order_line
