@@ -5,6 +5,7 @@ SELECT
     a.card_name card_name,
     a.start_date,
     a.end_date,
+    a.fuel_source energy_source,
     a.station_name,
     a.station_type,
     a.supplier_id supplier_contact_id,
@@ -19,5 +20,5 @@ SELECT
 FROM {{ ref('stg_odoo__fuel') }} a
 LEFT JOIN {{ ref('dim_users') }} b ON a.partner_id = b.contact_id
 LEFT JOIN {{ ref('dim_contacts') }} c ON a.supplier_id = c.contact_id
-WHERE fuel_source = 'electricity'
+WHERE fuel_source != 'electricity'
 
