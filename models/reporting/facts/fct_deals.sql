@@ -10,10 +10,11 @@ SELECT DISTINCT
         WHEN a.deal_pipeline_id = '180181749' THEN 
             IF(a.training_tvde_partner_name = 'false', 'ACP', a.training_tvde_partner_name)
         WHEN a.deal_pipeline_id = '180181752' THEN 
-            a.fuel_energy_partner_name
+            a.energy_partner_name
         ELSE 
             k.partner_name
     END as partner_name,
+    a.energy_card_name,
     a.deal_pipeline_stage_id,             -- Deal pipeline stage ID from the hubspot deals table
     a.create_date as create_datetime,     -- Create date and time of the deal
     i.date as create_date,                -- Create date from calendar table
