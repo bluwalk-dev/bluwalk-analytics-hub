@@ -1,7 +1,7 @@
 select
     year_quarter,
+    partner_key,
     pipeline_id hs_pipeline_id,
-    '' partner_key,
     partner_marketplace,
     partner_name,
     activation_point_score,
