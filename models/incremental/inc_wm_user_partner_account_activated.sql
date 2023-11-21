@@ -49,7 +49,7 @@ WITH
                 user_id,
                 partner_name,
                 MIN(end_date) first_work_date -- Earliest food delivery work date
-            FROM {{ ref("fct_user_job_orders") }}
+            FROM {{ ref("fct_work_orders") }}
             WHERE
                 partner_category = 'Food Delivery' AND
                 end_date > CAST(DATE_SUB(CURRENT_DATE(), INTERVAL 15 DAY) AS DATE)

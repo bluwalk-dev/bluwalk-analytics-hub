@@ -11,7 +11,7 @@ LEFT JOIN (
         b2.year_week, -- Selects the year and week from the utility calendar table
         ROUND(SUM(amount_recovered), 2) AS amount_recovered -- Sums the amount recovered marked as 'fast', rounded to 2 decimal places
     FROM 
-        {{ ref('fct_user_financial_debt_collection') }} b1 -- References the debt collection table
+        {{ ref('fct_financial_user_debt_collection') }} b1 -- References the debt collection table
     LEFT JOIN 
         {{ ref('util_calendar') }} b2 ON b1.invoice_date = b2.date -- Joins the calendar table on invoice date to get the corresponding year and week
     WHERE 

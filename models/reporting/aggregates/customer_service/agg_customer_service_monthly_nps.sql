@@ -4,7 +4,7 @@ WITH scores AS (
         count(*) nr_feedbacks,
         100*countif(a.nps_response_classification = 'promoter')/count(*) promoter_share,
         100*countif(a.nps_response_classification = 'detractor')/count(*) detractor_share,
-FROM {{ ref('fct_user_feedback_nps') }} a
+FROM {{ ref('fct_feedback_user_nps') }} a
 LEFT JOIN {{ ref('util_calendar') }} b ON CAST(a.original_timestamp AS DATE) = b.date
 GROUP BY year_month
 )
