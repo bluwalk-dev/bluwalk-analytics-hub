@@ -1,4 +1,5 @@
 SELECT
+    a.transaction_key,
     a.id energy_id,
     b.user_id,
     a.partner_id contact_id,
