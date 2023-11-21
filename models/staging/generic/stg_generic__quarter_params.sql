@@ -10,6 +10,7 @@ transformation as (
 
     select
         
+        partner_key,
         pipeline_id,
         marketplace partner_marketplace,
         partner_name,

@@ -12,6 +12,7 @@ transformation as (
         
         CAST (deal_id AS INT64) AS deal_id,
         CAST (property_dealname AS STRING) AS deal_name,
+        CAST (property_partner_key AS STRING) AS deal_partner_key,
         CAST (deal_pipeline_id AS STRING) AS deal_pipeline_id,
         CAST (deal_pipeline_stage_id AS STRING) AS deal_pipeline_stage_id,
         CAST (is_deleted AS BOOL) AS is_deleted,
