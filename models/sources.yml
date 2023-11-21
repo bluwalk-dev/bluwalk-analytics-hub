@@ -57,6 +57,7 @@ sources:
     tables:
       - name: invoice_transactions
       - name: transactions
+      - name: transactions_v2
 
   - name: correos
     database: bluwalk-data-warehouse
