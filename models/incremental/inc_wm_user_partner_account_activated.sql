@@ -36,7 +36,7 @@ WITH
             -- Parcel activity data
             SELECT
                 user_id,
-                'Correos Express' partner_name, -- Hardcoded partner name for parcel
+                'Correos Express Portugal' partner_name, -- Hardcoded partner name for parcel
                 MIN(date) first_work_date -- Earliest parcel order date
             FROM {{ ref("base_correos_express_orders") }}
             WHERE date > CAST(DATE_SUB(current_date, INTERVAL 15 DAY) AS DATE)
