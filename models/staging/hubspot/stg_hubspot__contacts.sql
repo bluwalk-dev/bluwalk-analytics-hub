@@ -17,9 +17,11 @@ transformation as (
         CAST(property_odoo_partner_id AS INT64) contact_id,
         CAST(property_odoo_user_id AS INT64) user_id,
         CAST(property_hs_calculated_phone_number AS STRING) contact_phone_nr,
+        CAST(property_par_has_been_on_the_program as boolean) par_has_been_on_the_program,
         CAST(property_par_currently_in_program AS BOOL) par_currently_in_program,
         CAST(property_par_days_in_program AS INT64) par_days_in_program,
         CAST(property_par_entry_date AS DATE) par_entry_date,
+        CAST(property_par_re_entry_date as date) par_re_entry_date,
         CAST(property_par_exit_date AS DATE) par_exit_date,
         CAST(property_par_number_days_with_0_earnings AS INT64) par_number_days_with_0_earnings,
         CAST(property_par_number_of_days_with_earnings_below_70 AS INT64) par_number_of_days_with_earnings_below_70,
@@ -33,4 +35,3 @@ transformation as (
 )
 
 SELECT * FROM transformation
-
