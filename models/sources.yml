@@ -89,7 +89,6 @@ sources:
     database: bluwalk-data-warehouse
     tables:
       - name: calendar
-      - name: quarter_params
 
   - name: google_ads
     database: bluwalk-data-warehouse
@@ -104,10 +103,12 @@ sources:
   - name: google_sheets
     database: bluwalk-data-warehouse
     tables:
-      - name: user_own_vehicles
       - name: churn_prevention
-      - name: uncollectible_recovery
       - name: fin_month_closing
+      - name: quarter_params
+      - name: user_own_vehicles
+      - name: uncollectible_recovery
+      
 
   - name: hubspot
     database: bluwalk-data-warehouse

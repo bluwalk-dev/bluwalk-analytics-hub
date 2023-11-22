@@ -12,4 +12,4 @@ select
     lifespan,
     monthly_revenue_per_user,
     lifetime_value
-from {{ ref('stg_generic__quarter_params') }}
+from {{ ref('stg_google_sheets__quarter_params') }}
