@@ -1,4 +1,7 @@
 SELECT 
+    c.partner_key,
+    a.sales_partner_id,
+    c.partner_name,
     b.contact_id,
     b.user_id,
     b.user_name,
@@ -11,4 +14,5 @@ SELECT
     a.total_value
 FROM {{ ref("stg_correos_express__orders_report") }} a
 LEFT JOIN {{ ref('dim_users') }} b on b.user_vat = a.user_vat
+LEFT JOIN {{ ref('dim_partners_accounts') }} c ON a.sales_partner_id = c.sales_partner_id
 ORDER BY date DESC

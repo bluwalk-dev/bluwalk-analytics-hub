@@ -25,7 +25,7 @@ WITH
             -- Groceries activity data
             SELECT
                 user_id,
-                'Mercadão' partner_name, -- Hardcoded partner name for groceries
+                partner_name,
                 MIN(date) first_work_date -- Earliest grocery order date
             FROM {{ ref("base_mercadao_orders") }}
             WHERE date > CAST(DATE_SUB(current_date, INTERVAL 15 DAY) AS DATE)
@@ -36,7 +36,7 @@ WITH
             -- Parcel activity data
             SELECT
                 user_id,
-                'Correos Express Portugal' partner_name, -- Hardcoded partner name for parcel
+                partner_name,
                 MIN(date) first_work_date -- Earliest parcel order date
             FROM {{ ref("base_correos_express_orders") }}
             WHERE date > CAST(DATE_SUB(current_date, INTERVAL 15 DAY) AS DATE)
