@@ -14,4 +14,4 @@ SELECT
     par_sms_friday_challenge,
     mktplace_last_activity_ridesharing
 FROM {{ ref("base_hubspot_contacts") }}
-WHERE par_currently_in_program = TRUE
+WHERE par_has_been_on_the_program = TRUE
