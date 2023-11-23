@@ -1,25 +1,27 @@
 SELECT
     a.transaction_key,
-    a.id energy_id,
+    c.partner_key,
+    c.partner_name,
+    a.energy_id,
     b.user_id,
-    a.partner_id contact_id,
-    a.card_name card_name,
+    a.contact_id,
+    a.card_name,
     a.start_date,
     a.end_date,
-    a.fuel_source energy_source,
+    a.energy_source,
     a.station_name,
     a.station_type,
-    a.supplier_id supplier_contact_id,
-    c.contact_short_name supplier_name,
     a.product,
-    ROUND(a.quantity, 2) quantity,
+    a.quantity,
     a.measurement_unit,
-    ROUND(a.cost, 2) cost,
-    ROUND(a.margin, 2) margin,
-    ROUND(a.cost + a.margin, 2) price,
-    a.payment_cycle statement
+    a.cost,
+    a.margin,
+    a.statement
+    
 FROM {{ ref('stg_odoo__fuel') }} a
-LEFT JOIN {{ ref('dim_users') }} b ON a.partner_id = b.contact_id
-LEFT JOIN {{ ref('dim_contacts') }} c ON a.supplier_id = c.contact_id
-WHERE fuel_source != 'electricity'
+LEFT JOIN {{ ref('dim_users') }} b ON a.contact_id = b.contact_id
+LEFT JOIN {{ ref('dim_partners') }} c ON a.supplier_contact_id = c.partner_contact_id
+WHERE 
+    a.energy_source != 'electricity' AND
+    c.partner_category = 'Energy'
 

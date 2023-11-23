@@ -9,9 +9,9 @@ source as (
 transformation as (
 
     select
-        id job_order_id,
-        name job_order_name,
-        status job_order_status,
+        id work_order_id,
+        name work_order_name,
+        status work_order_status,
         payment_cycle statement,
         billing_account_id,
         partner_id contact_id,

@@ -15,7 +15,7 @@ select
     a.ref reference,
     CASE
         WHEN a.fuel_id IS NOT NULL THEN 'Fuel'
-        WHEN a.trips_id IS NOT NULL THEN 'Job'
+        WHEN a.trips_id IS NOT NULL THEN 'Work'
         WHEN a.rental_contract_id IS NOT NULL THEN 'Vehicle Rental'
         WHEN a.tolls_id IS NOT NULL THEN 'Toll'
         WHEN a.insurance_claim_id IS NOT NULL THEN 'Insurance Claim'

@@ -1,15 +1,15 @@
 SELECT DISTINCT
-    a.user_id,
-    a.contact_id,
-    '' partner_key,
-    supplier_name partner_name,
-    'Energy' partner_stream,
-    'Service' partner_marketplace,
     b.date,
     b.year_week,
-    b.year_month
+    b.year_month,
+    a.user_id,
+    a.contact_id,
+    a.partner_key,
+    c.partner_marketplace,
+    c.partner_category,
+    a.partner_name
 FROM {{ ref('fct_service_orders_energy') }} a
 LEFT JOIN {{ ref('util_calendar') }} b ON CAST(a.end_date AS DATE) = b.date
-WHERE 
-    b.year >= 2020
-ORDER BY b.date DESC
+LEFT JOIN {{ ref('dim_partners') }} c ON a.partner_key = c.partner_key
+WHERE b.year >= 2020
+ORDER BY date DESC, user_id DESC

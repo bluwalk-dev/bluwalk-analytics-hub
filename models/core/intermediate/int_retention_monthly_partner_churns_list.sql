@@ -3,7 +3,9 @@
 
 SELECT 
     a.next_year_month as year_month, -- The first month when a user is missing activity
+    a.partner_key,
     a.partner_marketplace,
+    a.partner_category,
     a.partner_name,
     a.lost_contact_id as contact_id, -- The contact ID associated with the lost user
     a.lost_user_id as user_id -- The ID of the lost user
@@ -11,7 +13,9 @@ FROM (
     -- Subquery to find the distinct 'lost' contacts and users by comparing consecutive months
     SELECT DISTINCT
         au.year_month, -- The month of user activity
+        au.partner_key,
         au.partner_marketplace,
+        au.partner_category,
         au.partner_name,
         au.contact_id as lost_contact_id, -- Contact ID to track if it's missing in the next month
         au.user_id as lost_user_id, -- User ID to track if it's missing in the next month
@@ -28,6 +32,8 @@ LEFT JOIN (
         b.year_month = a.next_year_month AND  -- Matches to check if the user is active in the subsequent month
         a.partner_name = b.partner_name AND
         a.partner_marketplace = b.partner_marketplace AND
+        a.partner_category = b.partner_category AND
+        a.partner_key = b.partner_key AND
         a.lost_user_id = b.user_id -- Ensures the same user is compared across months
 WHERE 
     b.user_id IS NULL AND -- Filters to include only users who are not active in the subsequent month
