@@ -1,7 +1,7 @@
 SELECT
-    a.job_order_id,
-    a.job_order_name,
-    a.job_order_status,
+    a.work_order_id,
+    a.work_order_name,
+    a.work_order_status,
     a.statement,
     a.contact_id,
     c.user_id,
@@ -19,13 +19,14 @@ SELECT
     a.partner_fee_tax_rate,
     a.partner_payout,
     b.partner_key,
-    b.sales_partner_id,
     b.partner_name,
+    b.partner_marketplace,
     b.partner_category,
     b.partner_contact_id,
+    b.sales_partner_id,
     a.nr_trips
 FROM {{ ref('stg_odoo__trips') }} a
 LEFT JOIN {{ ref('dim_partners') }} b ON a.res_sales_partner_id = b.sales_partner_id
 LEFT JOIN {{ ref('dim_users') }} c ON a.contact_id = c.contact_id
-WHERE partner_marketplace = 'Work'
+WHERE b.partner_marketplace = 'Work'
 

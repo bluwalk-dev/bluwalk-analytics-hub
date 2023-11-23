@@ -43,7 +43,7 @@ SELECT
     round(rate_base_value*7,0) as rent_weekly,  -- Weekly base rent for the vehicle
 
     -- Supplier and vehicle segment details
-    rp.contact_short_name as supplier_name,  -- Short name of the supplier
+    c.partner_name as supplier_name,  -- Short name of the supplier
     s.name as vehicle_segment_name,  -- Name of the vehicle segment
     vc.name as vehicle_code,  -- Code of the vehicle category
     vc.category as vehicle_category_letter,  -- Letter representing the vehicle category
@@ -63,15 +63,21 @@ SELECT
     IFNULL(vc.fuel, fv.vehicle_fuel_type_code) as vehicle_fuel_letter,  -- Letter representing the fuel type
 
     -- Contract type
-    rc.rental_contract as vehicle_contract_type  -- Type of the rental contract
+    rc.rental_contract as vehicle_contract_type,  -- Type of the rental contract
+    CASE
+        WHEN rc.rental_contract = 'free_loan' THEN 7
+        ELSE 6
+    END service_partner_id
 
 FROM {{ ref('stg_odoo__rental_contracts') }} rc  -- Source table: staged rental contracts data
 LEFT JOIN {{ ref('stg_odoo__rate_bases') }} rb ON rc.rate_base_id = rb.id  -- Joining with rate bases
-LEFT JOIN {{ ref('dim_contacts') }} rp ON rb.partner_id = rp.contact_id  -- Joining with contacts for supplier details
+LEFT JOIN {{ ref('dim_partners') }} c ON rb.partner_id = c.partner_contact_id  -- Joining with contacts for supplier details
 LEFT JOIN {{ ref('stg_odoo__vehicle_categories') }} vc ON rb.vehicle_category_id = vc.id  -- Joining with vehicle categories
 LEFT JOIN {{ ref('stg_odoo__segments') }} s ON vc.segment_id = s.id  -- Joining with segments for vehicle segment details
 LEFT JOIN {{ ref('dim_accounting_analytic_accounts') }} aaa ON rc.billing_account_id = aaa.analytic_account_id  -- Joining with accounting analytic accounts
 LEFT JOIN {{ ref('dim_vehicles') }} fv ON rc.vehicle_id = fv.vehicle_id  -- Joining with vehicles for detailed vehicle information
 LEFT JOIN {{ ref('dim_users') }} u ON aaa.analytic_account_owner_contact_id = u.contact_id  -- Joining with users for user details
-WHERE rc.active IS TRUE  -- Filtering only active rental contracts
+WHERE 
+    rc.active IS TRUE AND -- Filtering only active rental contracts
+    (c.partner_category = 'Vehicles' OR c.partner_category IS NULL)
 ORDER BY start_date DESC  -- Ordering by start date in descending order

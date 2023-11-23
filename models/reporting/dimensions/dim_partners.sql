@@ -2,12 +2,14 @@
 WITH work_partners AS (
     SELECT
         partner_key,
+        a.active partner_active,
         a.sales_partner_id,
         NULL AS service_partner_id,
         a.partner_name,
         a.partner_contact_id,
-        REPLACE(INITCAP(b.partner_type),'_',' ') as partner_category,
-        'Subscription' as partner_category_type,
+        b.name as partner_category,
+        '' AS partner_sub_category,
+        'Subscription' as partner_format,
         partner_marketplace,
         partner_country_id
     FROM {{ ref('stg_odoo__res_sales_partners') }} a
@@ -16,15 +18,17 @@ WITH work_partners AS (
 ), service_partners AS (
     SELECT
         partner_key,
+        a.active partner_active,
         NULL as sales_partner_id,
         a.service_partner_id,
         a.partner_name,
         a.partner_contact_id,
-        REPLACE(INITCAP(b.partner_type),'_',' ') as partner_category,
+        b.name as partner_category,
+        a.service_partner_sub_type as partner_sub_category,
         CASE
             WHEN  REPLACE(INITCAP(b.partner_type),'_',' ') = 'Training' THEN 'One-Time'
             ELSE 'Subscription' 
-        END partner_category_type,
+        END partner_format,
         partner_marketplace,
         partner_country_id
     FROM {{ ref('stg_odoo__res_service_partners') }} a
@@ -36,7 +40,8 @@ SELECT
     partner_name,
     partner_marketplace,
     partner_category,
-    partner_category_type,
+    partner_sub_category,
+    partner_active,
     sales_partner_id,
     service_partner_id,
     partner_contact_id,
