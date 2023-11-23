@@ -11,7 +11,7 @@
 */
 
 SELECT
-    a.account_unique_id AS partner_account_uuid,  -- Unique identifier for the partner account
+    LOWER(a.account_unique_id) AS partner_account_uuid,  -- Unique identifier for the partner account
     a.partner_id AS contact_id,  -- Contact identifier associated with the partner account
     c.user_id,  -- User ID associated with the contact
     a.res_sales_partner_id AS sales_partner_id,  -- Sales partner identifier
