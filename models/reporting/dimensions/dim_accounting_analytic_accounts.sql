@@ -8,7 +8,8 @@ SELECT
     NULL AS analytic_account_group, -- Placeholder for future group name, currently not available
     partner_id AS analytic_account_owner_contact_id, -- Contact ID for the owner of the analytic account
     CASE
-        WHEN name LIKE 'BA/%' THEN 'User' -- Categorizing as 'User' type for names starting with 'BA/'
+        WHEN (name LIKE 'BA/%' AND contract_type_id = 2) THEN 'User' -- Categorizing as 'User' type for names starting with 'BA/'
+        WHEN (name LIKE 'BA/%' AND contract_type_id != 2) THEN 'Deprecated'
         ELSE 'Accounting' -- Default category for other account names
     END AS analytic_account_type,
     state AS analytic_account_state -- Current state of the account
