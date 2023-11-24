@@ -64,6 +64,7 @@ SELECT
 
     -- Contract type
     rc.rental_contract as vehicle_contract_type,  -- Type of the rental contract
+    rc.service_fee,
     CASE
         WHEN rc.rental_contract = 'free_loan' THEN 7
         ELSE 6
