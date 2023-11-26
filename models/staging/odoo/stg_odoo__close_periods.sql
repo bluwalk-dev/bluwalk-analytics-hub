@@ -3,17 +3,17 @@ with
 source as (
     select
         *
-    from {{ source('google_cloud_postgresql_public', 'close_period') }}
+    from {{ source('odoo_static', 'close_period') }}
 ),
 
 transformation as (
 
     select
         
-        * EXCEPT(_fivetran_synced, _fivetran_deleted)
+        *
 
     from source
-    where _fivetran_deleted IS FALSE
+    
 
 )
 

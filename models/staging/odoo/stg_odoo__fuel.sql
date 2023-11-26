@@ -3,7 +3,7 @@ with
 source as (
     select
         *
-    from {{ source('google_cloud_postgresql_public', 'fuel') }}
+    from {{ source('odoo_static', 'fuel') }}
 ),
 
 transformation as (
@@ -45,7 +45,7 @@ transformation as (
             company_id
 
         from source
-        where _fivetran_deleted IS FALSE
+        
     )
 )
 

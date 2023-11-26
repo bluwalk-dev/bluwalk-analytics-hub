@@ -3,7 +3,7 @@ with
 source as (
     select
         *
-    from {{ source('google_cloud_postgresql_public', 'res_service_partner') }}
+    from {{ source('odoo_static', 'res_service_partner') }}
 ),
 
 transformation as (
@@ -29,7 +29,7 @@ transformation as (
         write_uid
 
     from source
-    where _fivetran_deleted IS FALSE
+    
 )
 
 select * from transformation

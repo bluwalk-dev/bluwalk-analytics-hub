@@ -3,7 +3,7 @@ with
 source as (
     select
         *
-    from {{ source('google_cloud_postgresql_public', 'trips') }}
+    from {{ source('odoo_static', 'trips') }}
 ),
 
 transformation as (
@@ -38,7 +38,7 @@ transformation as (
         nr_trips
 
     from source
-    where _fivetran_deleted IS FALSE
+    
 )
 
 select * from transformation
