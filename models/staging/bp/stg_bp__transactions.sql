@@ -3,7 +3,7 @@ with
 source as (
     SELECT DISTINCT
         *
-    FROM {{ source('bp', 'transactions_v2') }}
+    FROM {{ source('bp', 'transactions_v3') }}
 ),
 
 transformation as (
@@ -13,25 +13,19 @@ transformation as (
         *
     from (
         select
-            CAST(numeracao_negocio AS STRING) as transaction_id,
-            CAST(status AS STRING) transaction_status,
-            CAST(dia_hora AS DATETIME) as local_date_time,
-            TIMESTAMP(dia_hora, 'Europe/Lisbon') timestamp,
-            CAST(nr_cartao AS INT64) as card_number,
-            CONCAT('B', FORMAT('%06d', nr_cartao)) as card_name,
+            CAST(unicode AS STRING) as transaction_id,
+            CAST(data AS DATE) as local_date,
+            CAST(REPLACE(hora,'#','00:00:00') AS TIME) as local_time,
+            DATETIME(CAST(data AS DATE), CAST(REPLACE(hora,'#','00:00:00') AS TIME)) local_date_time,
+            TIMESTAMP(DATETIME(CAST(data AS DATE), CAST(REPLACE(hora,'#','00:00:00') AS TIME)), 'Europe/Lisbon') timestamp,
+            CAST(cartao AS INT64) as card_number,
+            CONCAT('B', FORMAT('%06d', cartao)) as card_name,
             CAST(kms AS INT64) as vehicle_mileage,
-            CAST(posto AS STRING) as station_name,
-            CAST(nr_items AS INT64) as nr_items,
+            CAST(codigo_posto AS STRING) as station_code,
+            CAST(nome_posto AS STRING) as station_name,
             CAST(produto AS STRING) as product,
-            ROUND(CAST(quantidade AS NUMERIC),2) as quantity,
-            ROUND(CAST(valor_preco_posto AS NUMERIC),2) as value_station_price,
-            CAST(tipo_de_transacao AS STRING) transaction_type,
-            CAST(resultado AS STRING) transaction_outcome,
-            CAST(estado_confirmacao AS STRING) confirmation_status,
-            CAST(valor_do_issuer AS NUMERIC) issuer_value,
-            CAST(valor_do_supplier AS NUMERIC) supplier_value,
-            CAST(nome_perfil AS STRING) card_profile,
-            TIMESTAMP_MILLIS(load_timestamp) extraction_timestamp
+            ROUND(CAST(volume AS NUMERIC),2) as quantity,
+            ROUND(CAST(valor_talao AS NUMERIC),2) as value_station_price
             
         from source
     )
