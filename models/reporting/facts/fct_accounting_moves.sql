@@ -27,7 +27,8 @@ SELECT
     a.amount_tax_signed amount_tax,
     a.amount_total_signed amount_total,
     a.amount_residual_signed amount_due,
-    a.invoice_payment_state payment_state
+    a.invoice_payment_state payment_state,
+    a.iexpress_invoice_permalink invoice_link
 FROM {{ ref('stg_odoo__account_moves') }} a
 LEFT JOIN {{ ref('dim_accounting_journals') }} b ON a.journal_id = b.journal_id
 LEFT JOIN {{ ref('util_calendar') }} c ON c.date = a.date

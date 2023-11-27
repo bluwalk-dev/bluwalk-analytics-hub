@@ -12,7 +12,8 @@ SELECT
     amount_untaxed,
     amount_tax,
     amount_total,
-    amount_due
+    amount_due,
+    invoice_link
 FROM {{ ref('fct_accounting_moves') }} am
 WHERE 
     journal_id = 99 AND
