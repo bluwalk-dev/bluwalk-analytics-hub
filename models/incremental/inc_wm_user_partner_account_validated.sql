@@ -3,7 +3,7 @@ WITH uberDriverStatus AS (
     SELECT
         partner_account_uuid,  -- Unique identifier for the driver
         DATETIME(MIN(extraction_ts), 'Europe/Lisbon') as account_validated_date  -- The earliest timestamp converted to a date indicating when the account was validated
-    FROM {{ ref("stg_uber__driver_status") }}  -- Reference to the staging model for uber driver status
+    FROM {{ ref("inc_uber_driver_status") }}  -- Reference to the staging model for uber driver status
     WHERE onboarding_status = 'ONBOARDING_STATUS_ACTIVE'  -- Filter for drivers who are active
     GROUP BY partner_account_uuid  -- Grouping by driver to ensure unique driver records
 )

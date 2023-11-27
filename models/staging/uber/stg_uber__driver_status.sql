@@ -19,6 +19,7 @@ transformation as (
         CAST(onboardingStatus AS STRING) onboarding_status,
         status,
         timestamp,
+        loadTimestamp,
         TIMESTAMP_MILLIS(loadTimestamp) AS extraction_ts
 
     FROM source
