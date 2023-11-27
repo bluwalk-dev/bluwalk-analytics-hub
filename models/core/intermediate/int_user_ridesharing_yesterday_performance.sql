@@ -7,7 +7,8 @@ SELECT
           ELSE
           NULL
         END
-          )) * 100, 2) AS ridesharing_yesterday_acceptance_rate
+          )) * 100, 2) AS ridesharing_yesterday_acceptance_rate,
+    ROUND(SUM(online_minutes/60), 2) ridesharing_yesterday_online_hours
 FROM {{ ref("fct_user_rideshare_performance") }}
 WHERE
     DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) = date

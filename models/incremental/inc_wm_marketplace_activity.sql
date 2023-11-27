@@ -10,7 +10,8 @@ SELECT
   -- Using IFNULL to ensure that there are no NULL values, replacing them with 0 if necessary:
   IFNULL(f.ridesharing_yesterday_net_earnings, 0) AS ridesharing_yesterday_net_earnings, -- Yesterday's net earnings from ridesharing
   IFNULL(f.ridesharing_yesterday_nr_trips, 0) AS ridesharing_yesterday_nr_trips, -- Number of ridesharing trips from yesterday
-  IFNULL(f.ridesharing_yesterday_acceptance_rate, 0) AS ridesharing_yesterday_acceptance_rate -- Acceptance rate for ridesharing trips from yesterday
+  IFNULL(f.ridesharing_yesterday_acceptance_rate, 0) AS ridesharing_yesterday_acceptance_rate, -- Acceptance rate for ridesharing trips from yesterday
+  IFNULL(f.ridesharing_yesterday_online_hours, 0) AS ridesharing_yesterday_online_hours
 FROM {{ ref("dim_users") }} a -- Reference to the 'dim_users' table which holds user dimension data
 LEFT JOIN {{ ref("int_user_ridesharing_last_15_days_activity") }} b ON a.user_id = b.user_id -- Left joining with ridesharing activity table for the last 15 days based on user ID
 LEFT JOIN {{ ref("int_user_groceries_last_15_days_activity") }} c ON a.user_id = c.user_id -- Left joining with groceries activity table for the last 15 days based on user ID
