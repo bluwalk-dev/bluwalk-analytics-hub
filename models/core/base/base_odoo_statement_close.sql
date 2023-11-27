@@ -1,10 +1,10 @@
 WITH statement_log AS (
     SELECT
-        date,
-        statement,
-        last_update_timestamp,
-        last_update_localtime
-    FROM {{ ref('stg_log__statement_close') }}
+        CAST(date AS DATE) date,
+        CAST(period AS INT64) statement,
+        CAST(lastUpdate AS TIMESTAMP) last_update_timestamp,
+        DATETIME(TIMESTAMP(lastUpdate), 'Europe/Lisbon') as last_update_localtime
+    FROM {{ source('generic', 'close_period_log') }}
 
     UNION ALL
 
