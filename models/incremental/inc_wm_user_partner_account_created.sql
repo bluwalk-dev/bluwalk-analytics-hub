@@ -23,7 +23,7 @@ uber_accounts_created AS (
         SELECT
             partner_account_uuid,
             DATETIME(MIN(extraction_ts), 'Europe/Lisbon') created_date
-        FROM {{ ref("stg_uber__driver_status") }}
+        FROM {{ ref("inc_uber_driver_status") }}
         GROUP BY partner_account_uuid
     )
 
