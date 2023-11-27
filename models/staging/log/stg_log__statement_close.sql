@@ -3,7 +3,7 @@ with
 source as (
     select
         *
-    from {{ source('tracker_logs', 'close_period_log') }}
+    from {{ source('generic', 'close_period_log') }}
 ),
 
 transformation as (

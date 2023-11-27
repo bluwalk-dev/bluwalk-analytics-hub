@@ -51,3 +51,7 @@ models:
     utilities:
       +schema: utilities
       materialized: view
+
+snapshots:
+  bluwalk:
+    target_schema: snapshots

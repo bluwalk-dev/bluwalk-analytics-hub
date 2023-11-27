@@ -90,6 +90,7 @@ sources:
     database: bluwalk-data-warehouse
     tables:
       - name: calendar
+      - name: close_period_log
 
   - name: google_ads
     database: bluwalk-data-warehouse
@@ -206,6 +207,11 @@ sources:
     database: bluwalk-data-warehouse
     tables:
       - name: invoice_transactions
+
+  - name: snapshots
+    schema: snapshots
+    tables: 
+      - name: snap_odoo_statement_close
 
   - name: talkdesk
     database: bluwalk-data-warehouse
