@@ -17,3 +17,5 @@ transformation as (
     from source
     
 )
+
+select * from transformation
