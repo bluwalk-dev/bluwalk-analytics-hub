@@ -25,7 +25,8 @@ transformation as (
             CAST(nome_posto AS STRING) as station_name,
             CAST(produto AS STRING) as product,
             ROUND(CAST(volume AS NUMERIC),2) as quantity,
-            ROUND(CAST(valor_talao AS NUMERIC),2) as value_station_price
+            ROUND(CAST(valor_talao AS NUMERIC),2) as value_station_price,
+            TIMESTAMP_MILLIS(load_timestamp) as extraction_timestamp
             
         from source
     )
