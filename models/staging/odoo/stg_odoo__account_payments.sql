@@ -1,9 +1,11 @@
+{{ config(materialized='table') }}
+
 with
 
 source as (
     select
         *
-    from {{ source('odoo_static', 'account_payment') }}
+    from {{ source('odoo_realtime', 'account_payment') }}
 ),
 
 transformation as (

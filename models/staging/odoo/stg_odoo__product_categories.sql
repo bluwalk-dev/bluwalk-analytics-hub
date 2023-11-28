@@ -1,8 +1,10 @@
+{{ config(materialized='table') }}
+
 with
 
 source as (
     SELECT *
-    FROM {{ source('odoo_static', 'product_category') }}
+    FROM {{ source('odoo_realtime', 'product_category') }}
 ),
 
 transformation as (
