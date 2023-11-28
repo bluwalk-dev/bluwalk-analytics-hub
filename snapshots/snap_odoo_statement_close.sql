@@ -18,8 +18,7 @@ select
     write_date,
     communication_banner,
     invoice_banner,
-    segment_com,
-    loaded_at
+    segment_com
 from {{ ref('stg_odoo__close_periods') }}
 
 {% endsnapshot %}
