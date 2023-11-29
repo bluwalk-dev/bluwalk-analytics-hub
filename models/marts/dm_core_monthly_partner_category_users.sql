@@ -1,6 +1,11 @@
 WITH month_partner AS (
 
-    SELECT *
+    SELECT DISTINCT 
+        year_month,
+        start_date,
+        end_date,
+        partner_marketplace,
+        partner_category
     FROM 
     {{ ref('util_month_intervals') }}
     CROSS JOIN
@@ -17,8 +22,6 @@ SELECT
     a.end_date,                  -- The end date of the month from the calendar table
     a.partner_marketplace,
     a.partner_category,
-    a.partner_key,
-    a.partner_name,
     -- Coalescing the number of active users with 0 in case there's no matching record
     IFNULL(b.nr_active_users, 0) as nr_active_users,
     -- Coalescing the total number of activations with 0 in case of no matching record
@@ -37,15 +40,13 @@ SELECT
     CASE 
         WHEN e.churn_rate IS NULL OR e.churn_rate = 0 THEN NULL
         ELSE ROUND(1 / e.churn_rate, 2)
-    END lifespan,
-    ROUND((f.monthly_revenue_per_user * d.nr_churns),2) churned_mrr
+    END lifespan
 -- The FROM clause begins with the calendar utility table, which likely includes all months within the dataset*/
 FROM month_partner a
 -- Each of the following LEFT JOINs connects a monthly aggregate table to the calendar on year_month
-LEFT JOIN {{ ref('agg_cm_monthly_partner_users_active') }} b ON a.year_month = b.year_month AND a.partner_key = b.partner_key
-LEFT JOIN {{ ref('agg_cm_monthly_partner_users_activation') }} c ON a.year_month = c.year_month AND a.partner_key = c.partner_key
-LEFT JOIN {{ ref('agg_cm_monthly_partner_users_churned') }} d ON a.year_month = d.year_month AND a.partner_key = d.partner_key
-LEFT JOIN {{ ref('agg_cm_monthly_partner_churn_rate') }} e ON a.year_month = e.year_month  AND a.partner_key = e.partner_key
-LEFT JOIN {{ ref('fct_quarter_params') }} f ON a.partner_key = f.partner_key AND a.year_quarter = f.year_quarter
+LEFT JOIN {{ ref('agg_cm_monthly_partner_category_users_active') }} b ON a.year_month = b.year_month AND a.partner_category = b.partner_category
+LEFT JOIN {{ ref('agg_cm_monthly_partner_category_users_activation') }} c ON a.year_month = c.year_month AND a.partner_category = C.partner_category
+LEFT JOIN {{ ref('agg_cm_monthly_partner_category_users_churned') }} d ON a.year_month = d.year_month AND a.partner_category = d.partner_category
+LEFT JOIN {{ ref('agg_cm_monthly_partner_category_churn_rate') }} e ON a.year_month = e.year_month AND a.partner_category = e.partner_category
 WHERE (nr_active_users > 0 OR nr_activations > 0)
 ORDER BY a.year_month DESC
