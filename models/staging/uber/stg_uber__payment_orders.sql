@@ -17,7 +17,7 @@ transformation as (
         CAST(description AS STRING) transaction_description,
         CAST(orgName AS STRING) org_name,
         CAST(orgAltName AS STRING) org_alt_name,
-        TIMESTAMP(FORMAT_TIMESTAMP('%Y-%m-%dT%H:%M:%S',PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', CAST(CAST(localDateTime AS DATETIME) AS STRING), 'Europe/Lisbon'))) as timestamp,
+        TIMESTAMP(CAST(localDateTime AS DATETIME), 'Europe/Lisbon') as timestamp,
         CAST(amount AS NUMERIC) amount,
         CAST(localDateTime AS DATETIME) local_datetime
     FROM source
