@@ -44,6 +44,7 @@ sources:
   - name: bolt
     database: bluwalk-data-warehouse
     tables:
+      - name: cron_config
       - name: daily_report_summary
       - name: daily_report_trips
       - name: driver_engagement
