@@ -48,7 +48,7 @@ WITH churn_value AS (
         SUM(monthly_revenue_per_user)
     FROM {{ ref('fct_quarter_params') }}
     WHERE partner_key IN (
-        '4e44a575f4fc27d5d860cd2064314c8f' -- Correos
+        '4e44a575f4fc27d5d860cd2064314c8f' -- Mercadão
     )
     GROUP BY year_quarter, retention_segment
 

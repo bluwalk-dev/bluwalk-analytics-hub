@@ -1,3 +1,16 @@
+WITH driver_engagement AS (
+    SELECT * FROM
+        (SELECT 
+            *, 
+            ROW_NUMBER() OVER (
+                PARTITION BY partner_account_uuid, date 
+                ORDER BY load_timestamp DESC
+            ) AS __row_number
+        FROM {{ ref("stg_bolt__drivers_engagement") }} 
+        )
+    WHERE __row_number = 1
+)
+
 SELECT * FROM (
     SELECT
         a.date,
@@ -40,7 +53,7 @@ SELECT * FROM (
         ROUND(a.average_driver_rating, 2) as rating,
         ROUND((a.average_ride_distance_meters *  a.completed_orders / 1000), 2)  trip_distance,
         ROUND(c.net_earnings, 2) net_earnings
-    FROM {{ ref('stg_bolt__drivers_engagement') }} a
+    FROM driver_engagement a
     LEFT JOIN {{ ref('dim_partners_accounts') }} b ON a.partner_account_uuid = b.partner_account_uuid
     LEFT JOIN {{ ref('dim_users') }} u on b.contact_id = u.contact_id
     LEFT JOIN {{ ref('stg_bolt__earnings') }} c ON a.partner_account_uuid = c.partner_account_uuid AND a.date = c.date
