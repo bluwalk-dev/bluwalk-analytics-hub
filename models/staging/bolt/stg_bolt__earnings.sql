@@ -1,4 +1,4 @@
-SELECT DISTINCT
+SELECT
     CAST(company_id AS INT64) as bolt_company_id,
     CAST(date AS date) as date,
     CAST(driver_id AS STRING) as partner_account_uuid,

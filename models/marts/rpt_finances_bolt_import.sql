@@ -67,7 +67,7 @@ SELECT
     21979 analytic_account_id_sfee_gp,
     3738 contact_id_sfee_gp
 
-FROM {{ ref('stg_bolt__earnings') }} a
+FROM {{ ref('base_bolt_earnings') }} a
 LEFT JOIN {{ ref('dim_partners_accounts') }} b ON a.partner_account_uuid = b.partner_account_uuid
 LEFT JOIN {{ ref('dim_partners_logins') }} c ON a.bolt_company_id = c.login_id
 LEFT JOIN {{ ref('dim_locations') }} d ON c.location_id = d.location_id
