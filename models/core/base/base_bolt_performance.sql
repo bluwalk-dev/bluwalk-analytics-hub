@@ -56,6 +56,6 @@ SELECT * FROM (
     FROM driver_engagement a
     LEFT JOIN {{ ref('dim_partners_accounts') }} b ON a.partner_account_uuid = b.partner_account_uuid
     LEFT JOIN {{ ref('dim_users') }} u on b.contact_id = u.contact_id
-    LEFT JOIN {{ ref('stg_bolt__earnings') }} c ON a.partner_account_uuid = c.partner_account_uuid AND a.date = c.date
+    LEFT JOIN {{ ref('base_bolt_earnings') }} c ON a.partner_account_uuid = c.partner_account_uuid AND a.date = c.date
 )
 ORDER BY date DESC
