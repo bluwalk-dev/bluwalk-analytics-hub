@@ -8,7 +8,7 @@ SELECT
     b.contact_id,
     b.sales_partner_id,
     3738 sales_contact_id,
-    b.partner_account_uuid,
+    a.partner_account_uuid,
     location_name sales_account_city,
     'Trips' sales_segment,
     a.date period_start,
