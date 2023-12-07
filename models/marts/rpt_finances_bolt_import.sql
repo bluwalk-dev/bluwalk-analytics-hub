@@ -13,7 +13,7 @@ SELECT
     'Trips' sales_segment,
     a.date period_start,
     a.date period_end,
-    f.nr_trips nr_trips,
+    IFNULL(f.nr_trips, 0) nr_trips,
     gross_revenue gross_sales,
     ROUND(gross_revenue/(1+c.sales_tax_rate/100),2) net_sales,
     gross_revenue - ROUND(gross_revenue/(1+c.sales_tax_rate/100),2) sales_taxes,
@@ -53,14 +53,14 @@ SELECT
     9539 analytic_account_id_intfee,
     3738 contact_id_intfee,
 
-    - ROUND(net_earnings * (service_fee / 100), 2) amount_sfee_user,
+    - ROUND(net_earnings * (IFNULL(service_fee, 5) / 100), 2) amount_sfee_user,
     136 product_id_sfee_user,
     'Fee Serviço Bluwalk' description_sfee_user,
     '.' external_notes_sfee_user,
     e.analytic_account_id analytic_account_id_sfee_user,
     b.contact_id contact_id_sfee_user,
 
-    ROUND(net_earnings * (service_fee / 100), 2) amount_sfee_gp,
+    ROUND(net_earnings * (IFNULL(service_fee, 5) / 100), 2) amount_sfee_gp,
     CASE WHEN service_fee = 15 THEN 156 ELSE 137 END product_id_sfee_gp,
     'Bluwalk Service Fee' description_sfee_gp,
     '.' external_notes_sfee_gp,
@@ -75,4 +75,5 @@ LEFT JOIN user_accounts e ON b.contact_id = e.analytic_account_owner_contact_id
 LEFT JOIN {{ ref('base_bolt_performance') }} f ON a.date = f.date AND a.partner_account_uuid = f.partner_account_uuid
 LEFT JOIN {{ ref('util_calendar') }} g ON a.date = g.date
 LEFT JOIN {{ ref('int_user_service_fee_per_day') }} h ON b.user_id = h.user_id AND a.date = h.date
+WHERE a.partner_account_uuid = '4800785'
 ORDER BY a.date DESC, sales_account_city, partner_account_uuid
