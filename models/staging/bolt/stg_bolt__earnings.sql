@@ -21,5 +21,5 @@ SELECT
     TIMESTAMP_MILLIS(load_timestamp) load_timestamp
 FROM {{ source('bolt', 'earnings_history') }}
 WHERE 
-    gross_revenue > 0 OR
-    net_earnings > 0
+    gross_revenue != 0 OR
+    net_earnings != 0
