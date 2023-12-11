@@ -75,5 +75,4 @@ LEFT JOIN user_accounts e ON b.contact_id = e.analytic_account_owner_contact_id
 LEFT JOIN {{ ref('base_bolt_performance') }} f ON a.date = f.date AND a.partner_account_uuid = f.partner_account_uuid
 LEFT JOIN {{ ref('util_calendar') }} g ON a.date = g.date
 LEFT JOIN {{ ref('int_user_service_fee_per_day') }} h ON b.user_id = h.user_id AND a.date = h.date
-WHERE a.partner_account_uuid = '4800785'
 ORDER BY a.date DESC, sales_account_city, partner_account_uuid
