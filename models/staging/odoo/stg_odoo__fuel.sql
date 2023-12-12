@@ -35,6 +35,7 @@ transformation as (
             payment_cycle AS statement,
             status,
             supplier_id AS supplier_contact_id,
+            res_service_partner_id AS service_partner_id,
             create_date,
             create_uid,
             write_date,

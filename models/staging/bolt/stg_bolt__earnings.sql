@@ -23,3 +23,4 @@ FROM {{ source('bolt', 'earnings_history') }}
 WHERE 
     gross_revenue != 0 OR
     net_earnings != 0
+    
