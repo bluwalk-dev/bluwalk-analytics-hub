@@ -20,7 +20,7 @@ SELECT
 
 FROM {{ ref('stg_odoo__fuel') }} a
 LEFT JOIN {{ ref('dim_users') }} b ON a.contact_id = b.contact_id
-LEFT JOIN {{ ref('dim_partners') }} c ON a.supplier_contact_id = c.partner_contact_id
+LEFT JOIN {{ ref('dim_partners') }} c ON a.service_partner_id = c.service_partner_id
 WHERE 
     a.energy_source = 'electricity' AND
     c.partner_category = 'Energy'
