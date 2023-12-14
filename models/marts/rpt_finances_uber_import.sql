@@ -14,6 +14,13 @@ agg_daily_earnings AS (
     FROM {{ ref('base_uber_earnings') }}
     WHERE transaction_description != 'so.payout'
     GROUP BY date, year_week, partner_account_uuid, org_alt_name
+),
+calculated_values AS (
+    SELECT
+        *,
+        ROUND(partner_payment/0.75, 2) AS gross_sales,
+        ROUND(partner_payment/0.75 - partner_payment, 2) AS partner_fee
+    FROM agg_daily_earnings
 )
 
 SELECT
@@ -26,60 +33,60 @@ SELECT
     a.date period_start,
     a.date period_end,
     IFNULL(f.nr_trips, 0) nr_trips,
-    ROUND(a.partner_payment/0.75, 2) gross_sales,
-    ROUND(ROUND(a.partner_payment/0.75, 2)/(1+c.sales_tax_rate/100),2) net_sales,
-    ROUND(a.partner_payment/0.75, 2) - ROUND(ROUND(a.partner_payment/0.75, 2)/(1+c.sales_tax_rate/100),2) sales_taxes,
+    a.gross_sales,
+    ROUND(a.gross_sales/(1+c.sales_tax_rate/100), 2) net_sales,
+    a.gross_sales - ROUND(a.gross_sales/(1+c.sales_tax_rate/100), 2) sales_taxes,
     c.sales_tax_rate,
-    ROUND(a.partner_payment/0.75 - partner_payment, 2) gross_partner_fee,
-    ROUND(a.partner_payment/0.75 - partner_payment, 2) net_partner_fee,
+    a.partner_fee gross_partner_fee,
+    a.partner_fee net_partner_fee,
     0 partner_fee_taxes,
     0 partner_fee_rate,
     partner_payment,
     a.year_week payment_cycle,
 
-    - (ROUND(a.partner_payment/0.75, 2) - ROUND(ROUND(a.partner_payment/0.75, 2)/(1+c.sales_tax_rate/100),2)) amount_vat,
-    CASE WHEN c.sales_tax_rate = 6 THEN 31 WHEN c.sales_tax_rate = 5 THEN 32 END product_id_vat,
+    - (a.gross_sales - ROUND(a.gross_sales/(1+c.sales_tax_rate/100), 2)) amount_vat,
+    CASE WHEN c.sales_tax_rate = 6 THEN 31 WHEN c.sales_tax_rate = 5 THEN 30 END product_id_vat,
     'IVA Uber Trips' description_vat,
     '.' external_notes_vat,
     e.analytic_account_id analytic_account_id_vat,
     b.contact_id contact_id_vat,
     
     partner_payment amount_payout,
-    26 product_id_payout,
+    25 product_id_payout,
     'Pagamento Uber Trips' description_payout,
     '.' external_notes_payout,
     e.analytic_account_id analytic_account_id_payout,
     b.contact_id contact_id_payout,
 
-    - ROUND(ROUND(a.partner_payment/0.75, 2)/(1+c.sales_tax_rate/100),2) amount_revenue,
+    - ROUND(a.gross_sales/(1+c.sales_tax_rate/100), 2) amount_revenue,
     52 product_id_revenue,
     'Uber Trips Revenue' description_revenue,
     '.' external_notes_revenue,
     28859 analytic_account_id_revenue,
-    3738 contact_id_revenue,
+    3725 contact_id_revenue,
 
-    ROUND(a.partner_payment/0.75 - partner_payment, 2) amount_intfee,
+    a.partner_fee amount_intfee,
     52 product_id_intfee,
     'Uber Trips Intermediation Fees' description_intfee,
     '.' external_notes_intfee,
     9539 analytic_account_id_intfee,
-    3738 contact_id_intfee,
+    3725 contact_id_intfee,
 
-    - ROUND(partner_payment * (IFNULL(service_fee, 5) / 100), 2) amount_sfee_user,
+    - ROUND(a.partner_payment * (IFNULL(service_fee, 5) / 100), 2) amount_sfee_user,
     136 product_id_sfee_user,
     'Fee Serviço Bluwalk' description_sfee_user,
     '.' external_notes_sfee_user,
     e.analytic_account_id analytic_account_id_sfee_user,
     b.contact_id contact_id_sfee_user,
 
-    ROUND(partner_payment * (IFNULL(service_fee, 5) / 100), 2) amount_sfee_gp,
+    ROUND(a.partner_payment * (IFNULL(service_fee, 5) / 100), 2) amount_sfee_gp,
     CASE WHEN service_fee = 15 THEN 156 ELSE 137 END product_id_sfee_gp,
     'Bluwalk Service Fee' description_sfee_gp,
     '.' external_notes_sfee_gp,
     21979 analytic_account_id_sfee_gp,
-    3738 contact_id_sfee_gp
+    3725 contact_id_sfee_gp
 
-FROM agg_daily_earnings a
+FROM calculated_values a
 LEFT JOIN {{ ref('dim_partners_accounts') }} b ON a.partner_account_uuid = b.partner_account_uuid
 LEFT JOIN {{ ref('dim_partners_logins') }} c ON a.org_alt_name = c.org_name
 LEFT JOIN {{ ref('dim_locations') }} d ON c.location_id = d.location_id

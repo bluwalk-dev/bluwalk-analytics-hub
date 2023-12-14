@@ -26,7 +26,7 @@ SELECT
     year_week payment_cycle,
 
     - (gross_revenue - ROUND(gross_revenue/(1+c.sales_tax_rate/100),2)) amount_vat,
-    CASE WHEN c.sales_tax_rate = 6 THEN 31 WHEN c.sales_tax_rate = 5 THEN 32 END product_id_vat,
+    CASE WHEN c.sales_tax_rate = 6 THEN 31 WHEN c.sales_tax_rate = 5 THEN 30 END product_id_vat,
     'IVA Bolt Trips' description_vat,
     '.' external_notes_vat,
     e.analytic_account_id analytic_account_id_vat,
