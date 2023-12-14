@@ -276,6 +276,7 @@ sources:
   - name: uber
     database: bluwalk-data-warehouse
     tables:
+      - name: cron_config
       - name: driver_activity
       - name: driver_status
       - name: trip_activity
