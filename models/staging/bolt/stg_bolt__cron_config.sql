@@ -1,7 +1,7 @@
 SELECT
     'e8d8ba0b559bd193d89e320f44686eee' partner_key,
     2 sales_partner_id,
-    CAST(org_id AS INTEGER) login_id,
+    CAST(org_id AS STRING) login_id,
     org_name,
     report_type,
     last_loaded,
