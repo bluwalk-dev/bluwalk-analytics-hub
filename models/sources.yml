@@ -52,6 +52,8 @@ sources:
       - name: earnings_history
       - name: order_log
       - name: trips_history
+      - name: vehicle_engagement
+      - name: vehicle_documents
   
   - name: bp
     database: bluwalk-data-warehouse
