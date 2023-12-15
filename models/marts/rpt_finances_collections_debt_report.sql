@@ -27,7 +27,10 @@ deposits AS (
             contact_id,
             SUM(amount_untaxed) as deposit
         FROM {{ ref('fct_accounting_moves') }}
-        WHERE move_type IN ('Supplier Deposit', 'Supplier Deposit Refund')
+        WHERE 
+            move_type IN ('Supplier Deposit', 'Supplier Deposit Refund') AND
+            move_state = 'posted'
+        
         GROUP BY contact_id)
     WHERE deposit > 0
 ),
