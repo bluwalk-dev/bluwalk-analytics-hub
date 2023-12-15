@@ -1,4 +1,5 @@
 SELECT
+    'Bolt' partner,
     a.*,
     b.contact_id,
     b.vehicle_contract_type

@@ -4,13 +4,13 @@ SELECT
     a.document_id,
     a.expires_timestamp,
     a.status,
-    a.documentTypeName,
+    a.type,
     a.isExpired,
     a.expiresInDays,
     a.uploaded_document_id,
     a.uploaded_expires_timestamp,
     a.uploaded_status,
-    a.uploaded_documentTypeName,
+    a.uploaded_type,
     a.uploaded_isExpired,
     a.uploaded_expiresInDays
 FROM
