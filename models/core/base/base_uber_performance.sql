@@ -12,7 +12,7 @@ WITH current_version AS (
             partner_account_uuid, 
             CAST(local_datetime as date) as date, 
             SUM(amount) as net_earnings
-        from {{ ref('stg_uber__payment_orders') }}
+        from {{ ref('base_uber_earnings') }}
         group by partner_account_uuid, date
     )
 
