@@ -17,9 +17,17 @@ transformation as (
         CAST(description AS STRING) transaction_description,
         CAST(orgName AS STRING) org_name,
         CAST(orgAltName AS STRING) org_alt_name,
-        TIMESTAMP(CAST(localDateTime AS DATETIME), 'Europe/Lisbon') as timestamp,
+        CAST(originalTimestamp AS STRING) original_timestamp,
+        CASE 
+            WHEN originalTimestamp IS NULL THEN TIMESTAMP(CAST(localDateTime AS DATETIME), 'Europe/Lisbon')
+            ELSE PARSE_TIMESTAMP("%Y-%m-%d %H:%M:%E*S", REPLACE(originalTimestamp, ' WET', ''))
+        END as timestamp,
+        CASE 
+            WHEN originalTimestamp IS NULL THEN CAST(localDateTime AS DATETIME)
+            ELSE PARSE_TIMESTAMP("%Y-%m-%d %H:%M:%E*S", REPLACE(originalTimestamp, ' WET', ''))
+        END local_datetime,
         CAST(amount AS NUMERIC) amount,
-        CAST(localDateTime AS DATETIME) local_datetime
+        TIMESTAMP_MILLIS(loadTimestamp) load_timestamp
     FROM source
 
 )
