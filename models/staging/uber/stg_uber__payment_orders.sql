@@ -20,11 +20,11 @@ transformation as (
         CAST(originalTimestamp AS STRING) original_timestamp,
         CASE 
             WHEN originalTimestamp IS NULL THEN TIMESTAMP(CAST(localDateTime AS DATETIME), 'Europe/Lisbon')
-            ELSE PARSE_TIMESTAMP("%Y-%m-%d %H:%M:%E*S", REPLACE(originalTimestamp, ' WET', ''))
+            ELSE TIMESTAMP(CAST(LEFT(originalTimestamp, 19) AS DATETIME), 'Europe/Lisbon')
         END as timestamp,
         CASE 
             WHEN originalTimestamp IS NULL THEN CAST(localDateTime AS DATETIME)
-            ELSE PARSE_TIMESTAMP("%Y-%m-%d %H:%M:%E*S", REPLACE(originalTimestamp, ' WET', ''))
+            ELSE CAST(LEFT(originalTimestamp, 19) AS DATETIME)
         END local_datetime,
         CAST(amount AS NUMERIC) amount,
         TIMESTAMP_MILLIS(loadTimestamp) load_timestamp
