@@ -63,6 +63,13 @@ sources:
       - name: transactions_v2
       - name: transactions_v3
 
+  - name: circuit
+    database: bluwalk-data-warehouse
+    tables:
+      - name: cron_config
+      - name: drivers
+      - name: plans
+
   - name: correos
     database: bluwalk-data-warehouse
     tables:
