@@ -1,4 +1,11 @@
-/* More than one rental_contract per day, same vehicle_plate! */
+WITH recent_vehicle_contracts AS (
+    SELECT *,
+           ROW_NUMBER() OVER (
+               PARTITION BY vehicle_plate
+               ORDER BY start_date DESC
+           ) AS rn
+    FROM {{ ref('dim_vehicle_contracts') }}
+)
 
 SELECT
     upa.partner_key,
@@ -21,7 +28,7 @@ SELECT
 FROM {{ ref('stg_bolt__trips') }} ta
 LEFT JOIN {{ ref('dim_partners_accounts') }} upa on ta.partner_account_uuid = upa.partner_account_uuid
 LEFT JOIN {{ ref('dim_users') }} u on u.contact_id = upa.contact_id
-LEFT JOIN {{ ref('dim_vehicle_contracts') }} z ON ta.vehicle_plate = z.vehicle_plate
+LEFT JOIN recent_vehicle_contracts z ON ta.vehicle_plate = z.vehicle_plate AND z.rn = 1
 WHERE 
     ta.accepted_time < CAST(IFNULL(z.end_date, current_date) as TIMESTAMP) AND 
     ta.accepted_time > CAST(z.start_date AS TIMESTAMP) AND

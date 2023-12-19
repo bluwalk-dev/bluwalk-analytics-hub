@@ -73,6 +73,7 @@ SELECT
     b.retention_segment,
     IFNULL(c.nr_active_users, 0) as nr_active_users,
     IFNULL(b.nr_churns,0) nr_churns,
+    IFNULL(f.nr_activations,0) nr_activations,
     IFNULL(ROUND(d.churn_rate, 4), 0) as churn_rate,
     ROUND(e.mrr,2) mrr_churned_unit_value,
     ROUND((e.mrr * b.nr_churns),2) mrr_churned
@@ -80,6 +81,7 @@ FROM {{ ref('util_month_intervals') }} a
 LEFT JOIN {{ ref('agg_retention_monthly_retention_segment_users_churned') }} b ON a.year_month = b.year_month
 LEFT JOIN {{ ref('agg_retention_monthly_retention_segment_users_active') }} c ON a.year_month = c.year_month AND b.retention_segment = c.retention_segment
 LEFT JOIN {{ ref('agg_retention_monthly_retention_segment_churn_rate') }} d ON a.year_month = d.year_month AND b.retention_segment = d.retention_segment
+LEFT JOIN {{ ref('agg_retention_monthly_retention_segment_users_activation') }} f ON a.year_month = f.year_month AND b.retention_segment = f.retention_segment
 LEFT JOIN churn_value e ON a.year_quarter = e.year_quarter AND b.retention_segment = e.retention_segment
 WHERE 
     year > 2020 AND 
