@@ -8,7 +8,7 @@ SELECT
     a.new_activations,
     a.re_activations,
     a.nr_churns,
-    IFNULL(b.user_count, 0) as website_visitors,
+    IFNULL(b.unique_visitors, 0) as website_visitors,
     IFNULL(c.nr_signups, 0) as nr_signups,
     a.churn_rate,
     a.retention_rate,

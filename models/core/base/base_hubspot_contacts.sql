@@ -2,6 +2,7 @@ SELECT
     hs_contact_id,
     first_name,
     last_name,
+    email,
     contact_phone_nr,
     user_id,
     contact_id,
