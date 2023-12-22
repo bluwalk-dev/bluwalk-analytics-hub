@@ -13,6 +13,7 @@ transformation as (
         CAST(id AS INT64) hs_contact_id,
         CAST(property_firstname AS STRING) first_name,
         CAST(property_lastname AS STRING) last_name,
+        CAST(property_email AS STRING) email,
         CAST(is_deleted AS BOOL) is_deleted,
         CAST(property_odoo_partner_id AS INT64) contact_id,
         CAST(property_odoo_user_id AS INT64) user_id,
