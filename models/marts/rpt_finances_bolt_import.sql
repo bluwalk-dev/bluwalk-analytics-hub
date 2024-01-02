@@ -14,7 +14,7 @@ SELECT
     a.date period_start,
     a.date period_end,
     IFNULL(f.nr_trips, 0) nr_trips,
-    ROUND(gross_revenue, 2) gross_sales,
+    gross_revenue gross_sales,
     ROUND(gross_revenue/(1+c.sales_tax_rate/100),2) net_sales,
     ROUND(gross_revenue, 2) - ROUND(gross_revenue/(1+c.sales_tax_rate/100),2) sales_taxes,
     c.sales_tax_rate,
@@ -22,7 +22,7 @@ SELECT
     ROUND(gross_revenue, 2) - ROUND(net_earnings,2) net_partner_fee,
     0 partner_fee_taxes,
     0 partner_fee_rate,
-    ROUND(net_earnings,2) partner_payment,
+    net_earnings partner_payment,
     year_week payment_cycle,
 
     - (ROUND(gross_revenue, 2) - ROUND(gross_revenue/(1+c.sales_tax_rate/100),2)) amount_vat,
