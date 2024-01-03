@@ -32,8 +32,8 @@ WITH current_version AS (
         dq.rating_last_500_trips as rating,
         ta.trip_distance,
         po.net_earnings
-    FROM {{ ref('stg_uber__activity') }} da
-    LEFT JOIN {{ ref('stg_uber__quality') }} dq on da.date = dq.date and da.partner_account_uuid = dq.partner_account_uuid
+    FROM {{ ref('int_uber_activity') }} da
+    LEFT JOIN {{ ref('int_uber_quality') }} dq on da.date = dq.date and da.partner_account_uuid = dq.partner_account_uuid
     LEFT JOIN tripDistance ta on ta.date = da.date and ta.partner_account_uuid = da.partner_account_uuid
     LEFT JOIN netEarnings po on po.date = da.date and po.partner_account_uuid = da.partner_account_uuid
     LEFT JOIN {{ ref('dim_partners_accounts') }} upa on da.partner_account_uuid = upa.partner_account_uuid
