@@ -1,5 +1,33 @@
 SELECT 
-    *
+    *,
+    CASE
+        WHEN 
+            REGEXP_EXTRACT(address_pickup, r'(\d{4}-\d{3})') IS NOT NULL 
+            THEN REGEXP_EXTRACT(address_pickup, r'(\d{4}-\d{3})')
+        -- Faro Airport Matching
+        WHEN
+            REGEXP_CONTAINS(address_pickup, r'(?i)Faro') AND
+            (REGEXP_CONTAINS(address_pickup, r'(?i)Aeroporto') OR REGEXP_CONTAINS(address_pickup, r'(?i)Airport'))
+            THEN '8006-901'
+        -- Lisbon Airport Matching
+        WHEN 
+            ((REGEXP_CONTAINS(address_pickup, r'(?i)Lisbon') OR REGEXP_CONTAINS(address_pickup, r'(?i)Lisboa')) AND
+            (REGEXP_CONTAINS(address_pickup, r'(?i)Aeroporto') OR REGEXP_CONTAINS(address_pickup, r'(?i)Airport')))
+            OR address_pickup LIKE 'Terminal 1, Departures%'
+            OR address_pickup = 'Terminal 1'
+            THEN '1700-008'
+        -- Porto Airport Matching
+        WHEN 
+            (REGEXP_CONTAINS(address_pickup, r'(?i)Porto') OR REGEXP_CONTAINS(address_pickup, r'(?i)Oporto') AND
+            (REGEXP_CONTAINS(address_pickup, r'(?i)Aeroporto') OR REGEXP_CONTAINS(address_pickup, r'(?i)Airport')))
+            OR address_pickup = 'Arrivals'
+            OR address_pickup = 'Chegadas'
+            THEN '4470-558'
+        -- Porto Parque Nascente Shopping
+        WHEN 
+            REGEXP_CONTAINS(address_pickup, r'(?i)Parque Nascente')
+            THEN '4435-182'
+    END address_pickup_zip
 FROM (
     SELECT * FROM {{ ref('base_uber_trips') }}
     UNION ALL

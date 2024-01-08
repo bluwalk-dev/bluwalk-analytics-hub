@@ -30,7 +30,6 @@ LEFT JOIN {{ ref('dim_partners_accounts') }} upa on ta.partner_account_uuid = up
 LEFT JOIN {{ ref('dim_users') }} u on u.contact_id = upa.contact_id
 LEFT JOIN recent_vehicle_contracts z ON ta.vehicle_plate = z.vehicle_plate AND z.rn = 1
 WHERE 
-    ta.request_timestamp < CAST(IFNULL(z.end_date, current_date) as TIMESTAMP) AND 
-    ta.request_timestamp > CAST(z.start_date AS TIMESTAMP) AND
+    (ta.request_timestamp BETWEEN CAST(z.start_date AS TIMESTAMP) AND CAST(IFNULL(z.end_date, current_date) as TIMESTAMP)) AND
     ta.trip_status = 'completed'
 ORDER BY request_timestamp DESC
