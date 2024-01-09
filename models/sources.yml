@@ -92,6 +92,11 @@ sources:
       - name: insights
       - name: ads
   
+  - name: flight_aware
+    database: bluwalk-data-warehouse
+    tables:
+      - name: scheduled_arrivals
+  
   - name: free_now
     database: bluwalk-data-warehouse
     tables:
@@ -108,6 +113,7 @@ sources:
       - name: calendar
       - name: close_period_log
       - name: zip_codes
+      - name: zones
 
   - name: google_ads
     database: bluwalk-data-warehouse
