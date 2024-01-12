@@ -1,12 +1,3 @@
-WITH recent_vehicle_contracts AS (
-    SELECT *,
-           ROW_NUMBER() OVER (
-               PARTITION BY vehicle_plate
-               ORDER BY start_date DESC
-           ) AS rn
-    FROM {{ ref('dim_vehicle_contracts') }}
-)
-
 SELECT
     upa.partner_key,
     upa.sales_partner_id,
@@ -28,8 +19,8 @@ SELECT
 from {{ ref('stg_uber__trips') }} ta
 LEFT JOIN {{ ref('dim_partners_accounts') }} upa on ta.partner_account_uuid = upa.partner_account_uuid
 LEFT JOIN {{ ref('dim_users') }} u on u.contact_id = upa.contact_id
-LEFT JOIN recent_vehicle_contracts z ON ta.vehicle_plate = z.vehicle_plate AND z.rn = 1
-WHERE 
-    (ta.request_timestamp BETWEEN CAST(z.start_date AS TIMESTAMP) AND CAST(IFNULL(z.end_date, current_date) as TIMESTAMP)) AND
+LEFT JOIN {{ ref('dim_vehicle_contracts') }} z ON ta.vehicle_plate = z.vehicle_plate
+WHERE
+    (ta.request_timestamp BETWEEN CAST(z.start_date AS TIMESTAMP) AND CAST(IFNULL(z.end_date, current_date) as TIMESTAMP) OR z.vehicle_plate IS NULL) AND
     ta.trip_status = 'completed'
 ORDER BY request_timestamp DESC
