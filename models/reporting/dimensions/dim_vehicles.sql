@@ -13,6 +13,8 @@ SELECT
     fvmb.name as vehicle_brand,  -- Brand name of the vehicle
     fvm.name as vehicle_model,  -- Model name of the vehicle
 
+    fv.driver_id as current_driver_contract_id,
+
     -- Concatenating brand and model for a full name representation
     CONCAT(fvmb.name, ' ', fvm.name) as vehicle_brand_model,
 
