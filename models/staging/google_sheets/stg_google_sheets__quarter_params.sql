@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 with
 
 source as (
@@ -24,7 +26,8 @@ transformation as (
         CAST(monthly_revenue_per_user AS NUMERIC) monthly_revenue_per_user,
         CAST(lifetime_value AS NUMERIC) lifetime_value
 
-    from source
+    FROM source
+    WHERE year_quarter IS NOT NULL
 
 )
 
