@@ -23,7 +23,7 @@ SELECT
     b.payment_delay,
     b.release_delay,
     b.estimation_lt,
-    b.definitive_lt
+    b.definitive_lt,
     -- Table values Customer Service
     c.nps_score
 FROM {{ ref('dm_core_monthly_marketplace_users') }} a
