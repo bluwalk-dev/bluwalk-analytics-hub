@@ -12,6 +12,7 @@ WITH uberDriverStatus AS (
 SELECT
   a.user_id,  -- The user ID from the base HubSpot deals model
   'Uber' as partner_name,  -- Hardcoded value of 'Uber' to indicate the partner name
+  a.deal_partner_key AS partner_key,
   c.account_validated_date  -- The account validation date from the CTE
 FROM {{ ref("fct_deals") }} a  -- Reference to the base deals model
 LEFT JOIN {{ ref("dim_partners_accounts") }} b ON a.contact_id = b.contact_id  -- Joining on contacts to get partner accounts

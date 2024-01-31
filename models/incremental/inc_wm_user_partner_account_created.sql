@@ -5,6 +5,7 @@ mercadao_accounts_created AS (
     SELECT
         a.user_id,
         'Mercadão' AS partner_name,
+        a.deal_partner_key AS partner_key,
         DATETIME(c.last_update_ts, 'Europe/Lisbon') create_date
     FROM {{ ref("fct_deals") }} a
     LEFT JOIN {{ ref("dim_users") }} b ON a.user_id = b.user_id
@@ -30,6 +31,7 @@ uber_accounts_created AS (
     SELECT
         a.user_id,
         'Uber' partner_name,
+        a.deal_partner_key AS partner_key,
         c.created_date
     FROM {{ ref("fct_deals") }} a
     LEFT JOIN {{ ref("dim_partners_accounts") }} b ON a.user_id = b.user_id
