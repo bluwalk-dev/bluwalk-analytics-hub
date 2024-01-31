@@ -51,13 +51,13 @@ WITH
                 MIN(end_date) first_work_date -- Earliest food delivery work date
             FROM {{ ref("fct_work_orders") }}
             WHERE
-                partner_category = 'Food Delivery' AND
-                end_date > CAST(DATE_SUB(CURRENT_DATE(), INTERVAL 15 DAY) AS DATE)
+                partner_category IN ('Food Delivery', 'Courier') AND
+                end_date > CAST(DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY) AS DATE)
             GROUP BY user_id, partner_name
     )
 
 -- Final query to join open deals with the activity data
-SELECT
+SELECT DISTINCT
   b.user_id,              -- User ID from the activity data
   b.partner_name,         -- Partner name from the activity data
   b.first_work_date       -- First work date from the activity data
