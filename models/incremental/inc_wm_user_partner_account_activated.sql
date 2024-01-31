@@ -3,7 +3,8 @@ WITH
     open_deals AS (
         SELECT
             user_id,           -- User ID from the deals fact table
-            partner_name       -- Partner name from the deals fact table
+            partner_name,       -- Partner name from the deals fact table
+            deal_partner_key AS partner_key
         FROM {{ ref("fct_deals") }}
         WHERE
             is_closed = FALSE AND -- Filter for open deals
@@ -60,6 +61,7 @@ WITH
 SELECT DISTINCT
   b.user_id,              -- User ID from the activity data
   b.partner_name,         -- Partner name from the activity data
+  a.partner_key,
   b.first_work_date       -- First work date from the activity data
 FROM open_deals a
 LEFT JOIN activity_data b
