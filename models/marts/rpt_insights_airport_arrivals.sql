@@ -4,6 +4,7 @@ SELECT
   EXTRACT(HOUR FROM flight_scheduled_in) time,
   SUM(IFNULL(flight_seats,0)) expected_passengers
 FROM {{ ref("base_flight_aware_scheduled_arrivals") }}
+WHERE flight_scheduled_in IS NOT NULL
 GROUP BY 
     1, 2, 3
 ORDER BY
