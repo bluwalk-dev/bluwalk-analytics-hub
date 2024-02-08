@@ -2,6 +2,7 @@ WITH RankedTrips AS (
     SELECT
       location_id,
       zone_name,
+      NULL zone_navigation_link,
       time_window,
       week_day_iso,
       nr_of_trips,
@@ -13,6 +14,7 @@ WITH RankedTrips AS (
 SELECT 
   location_id,
   zone_name,
+  zone_navigation_link,
   time_window,
   week_day_iso,
   nr_of_trips,
