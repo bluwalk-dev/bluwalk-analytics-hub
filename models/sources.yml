@@ -95,6 +95,7 @@ sources:
   - name: flight_aware
     database: bluwalk-data-warehouse
     tables:
+      - name: airports
       - name: scheduled_arrivals
   
   - name: free_now

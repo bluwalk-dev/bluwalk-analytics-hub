@@ -23,7 +23,7 @@ transformation as (
             'WA', 'KL'
             )
         flight_operator_iata,
-        origin_name,
+        origin_code_iata,
         destination_code_iata,
         flight_aircraft_type,
         flight_scheduled_in,
