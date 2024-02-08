@@ -29,8 +29,12 @@ WITH arrivals AS (
 
 SELECT
     a.flight_ident_iata,
-    a.origin_name,
+    a.origin_code_iata,
+    e.airport_city origin_city,
     a.destination_code_iata,
+    d.airport_city destination_city,
+    d.airport_name destination_airport_name,
+    d.airport_location_id destination_location_id,
     a.flight_operator_iata,
     a.flight_aircraft_type,
     CASE
@@ -42,4 +46,7 @@ SELECT
 FROM arrivals a
 LEFT JOIN aircraft_airline_capacity b ON a.flight_operator_iata = b.flight_operator_iata AND a.flight_aircraft_type = b.flight_aircraft_type
 LEFT JOIN aircraft_capacity c ON a.flight_aircraft_type = c.flight_aircraft_type
+LEFT JOIN {{ ref("stg_flight_aware__airports") }} d ON a.destination_code_iata = d.airport_iata_code
+LEFT JOIN {{ ref("stg_flight_aware__airports") }} e ON a.origin_code_iata = e.airport_iata_code
+WHERE flight_scheduled_in IS NOT NULL
 ORDER BY a.flight_scheduled_in ASC
