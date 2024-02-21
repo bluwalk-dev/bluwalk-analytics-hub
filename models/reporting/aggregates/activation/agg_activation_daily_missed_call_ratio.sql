@@ -21,7 +21,7 @@ LEFT JOIN (
         count(*) as nr_inbound_calls
     FROM {{ ref('fct_calls') }} -- Reference to a model that contains call data.
     WHERE direction = 'inbound'  -- Only consider inbound calls.
-      AND internal_line_name IN ('Customer Activation', 'Veículo', 'Motoristas', 'Estafetas', 'Courier', 'TVDE')
+      AND internal_line_name != 'Customer Service'
     GROUP BY date -- Group the count by date.
 ) b ON a.date = b.date -- Join on date to match inbound calls with calendar dates.
 LEFT JOIN (
@@ -31,7 +31,7 @@ LEFT JOIN (
         count(*) as nr_missed_calls
     FROM {{ ref('fct_calls') }}
     WHERE direction = 'inbound' AND outcome = 'missed' -- Only consider missed inbound calls.
-      AND internal_line_name IN ('Customer Activation', 'Veículo', 'Motoristas', 'Estafetas', 'Courier', 'TVDE')
+      AND internal_line_name != 'Customer Service'
     GROUP BY date
 ) c ON a.date = c.date -- Join on date to match missed calls with calendar dates.
 -- Filter for dates up to the current date to exclude future dates.
