@@ -2,7 +2,7 @@ WITH RankedTrips AS (
     SELECT
       location_id,
       zone_name,
-      NULL zone_navigation_link,
+      zone_navigation_link,
       time_window,
       SUM(nr_of_trips) AS nr_of_trips,
       ROW_NUMBER() OVER (PARTITION BY location_id, time_window ORDER BY SUM(nr_of_trips) DESC) AS rn,

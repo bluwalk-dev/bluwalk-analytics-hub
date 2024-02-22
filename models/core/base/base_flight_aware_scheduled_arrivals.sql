@@ -35,6 +35,7 @@ SELECT
     d.airport_city destination_city,
     d.airport_name destination_airport_name,
     d.airport_location_id destination_location_id,
+    d.airport_navigation_link destination_navigation_link,
     a.flight_operator_iata,
     a.flight_aircraft_type,
     CASE

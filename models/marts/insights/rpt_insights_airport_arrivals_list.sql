@@ -4,6 +4,7 @@ SELECT
         destination_airport_name, ' (',
         destination_code_iata, ')'
     ) airport_name,
+    destination_navigation_link airport_url,
     flight_ident_iata,
     origin_city flight_origin_city,
     CAST(flight_scheduled_in AS DATE) arrival_date,

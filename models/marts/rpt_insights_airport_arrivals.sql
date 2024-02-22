@@ -9,15 +9,17 @@ dates AS (
       destination_airport_name, ' (',
       destination_code_iata, ')'
     ) AS airport_name,
+    destination_navigation_link airport_url,
     CAST(flight_scheduled_in AS DATE) AS date
   FROM {{ ref("base_flight_aware_scheduled_arrivals") }}
   WHERE flight_scheduled_in IS NOT NULL
-  GROUP BY date, airport_name, destination_location_id
+  GROUP BY date, airport_name, destination_location_id, destination_navigation_link
 ),
 cross_join_dates_hours AS (
   SELECT 
     d.destination_location_id,
     d.airport_name,
+    d.airport_url,
     d.date,
     h.hour
   FROM dates d
@@ -40,6 +42,7 @@ expected_passengers AS (
 SELECT 
   c.destination_location_id,
   c.airport_name,
+  c.airport_url,
   c.date,
   c.hour,
   COALESCE(e.expected_passengers, 0) AS expected_passengers
