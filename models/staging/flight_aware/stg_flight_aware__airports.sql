@@ -19,7 +19,6 @@ transformation as (
         longitude
         
     from source
-    where location_id is not null
 
 )
 
