@@ -15,6 +15,7 @@ WITH arrivals AS (
         flight_aircraft_type,
         MAX(flight_seats) flight_seats
     FROM {{ ref("stg_flight_aware__scheduled_arrivals") }}
+    WHERE flight_seats > 0
     GROUP BY 
         flight_operator_iata,
         flight_aircraft_type
@@ -23,6 +24,7 @@ WITH arrivals AS (
         flight_aircraft_type,
         MAX(flight_seats) flight_seats
     FROM {{ ref("stg_flight_aware__scheduled_arrivals") }}
+    WHERE flight_seats > 0
     GROUP BY 
         flight_aircraft_type
 )
@@ -39,7 +41,7 @@ SELECT
     a.flight_operator_iata,
     a.flight_aircraft_type,
     CASE
-        WHEN a.flight_seats IS NULL THEN IFNULL(b.flight_seats, c.flight_seats)
+        WHEN a.flight_seats IS NULL THEN IFNULL(IFNULL(b.flight_seats, c.flight_seats), 180)
         ELSE a.flight_seats
     END flight_seats,
     a.flight_estimated_in,
