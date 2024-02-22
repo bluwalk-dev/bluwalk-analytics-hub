@@ -280,6 +280,13 @@ sources:
       - name: invoice_transactions
       - name: ff_invoice_transactions
   
+  - name: predict_hq
+    database: bluwalk-data-warehouse
+    tables:
+      - name: entities
+      - name: events
+      - name: impact_patterns
+  
   - name: repsol
     database: bluwalk-data-warehouse
     tables:
