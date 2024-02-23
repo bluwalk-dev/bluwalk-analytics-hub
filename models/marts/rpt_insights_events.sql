@@ -11,8 +11,8 @@ cs_dates_locations AS (
 SELECT
   a.location_id,
   a.date,
-  IFNULL(SUM(event_phq_attendance),0) event_phq_attendance
+  IFNULL(SUM(event_phq_attendance),0) expected_attendance
 FROM cs_dates_locations a
-LEFT JOIN {{ ref("base_predict_hq_events") }} b ON CAST(b.event_start_date AS DATE) = a.date
+LEFT JOIN {{ ref("base_predict_hq_events") }} b ON CAST(b.event_start_date AS DATE) = a.date AND a.location_id = b.location_id
 GROUP BY location_id, date
 ORDER BY date ASC
