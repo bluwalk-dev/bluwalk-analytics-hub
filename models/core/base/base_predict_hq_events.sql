@@ -1,5 +1,3 @@
-{{ config(materialized='table') }}
-
 WITH last_version_events AS (
     SELECT * EXCEPT(__row_number) FROM
         (SELECT 

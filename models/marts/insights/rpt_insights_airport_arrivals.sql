@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 WITH hours AS (
   SELECT hour
   FROM UNNEST(GENERATE_ARRAY(0, 23)) AS hour -- Generates numbers from 0 to 23 for hours

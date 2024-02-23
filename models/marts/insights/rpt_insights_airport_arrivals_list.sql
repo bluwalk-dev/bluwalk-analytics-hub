@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 SELECT
     destination_location_id location_id,
     CONCAT(

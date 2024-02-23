@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 WITH 
 cs_dates_locations AS (
   SELECT DISTINCT
