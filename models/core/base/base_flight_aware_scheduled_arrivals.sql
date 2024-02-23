@@ -1,5 +1,3 @@
-{{ config(materialized='table') }}
-
 WITH arrivals AS (
     SELECT * FROM
         (SELECT 
