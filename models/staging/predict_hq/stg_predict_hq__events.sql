@@ -9,6 +9,8 @@ transformation as (
 
     select
         
+        CAST(location_id AS INT64) location_id,
+        CAST(phq_location_id AS STRING) phq_location_id,
         CAST(id AS STRING) event_id,
         CAST(title AS STRING) event_title,
         CAST(description AS STRING) event_description,
@@ -20,7 +22,7 @@ transformation as (
         CAST(start_date AS DATETIME) event_start_date,
         CAST(end_date AS DATETIME) event_end_date,
         location event_location,
-        country event_country_code,
+        CAST(country AS STRING) event_country_code,
         TIMESTAMP_MILLIS(load_timestamp) load_timestamp
         
     from source
