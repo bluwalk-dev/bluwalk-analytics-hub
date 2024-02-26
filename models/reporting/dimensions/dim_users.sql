@@ -27,6 +27,8 @@ SELECT
     e.contact_gender as user_gender,  -- Gender of the user
     e.contact_location as user_location,  -- Location name of the user
     e.contact_location_country as user_location_country,  -- Country of the user's location
+    e.contact_referral_code as user_referral_code,
+    e.contact_referrer_code as user_referrer_code,
     ru.create_date  -- Date when the user account was created
 
 FROM {{ ref('stg_odoo__res_users') }} ru  -- Source table: staged res users data
