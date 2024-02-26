@@ -21,6 +21,10 @@ SELECT
     l.location_name AS contact_location,  -- Name of the location
     l.location_country AS contact_location_country,  -- Country of the location
 
+    -- Referral information
+    rp.referral_code contact_referral_code,
+    rp.referrer_code contact_referrer_code,
+
     -- Additional contact information
     rp.vat as contact_vat,  -- VAT number if applicable
     -- Phone number processing: Adding country code prefix based on the length or content of the phone number
