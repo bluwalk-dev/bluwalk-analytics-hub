@@ -48,5 +48,6 @@ WHERE
         ROUND(IFNULL(y.risk_deposit_amount, 0), 2) != ROUND(IFNULL(x.deposit, 0), 2) OR
         ROUND(IFNULL(y.risk_net_balance, 0), 2) != ROUND(IFNULL(x.net_balance, 0), 2) OR
         ROUND(IFNULL(y.risk_next_installment, 0), 2) != ROUND(IFNULL(x.next_installment, 0), 2) OR
-        ROUND(IFNULL(y.risk_target_balance, 0), 2) != ROUND(IFNULL(x.target_balance, 0), 2)
+        ROUND(IFNULL(y.risk_target_balance, 0), 2) != ROUND(IFNULL(x.target_balance, 0), 2) OR
+        y.risk_active_rental_vehicle != x.active_car_rental
     )
