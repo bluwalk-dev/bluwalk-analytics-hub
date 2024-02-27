@@ -22,10 +22,11 @@ select
         a.property_createdate,
         hour
     ) resolution_time,
-    property_time_to_first_agent_reply_wh / 3600000 first_reply_time,
+    property_time_to_first_agent_reply_wh / 3600000 first_reply_time
     
 from {{ ref("stg_hubspot__tickets") }} a
 left join {{ ref("stg_hubspot__ticket_pipeline_stages") }} c on a.property_hs_pipeline_stage = cast(c.stage_id as int)
 left join {{ ref("dim_employees") }} e on CAST(a.property_hs_all_owner_ids AS INT64) = e.employee_hubspot_owner_id
 left join {{ ref("dim_users") }} d on cast(a.property_odoo_user_id as int64) = d.user_id
+WHERE property_hs_pipeline = 0
 order by create_date DESC
