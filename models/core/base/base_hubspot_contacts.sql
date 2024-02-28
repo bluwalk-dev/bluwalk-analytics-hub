@@ -17,7 +17,7 @@ SELECT
     par_number_of_days_with_earnings_between_70_and_130,
     par_sms_friday_challenge,
     mktplace_last_activity_ridesharing,
-    active_vehicle_contracts
+    active_vehicle_contracts,
 
     risk_balance,
     risk_deposit_amount,
