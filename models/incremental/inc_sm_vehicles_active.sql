@@ -1,12 +1,16 @@
-WITH hubspot_list AS (
+WITH 
+
+hubspot_list AS (
     SELECT 
         a.user_id,
-        b.user_email,
+        a.email user_email,
         a.active_vehicle_contracts 
     FROM {{ ref('base_hubspot_contacts') }} a
-    LEFT JOIN {{ ref('dim_users') }} b ON a.user_id = b.user_id
-    WHERE active_vehicle_contracts = TRUE
-), new_list AS (
+    WHERE
+        active_vehicle_contracts = TRUE
+), 
+
+new_list AS (
     SELECT
         a.user_id,
         b.user_email,

@@ -15,9 +15,11 @@ transformation as (
         CAST(property_lastname AS STRING) last_name,
         CAST(property_email AS STRING) email,
         CAST(is_deleted AS BOOL) is_deleted,
+        CAST(property_hs_merged_object_ids AS STRING) merged_objects,
         CAST(property_odoo_partner_id AS INT64) contact_id,
         CAST(property_odoo_user_id AS INT64) user_id,
         CAST(property_hs_calculated_phone_number AS STRING) contact_phone_nr,
+
         CAST(property_par_has_been_on_the_program as boolean) par_has_been_on_the_program,
         CAST(property_par_currently_in_program AS BOOL) par_currently_in_program,
         CAST(property_par_days_in_program AS INT64) par_days_in_program,
