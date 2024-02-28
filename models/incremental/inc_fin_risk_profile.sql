@@ -1,25 +1,17 @@
 WITH open_vehicle_contracts AS (
     SELECT *
-    FROM {{ ref('dim_vehicle_contracts') }}
+    FROM {{ ref('inc_sm_vehicles_active') }}
     WHERE 
-        end_date IS NULL AND
-        vehicle_contract_type = 'car_rental' AND
-        vehicle_contract_state = 'open'
+        active_vehicle_contracts = TRUE AND
+        vehicle_contract_type = 'car_rental'
 )
 
 SELECT 
     x.*
-    /*
-    IF(ROUND(IFNULL(y.risk_balance, 0), 2) = ROUND(IFNULL(x.balance, 0), 2), TRUE, FALSE),
-    IF(ROUND(IFNULL(y.risk_deposit_amount, 0), 2) = ROUND(IFNULL(x.deposit, 0), 2), TRUE, FALSE),
-    IF(ROUND(IFNULL(y.risk_net_balance, 0), 2) = ROUND(IFNULL(x.balance, 0), 2), TRUE, FALSE),
-    IF(ROUND(IFNULL(y.risk_next_installment, 0), 2) = ROUND(IFNULL(x.next_installment, 0), 2), TRUE, FALSE),
-    IF(ROUND(IFNULL(y.risk_target_balance, 0), 2) = ROUND(IFNULL(x.target_balance, 0), 2), TRUE, FALSE)*/
 FROM (
     SELECT
         b.user_id,
         b.user_email,
-        c.vehicle_plate as active_car_rental,
         a.deposit,
         a.outstanding_balance as balance,
         CASE
@@ -35,7 +27,7 @@ FROM (
         a.net_balance,
     FROM {{ ref('rpt_finances_collections_debt_report') }} a
     LEFT JOIN {{ ref('dim_users') }} b ON a.contact_id = b.contact_id
-    LEFT JOIN open_vehicle_contracts c ON c.contact_id = a.contact_id
+    LEFT JOIN open_vehicle_contracts c ON b.user_id = c.user_id
     WHERE 
         b.user_id IS NOT NULL AND
         b.user_email IS NOT NULL 
@@ -48,6 +40,5 @@ WHERE
         ROUND(IFNULL(y.risk_deposit_amount, 0), 2) != ROUND(IFNULL(x.deposit, 0), 2) OR
         ROUND(IFNULL(y.risk_net_balance, 0), 2) != ROUND(IFNULL(x.net_balance, 0), 2) OR
         ROUND(IFNULL(y.risk_next_installment, 0), 2) != ROUND(IFNULL(x.next_installment, 0), 2) OR
-        ROUND(IFNULL(y.risk_target_balance, 0), 2) != ROUND(IFNULL(x.target_balance, 0), 2) OR
-        y.risk_active_rental_vehicle != x.active_car_rental
+        ROUND(IFNULL(y.risk_target_balance, 0), 2) != ROUND(IFNULL(x.target_balance, 0), 2)
     )
