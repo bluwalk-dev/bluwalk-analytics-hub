@@ -224,6 +224,8 @@ sources:
       - name: trips
       - name: vehicle_category
       - name: vehicle_rental
+      - name: voucher
+      - name: voucher_type
 
   - name: odoo_static
     database: bluwalk-data-warehouse
@@ -272,6 +274,7 @@ sources:
       - name: trips
       - name: vehicle_category
       - name: vehicle_rental
+      
 
   - name: prio
     database: bluwalk-data-warehouse

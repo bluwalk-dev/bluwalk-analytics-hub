@@ -2,7 +2,7 @@ WITH
 
 processed_referrals_v0 as (
 
-    SELECT DISTINCT
+    SELECT
         CONCAT(c.user_id, '>INVITED>', b.user_id) referral_process_code
     FROM {{ ref("fct_accounting_analytic_lines") }} a
     LEFT JOIN {{ ref("dim_users") }} b ON SPLIT(a.reference, '-')[SAFE_OFFSET(0)] = b.user_referral_code
@@ -15,12 +15,20 @@ processed_referrals_v0 as (
     
 ),
 processed_referrals_v1 as (
-    SELECT * 
-    FROM {{ ref("fct_user_referrals") }}
+
+    SELECT
+        voucher_reference as referral_process_code
+    FROM {{ ref("dim_vouchers") }}
+    WHERE voucher_type_id = 5
+
 ),
 
 processed_referrals AS (
-    SELECT * FROM processed_referrals_v0
+    SELECT DISTINCT referral_process_code FROM (
+        SELECT * FROM processed_referrals_v0
+        UNION ALL
+        SELECT * FROM processed_referrals_v1
+    )
 )
 
 SELECT 
