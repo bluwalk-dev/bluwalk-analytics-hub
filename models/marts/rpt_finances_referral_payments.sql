@@ -15,12 +15,16 @@ processed_referrals_v0 as (
     
 ),
 processed_referrals_v1 as (
-    SELECT * 
-    FROM {{ ref("fct_user_referrals") }}
+    SELECT DISTINCT
+        voucher_reference as referral_process_code
+    FROM {{ ref("dim_vouchers") }}
+    WHERE voucher_type_id = 5
 ),
 
 processed_referrals AS (
     SELECT * FROM processed_referrals_v0
+    UNION ALL
+    SELECT * FROM processed_referrals_v1
 )
 
 SELECT 
