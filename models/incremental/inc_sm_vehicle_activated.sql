@@ -21,7 +21,7 @@ WITH
             a.vehicle_plate
         FROM  {{ ref("fct_deals") }} a
         WHERE
-            a.deal_pipeline_name IN ('Vehicle : Drivfit', 'Vehicle : Personal Car') AND
+            a.deal_pipeline_name IN ('Vehicle : Drivfit', 'Vehicle : Personal Vehicle') AND
             a.is_closed = FALSE AND
             a.vehicle_plate IS NOT NULL
     )
