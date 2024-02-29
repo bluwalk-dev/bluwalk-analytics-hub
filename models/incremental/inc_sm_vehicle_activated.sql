@@ -15,7 +15,7 @@ WITH
             a.user_id,
             CASE
                 WHEN a.deal_pipeline_name = 'Vehicle : Drivfit' THEN 'Drivfit'
-                WHEN a.deal_pipeline_name = 'Vehicle : Personal Car' THEN 'Personal Car'
+                WHEN a.deal_pipeline_name = 'Vehicle : Personal Vehicle' THEN 'Personal Car'
                 ELSE NULL
             END partner_name,
             a.vehicle_plate
