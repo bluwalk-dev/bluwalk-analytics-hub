@@ -97,7 +97,7 @@ LEFT JOIN {{ ref('dm_core_monthly_partner_users') }} f ON a.year_month = f.year_
 LEFT JOIN user_net_income g ON a.year_month = g.year_month AND g.retention_segment = 'RDS: Vehicle Rental'
 
 LEFT JOIN {{ ref('dm_core_monthly_partner_users') }} h ON a.year_month = h.year_month AND h.partner_key = '577c5ad4204a5f35d4b9c45ab285069d'
-LEFT JOIN user_net_income iy ON a.year_month = i.year_month AND i.retention_segment = 'RDS: Connected Vehicle'
+LEFT JOIN user_net_income i ON a.year_month = i.year_month AND i.retention_segment = 'RDS: Connected Vehicle'
 
 WHERE a.partner_marketplace = 'Work'
 ORDER BY a.year_month DESC
