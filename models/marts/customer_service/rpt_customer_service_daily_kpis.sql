@@ -11,6 +11,7 @@ SELECT
     d.missed_call_ratio,
     e.retention_success,
     e.retention_attempts,
+    f.nr_tickets_resolution_time,
     f.resolution_time
 FROM {{ ref('util_calendar') }} a
 LEFT JOIN {{ ref('agg_customer_service_daily_average_rating') }} b ON a.date = b.date

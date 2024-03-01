@@ -27,6 +27,7 @@ SELECT
     c.missed_call_ratio,
     c.retention_success,
     c.retention_attempts,
+    c.nr_tickets_resolution_time,
     c.resolution_time
 FROM {{ ref('rpt_marketing_daily_kpis') }} a
 LEFT JOIN {{ ref('rpt_activation_daily_kpis') }} b ON a.date = b.date
