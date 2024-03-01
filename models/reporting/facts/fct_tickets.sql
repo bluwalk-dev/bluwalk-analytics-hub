@@ -22,7 +22,8 @@ select
         a.property_createdate,
         hour
     ) resolution_time,
-    property_time_to_first_agent_reply_wh / 3600000 first_reply_time
+    property_time_to_first_agent_reply_wh / 3600000 first_reply_time,
+    property_solved_timestamp / 3600000 resolution_time
     
 from {{ ref("stg_hubspot__tickets") }} a
 left join {{ ref("stg_hubspot__ticket_pipeline_stages") }} c on a.property_hs_pipeline_stage = cast(c.stage_id as int)
