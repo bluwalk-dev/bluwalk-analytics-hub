@@ -31,7 +31,8 @@ SELECT
     risk_deposit_amount,
     risk_net_balance,
     risk_next_installment,
-    risk_target_balance
+    risk_target_balance,
+    risk_accounting_balance
     
 FROM {{ ref("stg_hubspot__contacts") }}
 WHERE 

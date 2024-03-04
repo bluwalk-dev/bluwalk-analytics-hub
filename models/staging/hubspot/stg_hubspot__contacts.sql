@@ -38,7 +38,8 @@ transformation as (
         CAST(property_risk_deposit_amount AS NUMERIC) risk_deposit_amount,
         CAST(property_risk_net_balance AS NUMERIC) risk_net_balance,
         CAST(property_risk_next_installment AS NUMERIC) risk_next_installment,
-        CAST(property_risk_target_balance AS NUMERIC) risk_target_balance
+        CAST(property_risk_target_balance AS NUMERIC) risk_target_balance,
+        CAST(property_risk_accounting_balance AS NUMERIC) risk_accounting_balance
         
 
     FROM source
