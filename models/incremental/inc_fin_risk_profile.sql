@@ -25,16 +25,6 @@ FROM (
         b.user_email,
         a.deposit,
         a.outstanding_balance as balance,
-        CASE
-            WHEN a.outstanding_balance < -200 AND c.vehicle_plate IS NOT NULL THEN a.outstanding_balance + 200
-            WHEN a.outstanding_balance < 0 AND c.vehicle_plate IS NOT NULL THEN 0
-            ELSE NULL
-        END as target_balance,
-        CASE
-            WHEN a.outstanding_balance < -200 AND c.vehicle_plate IS NOT NULL THEN 200
-            WHEN a.outstanding_balance < 0 AND c.vehicle_plate IS NOT NULL THEN  -1 * a.outstanding_balance
-            ELSE NULL
-        END as next_installment,
         a.net_balance,
         a.accounting_balance
     FROM {{ ref('rpt_finances_collections_debt_report') }} a
@@ -51,7 +41,5 @@ WHERE
         ROUND(IFNULL(y.risk_balance, 0), 2) != ROUND(IFNULL(x.balance, 0), 2) OR
         ROUND(IFNULL(y.risk_deposit_amount, 0), 2) != ROUND(IFNULL(x.deposit, 0), 2) OR
         ROUND(IFNULL(y.risk_net_balance, 0), 2) != ROUND(IFNULL(x.net_balance, 0), 2) OR
-        ROUND(IFNULL(y.risk_next_installment, 0), 2) != ROUND(IFNULL(x.next_installment, 0), 2) OR
-        ROUND(IFNULL(y.risk_target_balance, 0), 2) != ROUND(IFNULL(x.target_balance, 0), 2) OR
         ROUND(IFNULL(y.risk_accounting_balance, 0), 2) != ROUND(IFNULL(x.accounting_balance, 0), 2)
     )
