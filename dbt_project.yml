@@ -54,4 +54,8 @@ models:
 
 snapshots:
   bluwalk:
-    +schema: snapshots
+    +target_schema: snapshots
+
+seeds:
+  bluwalk:
+    +schema: seeds
