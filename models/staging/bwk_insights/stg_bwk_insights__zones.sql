@@ -16,7 +16,7 @@ transformation as (
         CONCAT('https://waze.com/ul?ll=', CAST(Latitude AS FLOAT64), ',' , CAST(Longitude AS FLOAT64), '&navigate=yes') zone_navigation_link,
         CAST(Latitude AS FLOAT64) latitude,
         CAST(Longitude AS FLOAT64) longitude,
-        CAST(Status as STRING) status
+        CAST(LOWER(Status) as STRING) status
 
     from source
 
