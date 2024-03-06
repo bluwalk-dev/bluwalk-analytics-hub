@@ -18,8 +18,10 @@ WITH trips AS (
 )
 
 SELECT DISTINCT
-  t.*,
-  z.location_name
+    TO_HEX(MD5(t.request_local_time || t.latitude || t.longitude)) as trip_key,
+    t.*,
+    z.location_id,
+    z.location_name
 FROM trips t
 CROSS JOIN {{ ref('dim_locations') }} z
 WHERE
