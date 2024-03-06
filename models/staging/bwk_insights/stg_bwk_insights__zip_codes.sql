@@ -14,8 +14,8 @@ transformation as (
         district,
         county,
         parish,
-        latitude,
-        longitude,
+        CAST(latitude AS NUMERIC) latitude,
+        CAST(longitude AS NUMERIC) longitude,
         zone_id
 
     from source
