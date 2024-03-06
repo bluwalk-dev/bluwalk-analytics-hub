@@ -16,12 +16,7 @@ transformation as (
             WHEN estimation_type IN ('ROOFTOP', 'GEOMETRIC_CENTER') THEN 'good'
             ELSE 'bad'
         END as geo_accuracy,
-        CAST(closest_zip_code AS STRING) AS zip_code,
         CAST(country AS STRING) AS country,
-        CASE
-            WHEN CAST(distance_to_zip_code AS NUMERIC) > 2000 THEN 'good'
-            ELSE 'bad'
-        END as zip_accuracy,
         CAST(load_timestamp AS STRING) AS load_timestamp
 
     from source
