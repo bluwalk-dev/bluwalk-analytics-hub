@@ -1,9 +1,17 @@
 SELECT 
-    *,
+    x.*,
     CASE
+        -- /////// REGEX BASED EXTRACTION \\\\\\\\
         WHEN 
             REGEXP_EXTRACT(address_pickup, r'(\d{4}-\d{3})') IS NOT NULL 
             THEN REGEXP_EXTRACT(address_pickup, r'(\d{4}-\d{3})')
+        
+        -- /////// ADDRESS MATCH BASED EXTRACTION \\\\\\\\
+        WHEN 
+            y.zip_code IS NOT NULL
+            THEN y.zip_code
+
+        -- /////// RULE BASED EXTRACTION \\\\\\\\
         -- Faro Airport Matching
         WHEN
             REGEXP_CONTAINS(address_pickup, r'(?i)Faro') AND
@@ -49,4 +57,5 @@ FROM (
     UNION ALL
     SELECT * FROM {{ ref('base_freenow_trips') }}
 ) x
+LEFT JOIN {{ ref('stg_bwk_insights__address_geocoding') }} y ON x.address_pickup = y.address
 ORDER BY request_local_time DESC

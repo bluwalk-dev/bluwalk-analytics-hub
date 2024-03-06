@@ -111,6 +111,7 @@ sources:
   - name: generic
     database: bluwalk-data-warehouse
     tables:
+      - name: address_geocoding
       - name: calendar
       - name: close_period_log
       - name: zip_codes
