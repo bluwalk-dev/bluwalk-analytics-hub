@@ -13,7 +13,13 @@ WITH trips AS (
       ELSE NULL
     END longitude
   FROM {{ ref('fct_user_rideshare_trips') }} a
-  LEFT JOIN {{ ref('stg_bwk_insights__address_geocoding') }} b ON a.address_pickup = b.address
+  LEFT JOIN (
+        SELECT * 
+        FROM {{ ref('stg_bwk_insights__address_geocoding') }} 
+        WHERE
+            geo_accuracy = 'good' AND
+            zip_accuracy = 'good'
+    ) b ON a.address_pickup = b.address
   LEFT JOIN {{ ref('stg_bwk_insights__zip_codes') }} c ON a.address_pickup_zip = c.zip_code
 )
 

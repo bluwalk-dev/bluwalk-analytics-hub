@@ -29,4 +29,3 @@ transformation as (
 )
 
 select * from transformation
-where geo_accuracy = 'good' and zip_accuracy = 'good'
