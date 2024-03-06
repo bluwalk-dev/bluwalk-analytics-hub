@@ -11,6 +11,7 @@ WITH trip_points AS (
 zone_points AS (
   SELECT
     zone_name,
+    zone_navigation_link,
     ST_GEOGPOINT(longitude, latitude) as zone_point
   FROM {{ ref('stg_bwk_insights__zones') }}
   WHERE status = 'active'
@@ -23,6 +24,7 @@ distances AS (
     t.location_id,
     t.location_name,
     z.zone_name,
+    z.zone_navigation_link,
     ST_DISTANCE(t.trip_point, z.zone_point) as distance
   FROM trip_points t
   CROSS JOIN zone_points z
@@ -35,6 +37,7 @@ filtered_distances AS (
     location_id,
     location_name,
     zone_name,
+    zone_navigation_link,
     distance,
     ROW_NUMBER() OVER(PARTITION BY trip_key ORDER BY distance ASC) as rn
   FROM distances
@@ -46,6 +49,7 @@ SELECT
     address_pickup,
     location_id,
     location_name,
-    zone_name
+    zone_name,
+    zone_navigation_link
 FROM filtered_distances
 WHERE rn = 1
