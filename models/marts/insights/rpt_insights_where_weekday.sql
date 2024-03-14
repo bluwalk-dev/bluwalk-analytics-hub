@@ -20,4 +20,4 @@ SELECT
   ROUND((nr_of_trips / max_nr_of_trips)*100, 0) as percentage
 FROM RankedTrips
 WHERE rn <= 10
-ORDER BY week_day_iso, nr_of_trips DESC
+ORDER BY location_id, week_day_iso, nr_of_trips DESC
