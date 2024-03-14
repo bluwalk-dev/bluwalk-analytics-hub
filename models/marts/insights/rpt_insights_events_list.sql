@@ -11,5 +11,7 @@ SELECT
     event_phq_attendance expected_attendance,
     event_navigation_link
 FROM {{ ref("base_predict_hq_events") }}
-WHERE event_phq_attendance > 1000
+WHERE 
+    event_phq_attendance > 1000 AND
+    event_end_date >= current_date()
 ORDER BY event_start_date ASC
