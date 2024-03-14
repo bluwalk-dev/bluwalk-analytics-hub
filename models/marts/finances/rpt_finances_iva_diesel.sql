@@ -14,7 +14,10 @@ fuel AS (
     LEFT JOIN (
         SELECT fuel_id as id, -1 * sum(amount) as amount 
         FROM {{ ref('stg_odoo__account_analytic_lines') }} 
-        WHERE group_id is null and fuel_id is not null and product_id = 33 
+        WHERE 
+            group_id is null AND 
+            fuel_id is not null AND 
+            product_id IN (33, 35) -- only diesel and gasoline
         GROUP BY fuel_id
     ) b on b.id = f.energy_id
     LEFT JOIN {{ ref('dim_users') }} c on f.user_id = c.user_id
