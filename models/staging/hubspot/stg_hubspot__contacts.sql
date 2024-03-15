@@ -19,7 +19,8 @@ transformation as (
         CAST(property_odoo_partner_id AS INT64) contact_id,
         CAST(property_odoo_user_id AS INT64) user_id,
         CAST(property_hs_calculated_phone_number AS STRING) contact_phone_nr,
-
+        
+        -- PAR properties
         CAST(property_par_has_been_on_the_program as boolean) par_has_been_on_the_program,
         CAST(property_par_currently_in_program AS BOOL) par_currently_in_program,
         CAST(property_par_days_in_program AS INT64) par_days_in_program,
@@ -30,6 +31,9 @@ transformation as (
         CAST(property_par_number_of_days_with_earnings_below_70 AS INT64) par_number_of_days_with_earnings_below_70,
         CAST(property_par_number_of_days_with_earnings_between_70_and_130 AS INT64) par_number_of_days_with_earnings_between_70_and_130,
         CAST(property_par_sms_friday_challenge AS STRING) par_sms_friday_challenge,
+
+        -- Marketplace Activity
+        CAST(property_idle_on_work_marketplace AS NUMERIC) idle_on_work_marketplace,
         CAST(property_mktplace_last_activity_ridesharing AS DATE) mktplace_last_activity_ridesharing,
         CAST(property_active_vehicle_contracts AS boolean) active_vehicle_contracts,
         
@@ -40,6 +44,8 @@ transformation as (
         CAST(property_risk_next_installment AS NUMERIC) risk_next_installment,
         CAST(property_risk_target_balance AS NUMERIC) risk_target_balance,
         CAST(property_risk_accounting_balance AS NUMERIC) risk_accounting_balance
+
+        
         
 
     FROM source
