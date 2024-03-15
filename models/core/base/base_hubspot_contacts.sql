@@ -25,7 +25,7 @@ SELECT
     par_number_of_days_with_earnings_between_70_and_130,
     par_sms_friday_challenge,
 
-    idle_on_work_marketplace,
+    idle_work_marketplace,
     mktplace_last_activity_ridesharing,
     active_vehicle_contracts,
 

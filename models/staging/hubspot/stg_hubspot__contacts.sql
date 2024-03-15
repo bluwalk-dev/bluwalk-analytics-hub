@@ -33,7 +33,7 @@ transformation as (
         CAST(property_par_sms_friday_challenge AS STRING) par_sms_friday_challenge,
 
         -- Marketplace Activity
-        CAST(property_idle_on_work_marketplace AS NUMERIC) idle_on_work_marketplace,
+        CAST(property_idle_work_marketplace AS NUMERIC) idle_work_marketplace,
         CAST(property_mktplace_last_activity_ridesharing AS DATE) mktplace_last_activity_ridesharing,
         CAST(property_active_vehicle_contracts AS boolean) active_vehicle_contracts,
         
