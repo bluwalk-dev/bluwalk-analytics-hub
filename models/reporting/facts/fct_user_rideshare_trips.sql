@@ -9,8 +9,8 @@ SELECT
         -- /////// RULE BASED EXTRACTION \\\\\\\\
         -- Faro Airport Matching
         WHEN
-            REGEXP_CONTAINS(address_pickup, r'(?i)Faro') AND
-            (REGEXP_CONTAINS(address_pickup, r'(?i)Aeroporto') OR REGEXP_CONTAINS(address_pickup, r'(?i)Airport'))
+            (REGEXP_CONTAINS(address_pickup, r'(?i)Faro') AND
+            (REGEXP_CONTAINS(address_pickup, r'(?i)Aeroporto') OR REGEXP_CONTAINS(address_pickup, r'(?i)Airport')))
             OR address_pickup = 'Kiss & Fly, Aéroport d Algarve Faro (FAO)'
             THEN '8006-901'
         -- Lisbon Airport Matching
