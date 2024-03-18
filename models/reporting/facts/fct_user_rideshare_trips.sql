@@ -23,7 +23,7 @@ SELECT
             THEN '1700-008'
         -- Porto Airport Matching
         WHEN 
-            (REGEXP_CONTAINS(address_pickup, r'(?i)Porto') OR REGEXP_CONTAINS(address_pickup, r'(?i)Oporto') AND
+            ((REGEXP_CONTAINS(address_pickup, r'(?i)Porto') OR REGEXP_CONTAINS(address_pickup, r'(?i)Oporto')) AND
             (REGEXP_CONTAINS(address_pickup, r'(?i)Aeroporto') OR REGEXP_CONTAINS(address_pickup, r'(?i)Airport')))
             OR address_pickup = 'Arrivals'
             OR address_pickup = 'Chegadas'
