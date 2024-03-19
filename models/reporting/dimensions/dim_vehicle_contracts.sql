@@ -18,6 +18,7 @@
 
 SELECT 
     rc.id as vehicle_contract_id,  -- Unique identifier for the rental contract
+    rc.name as vehicle_contract_name,
     fv.vehicle_id,  -- Identifier for the associated vehicle
     fv.vehicle_plate,  -- License plate number of the vehicle
     fv.vehicle_brand_model,  -- Concatenated brand and model of the vehicle
