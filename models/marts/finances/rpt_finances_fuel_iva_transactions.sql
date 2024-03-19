@@ -4,7 +4,7 @@ SELECT
     fd.amount AS ba_debit, 
     rp.user_vat,
     rp.user_name AS driver_name,
-    f.statement AS week, 
+    c.year_week AS week, 
     rc.vehicle_plate as license_plate,
     rc.vehicle_contract_name AS contract_nr,
     CASE 
@@ -18,9 +18,9 @@ LEFT JOIN (
     FROM {{ ref('fct_financial_user_transactions') }} 
     WHERE 
         order_type = 'Fuel' AND 
-        product_id IN (33, 35) -- only diesel and gasoline
+        product_id IN (33, 35, 37) -- only diesel and gasoline
     GROUP BY order_id) fd ON fd.id = f.energy_id
-    
+LEFT JOIN {{ ref('util_calendar') }} c ON CAST(f.start_date AS DATE) = c.date
 LEFT JOIN {{ ref('dim_users') }} rp ON f.contact_id = rp.contact_id
 LEFT JOIN {{ ref('dim_vehicle_contracts') }} rc ON f.contact_id = rc.contact_id 
 WHERE 

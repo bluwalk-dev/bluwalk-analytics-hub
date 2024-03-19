@@ -2,25 +2,26 @@ WITH
 
 fuel AS (
   SELECT
-      f.statement,
-      c.user_name as driver_name,
-      c.user_vat as driver_vat,
-      c.user_city as city,
-      f.partner_name as supplier_name,
-      f.card_name,
-      f.quantity,
-      b.amount as ba_debit
-    FROM {{ ref('base_service_orders_fuel') }} f
-    LEFT JOIN (
-        SELECT fuel_id as id, -1 * sum(amount) as amount 
-        FROM {{ ref('stg_odoo__account_analytic_lines') }} 
-        WHERE 
-            group_id is null AND 
-            fuel_id is not null AND 
-            product_id IN (33, 35) -- only diesel and gasoline
-        GROUP BY fuel_id
-    ) b on b.id = f.energy_id
-    LEFT JOIN {{ ref('dim_users') }} c on f.user_id = c.user_id
+    d.year_week,
+    c.user_name as driver_name,
+    c.user_vat as driver_vat,
+    c.user_city as city,
+    f.partner_name as supplier_name,
+    f.card_name,
+    f.quantity,
+    b.amount as ba_debit
+FROM {{ ref('base_service_orders_fuel') }} f
+LEFT JOIN (
+    SELECT fuel_id as id, -1 * sum(amount) as amount 
+    FROM {{ ref('stg_odoo__account_analytic_lines') }} 
+    WHERE 
+        group_id is null AND 
+        fuel_id is not null AND 
+        product_id IN (33, 35, 37) -- only diesel and gasoline
+    GROUP BY fuel_id
+) b on b.id = f.energy_id
+LEFT JOIN {{ ref('dim_users') }} c on f.user_id = c.user_id
+LEFT JOIN {{ ref('util_calendar') }} d on CAST(f.start_date AS DATE) = d.date
 ), 
 
 trips AS (
@@ -54,10 +55,12 @@ invoices AS (
 
 SELECT
   base.*, 
+  -- Invoice Data
   i.invoiced_value 
 FROM (
   SELECT
-    ff.statement,
+    -- Fuel Data
+    ff.year_week statement,
     ff.driver_name,
     ff.driver_vat,
     if (city = 'Madeira', 'Madeira', 'Continente') as city,
@@ -65,11 +68,12 @@ FROM (
     card_name,
     sum(quantity) as quantity,
     sum(ff.ba_debit) as value,
+    -- TVDE Sales
     tf.tvde_sales,
     tf.total_sales
   FROM fuel ff
-  LEFT JOIN trips tf on tf.vat = ff.driver_vat AND ff.statement = tf.statement
-  GROUP BY driver_name, driver_vat, supplier_name, card_name, tf.tvde_sales, tf.total_sales, city, ff.statement
+  LEFT JOIN trips tf on tf.vat = ff.driver_vat AND ff.year_week = tf.statement
+  GROUP BY driver_name, driver_vat, supplier_name, card_name, tf.tvde_sales, tf.total_sales, city, ff.year_week
   ) base
 LEFT JOIN invoices i ON base.card_name = i.card_name AND base.statement = i.year_week
 ORDER BY statement DESC
