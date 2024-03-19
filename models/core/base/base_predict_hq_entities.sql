@@ -3,7 +3,7 @@ WITH last_version_entities AS (
         (SELECT 
             *, 
             ROW_NUMBER() OVER (
-                PARTITION BY event_id, venue_id
+                PARTITION BY event_id
                 ORDER BY load_timestamp DESC
             ) AS __row_number
         FROM {{ ref("stg_predict_hq__entities") }} 
