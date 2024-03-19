@@ -2,18 +2,14 @@ WITH
 
 fuel AS (
   SELECT
-      f.statement,
+      d.year_week,
       c.user_name as driver_name,
       c.user_vat as driver_vat,
       c.user_city as city,
       f.partner_name as supplier_name,
       f.card_name,
       f.quantity,
-      CASE
-        WHEN b.product_id = 33 THEN 'diesel'
-        WHEN b.product_id = 35 THEN 'gasoline'
-        ELSE NULL
-      END energy_source,
+      f.energy_source,
       b.amount as ba_debit
     FROM {{ ref('base_service_orders_fuel') }} f
     LEFT JOIN (
@@ -21,10 +17,11 @@ fuel AS (
         FROM {{ ref('fct_financial_user_transactions') }} 
         WHERE 
             order_type = 'Fuel' AND 
-            product_id IN (33, 35) -- only diesel and gasoline
+            product_id IN (33, 35, 37) -- only diesel and gasoline
         GROUP BY product_id, order_id
     ) b on b.id = f.energy_id
     LEFT JOIN {{ ref('dim_users') }} c on f.user_id = c.user_id
+    LEFT JOIN {{ ref('util_calendar') }} d on CAST(f.start_date AS DATE) = d.date
 ), 
 
 invoices AS (
@@ -43,7 +40,7 @@ SELECT
   i.invoiced_value
 FROM (
   SELECT
-    ff.statement,
+    ff.year_week statement,
     ff.driver_name,
     ff.driver_vat,
     if (city = 'Madeira', 'Madeira', 'Continente') as city,
@@ -53,7 +50,7 @@ FROM (
     sum(quantity) as quantity,
     sum(ff.ba_debit) as value
   FROM fuel ff
-  GROUP BY driver_name, driver_vat, supplier_name, card_name, city, ff.statement, ff.energy_source
+  GROUP BY driver_name, driver_vat, supplier_name, card_name, city, ff.year_week, ff.energy_source
   ) base
 LEFT JOIN invoices i ON base.card_name = i.card_name AND base.statement = i.year_week AND i.energy_source = base.energy_source
 ORDER BY statement DESC
