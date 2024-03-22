@@ -7,7 +7,7 @@ cs_dates_locations AS (
     b.date
   FROM {{ ref("base_predict_hq_events") }} a
   CROSS JOIN {{ ref("util_calendar") }} b
-  WHERE date > current_date()
+  WHERE date >= current_date()
 )
 
 SELECT

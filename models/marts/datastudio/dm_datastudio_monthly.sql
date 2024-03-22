@@ -30,3 +30,4 @@ FROM {{ ref('dm_core_monthly_marketplace_users') }} a
 LEFT JOIN {{ ref('rpt_finances_monthly_performance') }} b ON a.year_month = b.year_month
 LEFT JOIN {{ ref('rpt_core_monthly_report') }} c ON a.year_month = c.year_month
 WHERE partner_marketplace = 'Work'
+ORDER BY year_month DESC
