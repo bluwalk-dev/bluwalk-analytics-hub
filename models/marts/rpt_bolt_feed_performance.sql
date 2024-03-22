@@ -3,7 +3,7 @@ SELECT
   intervals.start_date,
   COUNT(DISTINCT perf.contact_id) as nr_drivers,
   SUM(perf.net_earnings) as net_earnings,
-  COUNT(*) as trips,
+  SUM(perf.nr_trips) as trips,
   SUM(perf.online_minutes) / 60 as online_hours
 FROM {{ ref('fct_user_rideshare_performance') }} perf
 JOIN {{ ref('util_calendar') }} cal ON perf.date = cal.date

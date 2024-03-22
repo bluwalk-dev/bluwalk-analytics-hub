@@ -9,7 +9,7 @@ WITH current_version AS (
         group by partner_account_uuid, date
     ), netEarnings AS (
         SELECT 
-            partner_account_uuid, 
+            partner_account_uuid,
             CAST(local_datetime as date) as date, 
             SUM(amount) as net_earnings
         from {{ ref('base_uber_earnings') }}
@@ -39,27 +39,28 @@ WITH current_version AS (
     LEFT JOIN {{ ref('dim_partners_accounts') }} upa on da.partner_account_uuid = upa.partner_account_uuid
     LEFT JOIN {{ ref('dim_users') }} u on upa.contact_id = u.contact_id
 
-), 
-    deprecated_version AS (
-        SELECT
-            a.date,
-            a.contact_id,
-            u.user_id,
-            '' partner_account_uuid,
-            'Uber' as partner_name,
-            u.user_location,
-            a.online_minutes,
-            NULL trip_minutes,
-            NULL working_minutes,
-            a.nr_trips,
-            a.acceptance_rate,
-            a.cancellation_rate,
-            a.lifetime_rating rating,
-            a.trip_distance,
-            NULL netEarnings
-        FROM {{ ref('stg_uber__performance') }} a
-        LEFT JOIN {{ ref('dim_users') }} u on a.contact_id = u.contact_id
-    )
+),
+
+deprecated_version AS (
+    SELECT
+        a.date,
+        a.contact_id,
+        u.user_id,
+        '' partner_account_uuid,
+        'Uber' as partner_name,
+        u.user_location,
+        a.online_minutes,
+        NULL trip_minutes,
+        NULL working_minutes,
+        a.nr_trips,
+        a.acceptance_rate,
+        a.cancellation_rate,
+        a.lifetime_rating rating,
+        a.trip_distance,
+        NULL netEarnings
+    FROM {{ ref('stg_uber__performance') }} a
+    LEFT JOIN {{ ref('dim_users') }} u on a.contact_id = u.contact_id
+)
 
 SELECT * FROM current_version
 UNION ALL
