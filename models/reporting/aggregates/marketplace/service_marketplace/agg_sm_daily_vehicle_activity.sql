@@ -4,6 +4,7 @@ SELECT
     a.year_month,
     b.user_id,
     b.contact_id,
+    b.vehicle_contract_type,
     b.vehicle_fuel_type,
     c.partner_key,
     c.partner_marketplace,
@@ -16,6 +17,5 @@ LEFT JOIN {{ ref('dim_partners') }} c ON b.service_partner_id = c.service_partne
 WHERE 
     a.date < CURRENT_DATE AND
     a.year >= 2020 AND
-    b.user_id IS NOT NULL AND
-    b.vehicle_contract_type = 'car_rental'
+    b.user_id IS NOT NULL
 ORDER BY a.date DESC, user_id DESC
