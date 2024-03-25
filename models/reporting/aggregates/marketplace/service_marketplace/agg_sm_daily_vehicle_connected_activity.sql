@@ -4,6 +4,7 @@ SELECT DISTINCT
     c.year_month,
     b.user_id,
     b.contact_id,
+    b.vehicle_fuel_type,
     d.partner_key,
     d.partner_marketplace,
     d.partner_category,
