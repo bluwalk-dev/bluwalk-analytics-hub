@@ -24,7 +24,8 @@ transformation as (
         CAST(pickupAddress AS STRING) AS address_pickup,
         CAST(dropOffAddress AS STRING) AS address_dropoff,
         CAST(tripDistance AS NUMERIC) AS trip_distance,
-        CAST(tripStatus AS STRING) AS trip_status
+        CAST(tripStatus AS STRING) AS trip_status,
+        CAST(orgId AS STRING) as partner_login_id
     FROM source
 
 )
