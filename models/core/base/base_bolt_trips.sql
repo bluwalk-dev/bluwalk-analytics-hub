@@ -2,6 +2,7 @@ SELECT
     upa.partner_key,
     upa.sales_partner_id,
     upa.partner_name,
+    ta.bolt_company_id partner_login_id,
     upa.contact_id,
     u.user_id,
     ta.partner_account_uuid,

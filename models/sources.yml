@@ -50,6 +50,7 @@ sources:
       - name: driver_engagement
       - name: driver_performance
       - name: earnings_history
+      - name: expiring_documents
       - name: order_log
       - name: trips_history
       - name: vehicle_engagement
@@ -324,6 +325,8 @@ sources:
       - name: payment_ledger
       - name: payments_order
       - name: payment_transactions
+      - name: vehicles
+      - name: vehicle_compliance
 
   - name: zendesk
     database: bluwalk-data-warehouse
