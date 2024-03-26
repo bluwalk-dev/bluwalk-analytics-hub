@@ -14,7 +14,7 @@ transformation as (
         CAST(entity_type AS STRING) entity_type,
         CAST(entity_id AS INT64) entity_id,
         CAST(type_title AS STRING) type_title,
-        CAST(company_id AS INT64) company_id,
+        CAST(company_id AS STRING) company_id,
         TIMESTAMP_MILLIS(load_timestamp) load_timestamp
     FROM source
 
