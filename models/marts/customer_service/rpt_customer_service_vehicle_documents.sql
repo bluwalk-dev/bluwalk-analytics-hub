@@ -76,4 +76,5 @@ SELECT * FROM
         d.partner_key = 'a6bedefed0135d2ca14b8a1eb7512a50' AND
         e.partner_login_id = CAST(a.vehicle_owner_id AS STRING)
 )
+WHERE expiration_date < DATE_ADD(current_date, INTERVAL 60 DAY)
 ORDER BY expiration_date ASC
