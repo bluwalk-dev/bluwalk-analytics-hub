@@ -1,7 +1,7 @@
 WITH active_vehicles AS (
-  SELECT * 
-  FROM {{ ref("dim_vehicle_contracts") }}
-  WHERE end_date IS NULL
+    SELECT * 
+    FROM {{ ref("dim_vehicle_contracts") }}
+    WHERE end_date IS NULL AND vehicle_contract_state = 'open'
 ),
 
 bolt_last_request as (
