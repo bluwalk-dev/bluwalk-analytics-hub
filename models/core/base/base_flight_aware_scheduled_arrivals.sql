@@ -45,11 +45,14 @@ SELECT
         ELSE a.flight_seats
     END flight_seats,
     a.flight_estimated_in,
-    a.flight_scheduled_in
+    a.flight_scheduled_in,
+    DATETIME(a.flight_estimated_in, f.location_timezone) flight_estimated_in_localtime,
+    DATETIME(a.flight_scheduled_in, f.location_timezone) flight_scheduled_in_localtime,
 FROM arrivals a
 LEFT JOIN aircraft_airline_capacity b ON a.flight_operator_iata = b.flight_operator_iata AND a.flight_aircraft_type = b.flight_aircraft_type
 LEFT JOIN aircraft_capacity c ON a.flight_aircraft_type = c.flight_aircraft_type
 LEFT JOIN {{ ref("stg_flight_aware__airports") }} d ON a.destination_code_iata = d.airport_iata_code
 LEFT JOIN {{ ref("stg_flight_aware__airports") }} e ON a.origin_code_iata = e.airport_iata_code
+LEFT JOIN {{ ref("dim_locations") }} f ON d.airport_location_id = f.location_id
 WHERE flight_scheduled_in IS NOT NULL
 ORDER BY a.flight_scheduled_in ASC

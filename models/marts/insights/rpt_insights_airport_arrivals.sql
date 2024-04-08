@@ -12,9 +12,9 @@ dates AS (
       destination_code_iata, ')'
     ) AS airport_name,
     destination_navigation_link airport_url,
-    CAST(flight_scheduled_in AS DATE) AS date
+    CAST(flight_scheduled_in_localtime AS DATE) AS date
   FROM {{ ref("base_flight_aware_scheduled_arrivals") }}
-  WHERE flight_scheduled_in IS NOT NULL
+  WHERE flight_scheduled_in_localtime IS NOT NULL
   GROUP BY date, airport_name, destination_location_id, destination_navigation_link
 ),
 cross_join_dates_hours AS (
@@ -34,11 +34,11 @@ expected_passengers AS (
       destination_airport_name, ' (',
       destination_code_iata, ')'
     ) AS airport_name,
-    CAST(flight_scheduled_in AS DATE) AS date,
-    EXTRACT(HOUR FROM flight_scheduled_in) AS hour,
+    CAST(flight_scheduled_in_localtime AS DATE) AS date,
+    EXTRACT(HOUR FROM flight_scheduled_in_localtime) AS hour,
     SUM(IFNULL(flight_seats, 0)) AS expected_passengers
   FROM {{ ref("base_flight_aware_scheduled_arrivals") }}
-  WHERE flight_scheduled_in IS NOT NULL
+  WHERE flight_scheduled_in_localtime IS NOT NULL
   GROUP BY destination_location_id, airport_name, date, hour
 )
 SELECT 
