@@ -9,10 +9,10 @@ SELECT
     destination_navigation_link airport_url,
     flight_ident_iata,
     origin_city flight_origin_city,
-    CAST(flight_scheduled_in AS DATE) arrival_date,
+    CAST(flight_scheduled_in_localtime AS DATE) arrival_date,
     FORMAT('%02d:%02d', 
-        EXTRACT(HOUR FROM flight_scheduled_in),
-        EXTRACT(MINUTE FROM flight_scheduled_in)
+        EXTRACT(HOUR FROM flight_scheduled_in_localtime),
+        EXTRACT(MINUTE FROM flight_scheduled_in_localtime)
     ) AS arrival_time,
     flight_seats expected_passengers
 FROM {{ ref("base_flight_aware_scheduled_arrivals") }}
