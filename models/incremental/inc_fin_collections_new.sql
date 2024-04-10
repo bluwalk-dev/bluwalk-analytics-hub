@@ -1,6 +1,7 @@
 SELECT 
     a.user_id,
     b.user_email,
+    b.user_vat,
     a.risk_balance amount_total,
     CASE
         WHEN (a.risk_accounting_balance IS NULL OR a.risk_accounting_balance != risk_balance) THEN TRUE
