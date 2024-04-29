@@ -201,6 +201,9 @@ sources:
       - name: hr_employee
       - name: hr_department
       - name: ir_translation
+      - name: insurance_policy
+      - name: insurance_policy_payment
+      - name: insurance_policy_type
       - name: product_product
       - name: product_template
       - name: product_category
