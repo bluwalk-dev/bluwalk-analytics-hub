@@ -11,7 +11,7 @@ WITH account_created_events AS (
 )
 
 SELECT
-  ROUND(UNIX_MICROS(original_timestamp)/ 1000000, 0) as conversion_event_time,
+  ROUND(UNIX_MICROS(original_timestamp)/ 1000, 0) as conversion_event_time,
   gclid,
   context_email AS email,
   user_phone AS phone_number,
