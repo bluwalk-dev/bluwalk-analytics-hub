@@ -18,4 +18,8 @@ SELECT
   1 conversion_value,
   'EUR' currency_code
 FROM account_created_events
-WHERE gclid IS NOT NULL
+WHERE 
+    gclid IS NOT NULL AND
+    original_timestamp > TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 89 DAY)
+ORDER BY
+    original_timestamp DESC
