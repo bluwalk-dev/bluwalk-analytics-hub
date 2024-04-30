@@ -11,7 +11,7 @@ WITH account_created_events AS (
 )
 
 SELECT
-  UNIX_MICROS(original_timestamp) as conversion_event_time,
+  UNIX_MICROS(original_timestamp)/ 1000000 as conversion_event_time,
   gclid,
   context_email AS email,
   user_phone AS phone_number,
