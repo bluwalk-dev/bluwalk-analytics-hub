@@ -5,6 +5,7 @@ WITH
             vehicle_plate,
             MIN(request_timestamp) first_trip_ts
         FROM {{ ref("fct_user_rideshare_trips") }}
+        WHERE request_timestamp > DATE_SUB(current_timestamp(), INTERVAL 15 DAY)
         GROUP BY
             vehicle_plate,
             user_id
