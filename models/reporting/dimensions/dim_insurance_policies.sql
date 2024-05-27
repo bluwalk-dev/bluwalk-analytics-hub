@@ -1,5 +1,6 @@
 SELECT 
     a.id as insurance_policy_id,  -- Unique identifier for the vehicle insurance record
+    a.name as insurance_policy_name,
     c.name insurance_type,  -- Type of insurance policy
     c.policy_class insurance_class,  -- Type of insurance policy
     a.auto_vehicle_id insurance_vehicle_id,  -- Identifier for the associated vehicle
