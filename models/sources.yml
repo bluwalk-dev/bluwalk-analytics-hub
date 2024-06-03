@@ -1,7 +1,6 @@
 version: 2
 
 sources:
-
   - name: aircall
     database: bluwalk-data-warehouse
     tables:
@@ -9,7 +8,7 @@ sources:
       - name: call_answered
       - name: call_ended
       - name: call_ringing_on_agent
-  
+
   - name: aircall_v2
     database: bluwalk-data-warehouse
     tables:
@@ -17,7 +16,7 @@ sources:
       - name: call_answered
       - name: call_ended
       - name: call_ringing_on_agent
-  
+
   - name: analytics_249934410
     database: bluwalk-data-warehouse
     tables:
@@ -55,7 +54,7 @@ sources:
       - name: trips_history
       - name: vehicle_engagement
       - name: vehicle_documents
-  
+
   - name: bp
     database: bluwalk-data-warehouse
     tables:
@@ -90,15 +89,17 @@ sources:
   - name: facebook_ads
     database: bluwalk-data-warehouse
     tables:
-      - name: insights
       - name: ads
-  
+      - name: ad_sets
+      - name: campaigns
+      - name: insights
+
   - name: flight_aware
     database: bluwalk-data-warehouse
     tables:
       - name: airports
       - name: scheduled_arrivals
-  
+
   - name: free_now
     database: bluwalk-data-warehouse
     tables:
@@ -108,7 +109,7 @@ sources:
     database: bluwalk-data-warehouse
     tables:
       - name: cloudaudit_googleapis_com_data_access_*
-  
+
   - name: generic
     database: bluwalk-data-warehouse
     tables:
@@ -121,8 +122,12 @@ sources:
   - name: google_ads
     database: bluwalk-data-warehouse
     tables:
+      - name: ad_groups
+      - name: ad_performance_reports
+      - name: ads
       - name: campaign_performance_reports
-  
+      - name: campaigns
+
   - name: google_workspace
     database: bluwalk-data-warehouse
     tables:
@@ -136,7 +141,6 @@ sources:
       - name: quarter_params
       - name: user_own_vehicles
       - name: uncollectible_recovery
-      
 
   - name: hubspot
     database: bluwalk-data-warehouse
@@ -160,10 +164,10 @@ sources:
       - name: ticket_pipeline
       - name: ticket_pipeline_stage
       - name: users
-  
+
   - name: drivfit_hubspot
     database: drivfit-data-warehouse
-    schema: hubspot 
+    schema: hubspot
     tables:
       - name: contact
       - name: deal
@@ -191,7 +195,7 @@ sources:
     database: bluwalk-data-warehouse
     tables:
       - name: issue_tracker_log
-  
+
   - name: odoo_realtime
     database: bluwalk-data-warehouse
     tables:
@@ -292,7 +296,6 @@ sources:
       - name: trips
       - name: vehicle_category
       - name: vehicle_rental
-      
 
   - name: prio
     database: bluwalk-data-warehouse
@@ -300,14 +303,14 @@ sources:
       - name: ev_transactions
       - name: invoice_transactions
       - name: ff_invoice_transactions
-  
+
   - name: predict_hq
     database: bluwalk-data-warehouse
     tables:
       - name: entities
       - name: events
       - name: impact_patterns
-  
+
   - name: repsol
     database: bluwalk-data-warehouse
     tables:
@@ -315,7 +318,7 @@ sources:
 
   - name: snapshots
     schema: snapshots
-    tables: 
+    tables:
       - name: snap_odoo_statement_close
 
   - name: talkdesk
