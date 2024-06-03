@@ -9,6 +9,7 @@ SELECT
     a.location,
     a.start_date,
     a.end_date,
+    d.year_month,
     a.sales_gross,
     a.sales_net,
     a.sales_taxes,
@@ -28,5 +29,8 @@ SELECT
 FROM {{ ref('stg_odoo__trips') }} a
 LEFT JOIN {{ ref('dim_partners') }} b ON a.res_sales_partner_id = b.sales_partner_id
 LEFT JOIN {{ ref('dim_users') }} c ON a.contact_id = c.contact_id
-WHERE b.partner_marketplace = 'Work'
+LEFT JOIN {{ ref('util_calendar') }} d ON a.end_date = d.date
+WHERE 
+    b.partner_marketplace = 'Work' AND
+    d.year_month IS NOT NULL
 
