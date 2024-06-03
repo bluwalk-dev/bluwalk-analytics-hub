@@ -1,7 +1,7 @@
 -- Top-level SELECT statement to calculate the number of active users per year_month
 SELECT 
     year_month, -- The month and year for which the data is aggregated
-    count(*) as nr_active_users -- Count of distinct user and contact ID combinations per year_month
+    count(*) as nr_active_customers -- Count of distinct user and contact ID combinations per year_month
 FROM (
     -- Subquery to select distinct user activity by year_month
     SELECT DISTINCT

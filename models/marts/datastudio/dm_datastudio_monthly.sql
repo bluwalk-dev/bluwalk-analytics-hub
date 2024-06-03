@@ -6,6 +6,7 @@ SELECT
     a.start_date,
     a.end_date,
     -- Table values General
+    d.nr_active_customers,
     a.nr_active_users,
     a.nr_activations,
     a.new_activations,
@@ -29,5 +30,6 @@ SELECT
 FROM {{ ref('dm_core_monthly_marketplace_users') }} a
 LEFT JOIN {{ ref('rpt_finances_monthly_performance') }} b ON a.year_month = b.year_month
 LEFT JOIN {{ ref('rpt_core_monthly_report') }} c ON a.year_month = c.year_month
+LEFT JOIN {{ ref('agg_cm_monthly_users_active') }} d ON a.year_month = d.year_month
 WHERE partner_marketplace = 'Work'
 ORDER BY year_month DESC
