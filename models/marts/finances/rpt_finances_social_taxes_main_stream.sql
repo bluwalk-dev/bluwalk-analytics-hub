@@ -33,6 +33,7 @@ transactions_in_date_range AS (
 -- CTE to rank categories based on the total amount for each contact and year_month
 ranked_categories AS (
   SELECT
+    contact_vat,
     contact_id,  -- Contact ID
     category,  -- Category
     total_amount,  -- Total amount for the category
@@ -48,4 +49,4 @@ SELECT DISTINCT
     r.year_month  -- Year and month of the invoice
 FROM ranked_categories r
 WHERE r.category_rank = 1  -- Select the top category (rank 1)
-ORDER BY r.contact_vat DESC;  -- Order by VAT number in descending order
+ORDER BY r.contact_vat DESC  -- Order by VAT number in descending order
