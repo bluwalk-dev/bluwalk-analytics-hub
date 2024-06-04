@@ -16,7 +16,7 @@ google_ads_spend AS (
     from {{ ref('rpt_advertising_ad_group_report') }}
     where 
         media_platform = 'Google Ads' AND
-        ad_group_id IN ('149562803962')
+        pipeline_id = '155110085'
     group by date
 ),
 
@@ -27,7 +27,7 @@ facebook_ads_spend AS (
     from {{ ref('rpt_advertising_ad_group_report') }}
     where 
         media_platform = 'Facebook Ads' AND
-        ad_group_id IN ('6533456408587', '6334686033987')
+        pipeline_id = '155110085'
     group by date
 ),
 
