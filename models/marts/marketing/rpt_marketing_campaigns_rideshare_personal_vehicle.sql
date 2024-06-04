@@ -34,6 +34,8 @@ deals AS (
     SELECT
         create_date,
         COUNT(*) AS deal_created,
+        SUM(CASE WHEN original_source = 'PAID_SOCIAL' THEN 1 ELSE 0 END) AS facebook_deal_created,
+        SUM(CASE WHEN original_source = 'PAID_SEARCH' THEN 1 ELSE 0 END) AS google_deal_created,
         SUM(CASE WHEN is_closed_won THEN 1 ELSE 0 END) AS deal_won
     FROM {{ ref('fct_deals') }}
     WHERE deal_pipeline_id = '155110085'
@@ -50,6 +52,8 @@ SELECT
     COALESCE(ads.facebook_spend, 0) AS facebook_spend,
     COALESCE(ads.google_spend, 0) AS google_spend,
     COALESCE(d.deal_created, 0) AS deal_created,
+    COALESCE(d.facebook_deal_created, 0) AS deal_created_facebook,
+    COALESCE(d.google_deal_created, 0) AS deal_created_google,
     COALESCE(d.deal_won, 0) AS deal_won
 FROM page_views pv
 LEFT JOIN form_submit fs ON pv.event_date = fs.event_date
