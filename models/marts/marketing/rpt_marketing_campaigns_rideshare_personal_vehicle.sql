@@ -1,79 +1,58 @@
 {{ config(materialized='table') }}
 
 WITH form_submit AS (
-    select
-        PARSE_DATE('%Y%m%d', event_date) event_date,
-        count(*) nr_form_submit
-    from {{ ref('fct_marketing_form_submits') }}
-    where page_location like '%viatura-propria%'
-    group by event_date
+    SELECT
+        PARSE_DATE('%Y%m%d', event_date) AS event_date,
+        COUNT(*) AS nr_form_submit,
+        SUM(CASE WHEN source LIKE '%facebook%' OR source IN ('fb', 'ig') THEN 1 ELSE 0 END) AS facebook_form_submit,
+        SUM(CASE WHEN source = 'google' THEN 1 ELSE 0 END) AS google_form_submit
+    FROM {{ ref('fct_marketing_form_submits') }}
+    WHERE page_location LIKE '%viatura-propria%'
+    GROUP BY event_date
 ), 
 
-google_ads_spend AS (
-    select
+ads_spend AS (
+    SELECT
         date,
-        sum(cost) google_spend
-    from {{ ref('rpt_advertising_ad_group_report') }}
-    where 
-        media_platform = 'Google Ads' AND
-        pipeline_id = '155110085'
-    group by date
-),
-
-facebook_ads_spend AS (
-    select
-        date,
-        sum(cost) facebook_spend
-    from {{ ref('rpt_advertising_ad_group_report') }}
-    where 
-        media_platform = 'Facebook Ads' AND
-        pipeline_id = '155110085'
-    group by date
+        SUM(CASE WHEN media_platform = 'Google Ads' THEN cost ELSE 0 END) AS google_spend,
+        SUM(CASE WHEN media_platform = 'Facebook Ads' THEN cost ELSE 0 END) AS facebook_spend
+    FROM {{ ref('rpt_advertising_ad_group_report') }}
+    WHERE pipeline_id = '155110085'
+    GROUP BY date
 ),
 
 page_views AS (
-    select
-        PARSE_DATE('%Y%m%d', event_date) event_date,
-        count(*) nr_page_views
-    from {{ ref('fct_marketing_page_views') }}
-    where page_location like '%viatura-propria%'
-    group by event_date
+    SELECT
+        PARSE_DATE('%Y%m%d', event_date) AS event_date,
+        COUNT(*) AS nr_page_views
+    FROM {{ ref('fct_marketing_page_views') }}
+    WHERE page_location LIKE '%viatura-propria%'
+    GROUP BY event_date
 ),
 
-deal_created AS (
-    select
+deals AS (
+    SELECT
         create_date,
-        count(*) deal_created
-    from {{ ref('fct_deals') }}
-    where deal_pipeline_id = '155110085'
-    group by create_date
-),
-
-deal_won AS (
-    select
-        close_date,
-        count(*) deal_won
-    from {{ ref('fct_deals') }}
-    where 
-        deal_pipeline_id = '155110085' AND
-        close_date IS NOT NULL AND
-        is_closed_won = true
-    group by close_date
+        COUNT(*) AS deal_created,
+        SUM(CASE WHEN is_closed_won THEN 1 ELSE 0 END) AS deal_won
+    FROM {{ ref('fct_deals') }}
+    WHERE deal_pipeline_id = '155110085'
+    GROUP BY create_date
 )
 
 SELECT
-    a.event_date,
-    a.nr_page_views,
-    b.nr_form_submit,
-    (c.facebook_spend + d.google_spend) total_spend,
-    IFNULL(c.facebook_spend, 0) facebook_spend,
-    IFNULL(d.google_spend, 0) google_spend,
-    IFNULL(e.deal_created, 0) deal_created,
-    IFNULL(f.deal_won, 0) deal_won
-FROM page_views a
-LEFT JOIN form_submit b ON a.event_date = b.event_date
-LEFT JOIN facebook_ads_spend c ON a.event_date = c.date
-LEFT JOIN google_ads_spend d ON a.event_date = d.date
-LEFT JOIN deal_created e ON a.event_date = e.create_date
-LEFT JOIN deal_won f ON a.event_date = f.close_date
-ORDER BY event_date DESC
+    pv.event_date,
+    pv.nr_page_views,
+    COALESCE(fs.facebook_form_submit, 0) AS facebook_form_submit,
+    COALESCE(fs.google_form_submit, 0) AS google_form_submit,
+    COALESCE(fs.nr_form_submit, 0) AS nr_form_submit,
+    COALESCE(ads.google_spend, 0) + COALESCE(ads.facebook_spend, 0) AS total_spend,
+    COALESCE(ads.facebook_spend, 0) AS facebook_spend,
+    COALESCE(ads.google_spend, 0) AS google_spend,
+    COALESCE(d.deal_created, 0) AS deal_created,
+    COALESCE(d.deal_won, 0) AS deal_won
+FROM page_views pv
+LEFT JOIN form_submit fs ON pv.event_date = fs.event_date
+LEFT JOIN ads_spend ads ON pv.event_date = ads.date
+LEFT JOIN deals d ON pv.event_date = d.create_date
+ORDER BY pv.event_date DESC
