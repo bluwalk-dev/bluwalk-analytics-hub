@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 WITH form_submit AS (
     select
         PARSE_DATE('%Y%m%d', event_date) event_date,
