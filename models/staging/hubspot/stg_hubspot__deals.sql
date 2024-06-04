@@ -22,6 +22,12 @@ transformation as (
         CAST (property_odoo_user_id AS INT64) AS user_id,
         CAST (owner_id AS INT64) AS owner_id,
 
+        /* Marketing Parameters */
+        CAST(property_google_analytics_client_id AS STRING) AS google_analytics_client_id,
+        CAST(property_facebook_click_id AS STRING) AS facebook_click_id,
+        CAST(property_google_ad_click_id AS STRING) AS google_ad_click_id,
+        CAST(property_hs_analytics_latest_source AS STRING) AS latest_source,
+
         /* Fuel and Energy */
         CAST (property_fuel_energy_card_number AS STRING) AS energy_card_name,
         CAST (property_fen_partner_name AS STRING) AS energy_partner_name,
@@ -31,6 +37,9 @@ transformation as (
 
         /* Insurance */
         CAST(property_ivi_policy_odoo_name AS STRING) AS insurance_policy_name,
+
+        /* Personal Vehicle */
+        property_lost_reason_personal_car AS personal_vehicle_lost_reason,
 
         CAST (IFNULL(property_vdf_licenseplate, property_vpc_licenseplate) AS STRING) AS vehicle_plate,
         CAST (property_closedate AS TIMESTAMP) AS close_date,
