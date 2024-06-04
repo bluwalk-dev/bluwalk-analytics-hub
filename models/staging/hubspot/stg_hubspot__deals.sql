@@ -27,6 +27,7 @@ transformation as (
         CAST(property_facebook_click_id AS STRING) AS facebook_click_id,
         CAST(property_google_ad_click_id AS STRING) AS google_ad_click_id,
         CAST(property_hs_analytics_latest_source AS STRING) AS latest_source,
+        CAST(property_hs_analytics_source AS STRING) AS original_source,
 
         /* Fuel and Energy */
         CAST (property_fuel_energy_card_number AS STRING) AS energy_card_name,
