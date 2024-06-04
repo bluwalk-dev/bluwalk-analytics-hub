@@ -31,6 +31,7 @@ SELECT DISTINCT
     a.facebook_click_id,
     a.google_ad_click_id,
     a.latest_source,
+    a.original_source,
 
     -- Personal Vehicle Fields
     a.personal_vehicle_lost_reason,
