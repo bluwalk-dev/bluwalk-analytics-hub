@@ -3,7 +3,7 @@ WITH google_ads AS (
         'Google Ads' media_platform,
         date,
         year_week,
-        year_month
+        year_month,
         campaign_id,
         campaign_name,
         ad_group_id,
@@ -20,7 +20,7 @@ facebook_ads AS (
         'Facebook Ads' media_platform,
         date,
         year_week,
-        year_month
+        year_month,
         campaign_id,
         campaign_name,
         adset_id ad_group_id,
@@ -32,7 +32,26 @@ facebook_ads AS (
     GROUP BY date, year_week, year_month, campaign_id, campaign_name, ad_group_id, ad_group_name
 )
 
-SELECT * FROM google_ads
-UNION ALL
-SELECT * FROM facebook_ads
+SELECT 
+    a.date,
+    a.year_week,
+    a.year_month,
+    a.media_platform,
+    b.stream,
+    b.pipeline_id,
+    c.label pipeline_name,
+    a.campaign_id,
+    a.campaign_name,
+    a.ad_group_id,
+    a.ad_group_name,
+    a.impressions,
+    a.clicks,
+    a.cost
+FROM (
+    SELECT * FROM google_ads
+    UNION ALL
+    SELECT * FROM facebook_ads
+) a
+LEFT JOIN {{ ref("stg_google_sheets__ad_group_classification") }} b ON a.ad_group_id = b.ad_group_id
+LEFT JOIN {{ ref("stg_hubspot__deal_pipelines") }} c ON b.pipeline_id = c.pipeline_id
 ORDER BY date DESC
