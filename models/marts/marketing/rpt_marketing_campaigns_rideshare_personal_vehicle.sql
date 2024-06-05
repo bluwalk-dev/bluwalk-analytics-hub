@@ -38,7 +38,9 @@ deals AS (
         SUM(CASE WHEN original_source = 'PAID_SEARCH' THEN 1 ELSE 0 END) AS google_deal_created,
         SUM(CASE WHEN is_closed_won THEN 1 ELSE 0 END) AS deal_won
     FROM {{ ref('fct_deals') }}
-    WHERE deal_pipeline_id = '155110085'
+    WHERE 
+        deal_pipeline_id = '155110085' AND
+        source_url LIKE '%viatura-propria%' 
     GROUP BY create_date
 )
 
