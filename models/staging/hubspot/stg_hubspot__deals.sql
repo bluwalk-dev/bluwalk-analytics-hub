@@ -23,6 +23,7 @@ transformation as (
         CAST (owner_id AS INT64) AS owner_id,
 
         /* Marketing Parameters */
+        CAST(property_deal_source_url AS STRING) AS source_url,
         CAST(property_google_analytics_client_id AS STRING) AS google_analytics_client_id,
         CAST(property_facebook_click_id AS STRING) AS facebook_click_id,
         CAST(property_google_ad_click_id AS STRING) AS google_ad_click_id,
