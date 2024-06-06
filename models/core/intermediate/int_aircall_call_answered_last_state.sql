@@ -15,6 +15,6 @@ WITH call_answered_log AS (
 )
 
 SELECT * EXCEPT (__row_number) FROM (
-    SELECT *, ROW_NUMBER() OVER (PARTITION BY call_uuid ORDER BY loaded_at DESC) AS __row_number 
+    SELECT *, ROW_NUMBER() OVER (PARTITION BY id ORDER BY loaded_at DESC) AS __row_number 
     FROM call_answered_log)
 WHERE __row_number = 1
