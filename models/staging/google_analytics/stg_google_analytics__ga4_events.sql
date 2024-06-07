@@ -1,6 +1,9 @@
 {{ config(
     materialized='incremental',
-    unique_key=['event_name', 'event_timestamp', 'user_pseudo_id']
+    unique_key=['event_name', 'event_timestamp', 'user_pseudo_id'],
+    partition_by={
+        'field': 'event_date'
+    }
 ) }}
 
 SELECT
