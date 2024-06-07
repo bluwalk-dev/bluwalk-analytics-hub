@@ -22,7 +22,7 @@ sources:
     tables:
       - name: events_*
 
-  - name: analytics_323684004
+  - name: analytics_342899811
     database: bluwalk-data-warehouse
     tables:
       - name: events_*

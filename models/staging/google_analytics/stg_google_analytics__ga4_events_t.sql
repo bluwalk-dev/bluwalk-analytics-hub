@@ -1,6 +1,6 @@
 with
 
-    source as (select * from {{ source('analytics_323684004', 'events_*') }}),
+    source as (select * from {{ source('analytics_342899811', 'events_*') }}),
 
     transformation as (
 

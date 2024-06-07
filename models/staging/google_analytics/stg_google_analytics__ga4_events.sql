@@ -12,7 +12,7 @@ WITH base AS (
         PARSE_DATE('%Y%m%d', event_date) AS event_date,
         * EXCEPT(event_date)
     FROM {{ ref('stg_google_analytics__ga4_events_t') }}
-    WHERE event_date BETWEEN '20220925' AND '20240604'
+    WHERE event_date = '20240605'
 )
 
 SELECT
