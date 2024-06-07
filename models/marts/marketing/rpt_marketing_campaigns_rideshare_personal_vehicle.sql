@@ -2,7 +2,7 @@
 
 WITH form_submit AS (
     SELECT
-        PARSE_DATE('%Y%m%d', event_date) AS event_date,
+        event_date,
         COUNT(*) AS nr_form_submit,
         SUM(CASE WHEN source LIKE '%facebook%' OR source IN ('fb', 'ig') THEN 1 ELSE 0 END) AS facebook_form_submit,
         SUM(CASE WHEN source = 'google' THEN 1 ELSE 0 END) AS google_form_submit
@@ -23,7 +23,7 @@ ads_spend AS (
 
 page_views AS (
     SELECT
-        PARSE_DATE('%Y%m%d', event_date) AS event_date,
+        event_date,
         COUNT(*) AS nr_page_views
     FROM {{ ref('fct_marketing_page_views') }}
     WHERE page_location LIKE '%viatura-propria%'
