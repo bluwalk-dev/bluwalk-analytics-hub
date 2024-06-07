@@ -1,14 +1,15 @@
 {{ config(
     materialized='incremental',
-    unique_key=['event_name', 'event_timestamp', 'user_pseudo_id'],
+    unique_key=['event_timestamp', 'user_pseudo_id'],
     partition_by={
-        'field': 'CAST(event_date AS DATE)',
+        'field': 'event_date_parsed',
         'data_type': 'DATE'
     }
 ) }}
 
 SELECT
-    *
+    *,
+    PARSE_DATE('%Y%m%d', event_date) AS event_date_parsed
 FROM
     {{ ref('stg_google_analytics__ga4_events_t') }}
 WHERE event_date BETWEEN '20220925' AND '20240604'
