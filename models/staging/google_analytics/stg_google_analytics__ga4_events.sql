@@ -9,11 +9,12 @@
 
 SELECT
     *,
-    PARSE_DATE('%Y%m%d', event_date) AS event_date_parsed  -- Ensure event_date is parsed to DATE
+    PARSE_DATE('%Y%m%d', event_date) AS event_date_parsed
 FROM
-    {{ ref('base_google_analytics_4_page_views') }}
+    {{ ref('stg_google_analytics__ga4_events_t') }}
+WHERE event_date BETWEEN '20220925' AND '20240604'
 
 {% if is_incremental() %}
 WHERE
-    event_date > (SELECT MAX(event_date) FROM {{ this }})
+    event_timestamp > (SELECT MAX(event_timestamp) FROM {{ this }})
 {% endif %}
