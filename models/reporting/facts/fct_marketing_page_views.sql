@@ -43,7 +43,7 @@ SELECT
   privacy_info.ads_storage AS privacy_info_ads_storage,
   privacy_info.uses_transient_token AS privacy_info_uses_transient_token
 FROM
-  {{ ref('stg_google_analytics__ga4_events') }},
+  {{ ref('base_google_analytics_events') }},
   UNNEST(event_params) AS param
 WHERE
   event_name = 'page_view'

@@ -27,6 +27,11 @@ sources:
     tables:
       - name: events_*
 
+  - name: analytics_323684004
+    database: bluwalk-data-warehouse
+    tables:
+      - name: events_*
+
   - name: appmaker
     database: bluwalk-data-warehouse
     tables:
