@@ -2,7 +2,8 @@
     materialized='incremental',
     unique_key=['event_name', 'event_timestamp', 'user_pseudo_id'],
     partition_by={
-        'field': 'event_date'
+        'field': 'CAST(event_date AS DATE)',
+        'data_type': 'DATE'
     }
 ) }}
 
