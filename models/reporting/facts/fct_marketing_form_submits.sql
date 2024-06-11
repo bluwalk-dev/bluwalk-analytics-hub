@@ -1,5 +1,5 @@
 SELECT
-  event_date,
+  CAST(event_date AS DATE) event_date,
   TIMESTAMP_MICROS(event_timestamp) event_timestamp,
   TIMESTAMP_MICROS(user_first_touch_timestamp) user_first_touch_timestamp,
   is_active_user,
