@@ -15,4 +15,5 @@ transformation as (
 
 )
 
-select * from transformation
+select *
+from transformation

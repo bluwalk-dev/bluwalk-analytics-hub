@@ -37,7 +37,8 @@ SELECT
     e.hubspot_user_id employee_hubspot_user_id,
     e.hubspot_owner_id employee_hubspot_owner_id,
     e.hubspot_team_name employee_hubspot_team,
-    d.last_login_time employee_last_google_login
+    d.last_login_time employee_last_google_login,
+    a.write_date updated_at
 
 FROM {{ ref("stg_odoo__hr_employees") }} a
 LEFT JOIN {{ ref("stg_odoo__hr_departments") }} aa ON a.department_id = aa.id

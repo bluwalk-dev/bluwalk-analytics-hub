@@ -17,21 +17,22 @@ FROM {{ ref('util_calendar') }} a -- Reference to a calendar model for a continu
 LEFT JOIN (
     -- Subquery to count inbound calls per day for specific internal lines.
     SELECT
-        CAST(end_time AS DATE) as date, -- Cast end_time to DATE to ignore time part.
+        CAST(created_at AS DATE) as date, -- Cast end_time to DATE to ignore time part.
         count(*) as nr_inbound_calls
-    FROM {{ ref('fct_calls') }} -- Reference to a model that contains call data.
-    WHERE direction = 'inbound'  -- Only consider inbound calls.
-      AND internal_line_name != 'Customer Service'
+    FROM {{ ref('base_calls_inbound_team') }} -- Reference to a model that contains call data.
+    WHERE 
+        team = 'Activation'
     GROUP BY date -- Group the count by date.
 ) b ON a.date = b.date -- Join on date to match inbound calls with calendar dates.
 LEFT JOIN (
     -- Subquery to count missed inbound calls per day for specific internal lines.
     SELECT
-        CAST(end_time AS DATE) as date,
+        CAST(created_at AS DATE) as date,
         count(*) as nr_missed_calls
-    FROM {{ ref('fct_calls') }}
-    WHERE direction = 'inbound' AND outcome = 'missed' -- Only consider missed inbound calls.
-      AND internal_line_name != 'Customer Service'
+    FROM {{ ref('base_calls_inbound_team') }}
+    WHERE 
+        team = 'Activation' AND
+        answered_at IS NULL
     GROUP BY date
 ) c ON a.date = c.date -- Join on date to match missed calls with calendar dates.
 -- Filter for dates up to the current date to exclude future dates.
