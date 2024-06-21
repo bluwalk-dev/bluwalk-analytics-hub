@@ -5,7 +5,7 @@ SELECT
     ta.partner_login_id,
     upa.contact_id,
     u.user_id,
-    upa.partner_account_uuid,
+    ta.partner_account_uuid,
     ta.driver_name,
     ta.vehicle_plate,
     z.vehicle_contract_type,
