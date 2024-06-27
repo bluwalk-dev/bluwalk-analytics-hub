@@ -11,5 +11,5 @@ WITH unique_transactions AS (
 )
 
 SELECT
-    *
+    * EXCEPT(__row_number, load_timestamp)
 FROM unique_transactions
