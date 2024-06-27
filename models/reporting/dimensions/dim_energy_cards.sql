@@ -22,4 +22,3 @@ SELECT
     b.last_card_use
 FROM last_record a
 LEFT JOIN {{ ref("base_bp_card_status") }} b ON a.name = b.card_name
-WHERE supplier_id = 2943 AND validity IS NOT NULL
