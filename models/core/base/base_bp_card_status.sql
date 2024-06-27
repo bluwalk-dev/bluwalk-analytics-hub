@@ -11,5 +11,15 @@ WITH unique_transactions AS (
 )
 
 SELECT
-    * EXCEPT(__row_number, load_timestamp)
+    card,
+    CONCAT('B',LPAD(CAST(card AS STRING), 6, '0')) card_name,
+    additional_information,
+    card_holder,
+    validity,
+    service_code,
+    card_scope,
+    card_status,
+    profile,
+    km_reading,
+    last_card_use
 FROM unique_transactions
