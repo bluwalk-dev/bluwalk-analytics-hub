@@ -63,6 +63,7 @@ sources:
   - name: bp
     database: bluwalk-data-warehouse
     tables:
+      - name: cards
       - name: invoice_transactions
       - name: transactions
       - name: transactions_v2
