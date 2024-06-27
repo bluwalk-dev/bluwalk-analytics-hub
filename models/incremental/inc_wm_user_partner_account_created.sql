@@ -38,7 +38,8 @@ uber_accounts_created AS (
     LEFT JOIN accounts_creation_date c ON c.partner_account_uuid = b.partner_account_uuid
     WHERE
         a.deal_pipeline_stage_id = '294193864' AND
-        b.partner_account_uuid IS NOT NULL
+        b.partner_account_uuid IS NOT NULL AND
+        c.create_date IS NOT NULL
 
 )
 
