@@ -27,7 +27,8 @@ WITH vehicle_usage AS (
 SELECT 
     -- Selecting date, user_id, and service_fee from the 'vehicle_usage' CTE.
     b.date, 
-    b.user_id, 
+    b.user_id,
+    c.contact_id,
     b.service_fee 
 FROM (
     -- Subquery to get the latest start date for each user and date combination.
@@ -43,12 +44,13 @@ FROM (
         date, user_id
 ) a
 -- Joining the subquery result back to the 'vehicle_usage' CTE.
-LEFT JOIN 
-    vehicle_usage b ON 
+LEFT JOIN vehicle_usage b ON 
     -- Matching records based on the same date, user_id, and the most recent start_date.
     a.date = b.date AND 
     a.user_id = b.user_id AND 
     a.start_date = b.start_date
+LEFT JOIN {{ ref('dim_users') }} c ON a.user_id = c.user_id
+
 -- Ordering the results by date and user_id in descending order.
 ORDER BY 
     date DESC, 
