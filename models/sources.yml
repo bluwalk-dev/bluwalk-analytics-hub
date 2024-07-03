@@ -222,6 +222,7 @@ sources:
       - name: fleet_vehicle_model_brand
       - name: fuel
       - name: fuel_card_log
+      - name: fuel_card
       - name: hr_employee
       - name: hr_department
       - name: ir_translation
