@@ -81,6 +81,12 @@ sources:
     tables:
       - name: correos_daily_report
 
+  - name: reporting
+    database: drivfit-analytics-hub
+    tables:
+      - name: fct_accounting_move_lines
+      - name: dim_accounting_analytic_accounts
+  
   - name: drivfit
     database: bluwalk-data-warehouse
     tables:
@@ -122,6 +128,7 @@ sources:
       - name: address_geocoding
       - name: calendar
       - name: close_period_log
+      - name: reporting_structure
       - name: zip_codes
       - name: zones
 
