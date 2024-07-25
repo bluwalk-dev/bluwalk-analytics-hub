@@ -1,6 +1,6 @@
 WITH reporting_structure AS (
     SELECT * 
-    FROM {{ ref('dim_accounting_reporting_structure') }}
+    FROM {{ ref('dim_reporting_structure') }}
 )
 
 /*
