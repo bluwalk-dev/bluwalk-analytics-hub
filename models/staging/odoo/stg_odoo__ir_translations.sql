@@ -2,7 +2,7 @@ with
 
 source as (
     SELECT *
-    FROM {{ source('odoo_static', 'ir_translation') }}
+    FROM {{ source('odoo_realtime', 'ir_translation') }}
 ),
 
 transformation as (

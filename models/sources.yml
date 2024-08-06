@@ -263,54 +263,12 @@ sources:
       - name: vehicle_rental
       - name: voucher
       - name: voucher_type
-
-  - name: odoo_static
+  
+  - name: odoo_enterprise
     database: bluwalk-data-warehouse
     tables:
       - name: account_account
-      - name: account_analytic_account
-      - name: account_analytic_line
-      - name: account_partial_reconcile
-      - name: account_move_line
-      - name: account_move
-      - name: account_journal
-      - name: account_payment
-      - name: booking
-      - name: close_period
-      - name: fleet_vehicle
-      - name: fleet_vehicle_insurance
-      - name: fleet_vehicle_model
-      - name: fleet_vehicle_model_brand
-      - name: fuel
-      - name: fuel_card_log
-      - name: hr_employee
-      - name: hr_department
-      - name: ir_translation
-      - name: product_product
-      - name: product_template
-      - name: product_category
-      - name: rate_base
-      - name: rental_contract
-      - name: res_country_city
-      - name: res_country
       - name: res_partner
-      - name: res_sales_partner
-      - name: res_sales_partner_type
-      - name: res_sales_partner_account
-      - name: res_sales_partner_account_log
-      - name: res_service_partner
-      - name: res_service_partner_type
-      - name: res_users
-      - name: sale_order
-      - name: sale_order_line
-      - name: segment
-      - name: support_stage
-      - name: support_ticket
-      - name: support_ticket_category
-      - name: support_ticket_theme
-      - name: trips
-      - name: vehicle_category
-      - name: vehicle_rental
 
   - name: prio
     database: bluwalk-data-warehouse
