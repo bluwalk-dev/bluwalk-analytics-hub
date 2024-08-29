@@ -2,6 +2,7 @@ SELECT
     a.year_month,
     b.number_of_ratings,
     b.average_rating,
+    g.nr_created_tickets,
     c.nr_tickets_first_reply_time,
     c.first_reply_time,
     d.nr_missed_calls,
@@ -16,5 +17,6 @@ LEFT JOIN {{ ref('agg_customer_service_monthly_first_reply') }} c ON a.year_mont
 LEFT JOIN {{ ref('agg_customer_service_monthly_missed_call_ratio') }} d ON a.year_month = d.year_month
 LEFT JOIN {{ ref('agg_customer_service_monthly_churn_prevention') }} e ON a.year_month = e.year_month
 LEFT JOIN {{ ref('agg_customer_service_monthly_resolution') }} f ON a.year_month = f.year_month
+LEFT JOIN {{ ref('agg_customer_service_monthly_created_tickets') }} g ON a.year_month = g.year_month
 WHERE a.year_month <= CAST(FORMAT_DATE('%Y%m', CURRENT_DATE()) AS INT64)
 ORDER BY a.year_month DESC
