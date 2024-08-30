@@ -1,6 +1,7 @@
 SELECT
     b.card_name,
     a.user_id,
+    b.partner_key,
     REPLACE(REPLACE(a.deal_pipeline_name, 'Fuel & Energy : ', ''), ' Card', '') card_type,
     MIN(b.start_date) activation_timestamp
 FROM {{ ref('fct_deals') }} a
@@ -14,5 +15,6 @@ WHERE
   a.create_datetime < CAST(b.start_date AS TIMESTAMP)
 GROUP BY
   b.card_name,
+  b.partner_key,
   a.user_id,
   card_type
