@@ -2,7 +2,7 @@ SELECT
     a.year_month,
     b.number_of_ratings,
     b.average_rating,
-    g.nr_created_tickets,
+    g.number_of_tickets nr_created_tickets,
     c.nr_tickets_first_reply_time,
     c.first_reply_time,
     d.nr_missed_calls,
