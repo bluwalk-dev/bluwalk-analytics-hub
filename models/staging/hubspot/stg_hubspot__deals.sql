@@ -21,6 +21,7 @@ transformation as (
         CAST (property_odoo_partner_id AS INT64) AS contact_id,
         CAST (property_odoo_user_id AS INT64) AS user_id,
         CAST (owner_id AS INT64) AS owner_id,
+        CAST (property_amount AS FLOAT64) AS deal_value,
 
         /* Marketing Parameters */
         CAST(property_deal_source_url AS STRING) AS source_url,

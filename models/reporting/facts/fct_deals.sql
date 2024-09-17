@@ -25,6 +25,7 @@ SELECT DISTINCT
     a.owner_id as hs_owner_id,            -- HubSpot owner ID from the hubspot deals table
     IFNULL(CONCAT(c.first_name, ' ', c.last_name), 'no-agent') as owner_name, -- Owner's name or 'no-agent' if not available
     a.vehicle_plate,                      -- Vehicle plate information from the hubspot deals table
+    a.deal_value,
 
     -- Marketing Fields
     a.google_analytics_client_id,
