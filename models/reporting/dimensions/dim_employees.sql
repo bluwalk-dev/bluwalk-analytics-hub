@@ -1,48 +1,47 @@
-with
-    googleusers as (
-        select a.*
-        from {{ ref("stg_google_workspace__users") }} a
-        left join
-            (
-                select google_id, max(load_epoch) load_epoch
-                from {{ ref("stg_google_workspace__users") }}
-                group by google_id
-            ) b
-            on a.google_id = b.google_id
-            and a.load_epoch = b.load_epoch
-        where b.google_id is not null
-
-    )
-
-SELECT
-
-    a.id employee_id,
-    d.first_name employee_first_name,
-    d.last_name employee_last_name,
-    concat(d.first_name, ' ', d.last_name) employee_short_name,
-    a.name employee_full_name,
-    a.user_partner_id employee_contact_id,
-    a.user_id employee_user_id,
-    a.active employee_active,
-    a.work_email employee_email,
-    aa.name employee_team,
-    a.admission_date employee_admission_date,
-    a.resignation_date employee_resignation_date,
-    b.country_name employee_country_of_birth,
-    a.work_location employee_work_location,
-    a.gender employee_gender,
-    a.birthday employee_birthdate,
-    a.primavera_code employee_primavera_id,
-    d.google_id employee_google_id,
-    e.hubspot_user_id employee_hubspot_user_id,
-    e.hubspot_owner_id employee_hubspot_owner_id,
-    e.hubspot_team_name employee_hubspot_team,
-    d.last_login_time employee_last_google_login,
-    a.write_date updated_at
-
-FROM {{ ref("stg_odoo__hr_employees") }} a
+WITH googleusers AS (
+    SELECT *
+    FROM (
+        SELECT 
+            a.*,
+            ROW_NUMBER() OVER (PARTITION BY primary_email ORDER BY load_epoch DESC) AS row_num
+        FROM {{ ref("stg_google_workspace__users") }} a
+    ) ranked_googleusers
+    WHERE row_num = 1
+),
+-- Select the most recent record for each employee_id from stg_odoo__hr_employees
+ranked_employees AS (
+    SELECT *,
+           ROW_NUMBER() OVER (PARTITION BY id ORDER BY write_date DESC) AS row_num
+    FROM {{ ref("stg_odoo__hr_employees") }}
+)
+SELECT DISTINCT
+    a.id AS employee_id,
+    d.first_name AS employee_first_name,
+    d.last_name AS employee_last_name,
+    CONCAT(d.first_name, ' ', d.last_name) AS employee_short_name,
+    a.name AS employee_full_name,
+    a.user_partner_id AS employee_contact_id,
+    a.user_id AS employee_user_id,
+    a.active AS employee_active,
+    a.work_email AS employee_email,
+    aa.name AS employee_team,
+    a.admission_date AS employee_admission_date,
+    a.resignation_date AS employee_resignation_date,
+    b.country_name AS employee_country_of_birth,
+    a.work_location AS employee_work_location,
+    a.gender AS employee_gender,
+    a.birthday AS employee_birthdate,
+    a.primavera_code AS employee_primavera_id,
+    d.google_id AS employee_google_id,
+    e.hubspot_user_id AS employee_hubspot_user_id,
+    e.hubspot_owner_id AS employee_hubspot_owner_id,
+    e.hubspot_team_name AS employee_hubspot_team,
+    d.last_login_time AS employee_last_google_login,
+    a.write_date AS updated_at
+FROM ranked_employees a
 LEFT JOIN {{ ref("stg_odoo__hr_departments") }} aa ON a.department_id = aa.id
 LEFT JOIN {{ ref("dim_countries") }} b ON a.country_id = b.country_id
 LEFT JOIN googleusers d ON a.work_email = d.primary_email
 LEFT JOIN {{ ref("base_hubspot_users") }} e ON a.work_email = e.email
+WHERE a.row_num = 1  -- Only select the latest record for each employee
 ORDER BY a.id DESC
