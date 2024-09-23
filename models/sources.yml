@@ -196,6 +196,7 @@ sources:
     database: bluwalk-data-warehouse
     tables:
       - name: receipts
+      - name: reconciliation
 
   - name: mercadao
     database: bluwalk-data-warehouse
