@@ -14,7 +14,7 @@ transformation as (
 
         CAST(date AS DATE) AS date,
         4 AS sales_partner_id,
-        CAST(nif AS STRING) AS user_vat,
+        CAST(REPLACE(nif,' ','') AS STRING) AS user_vat,
         CAST(name AS STRING) AS user_name,
         CAST(correos_id AS STRING) AS partner_account_uuid,
         CAST(route AS STRING) AS user_delivery_route,
