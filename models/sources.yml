@@ -82,6 +82,11 @@ sources:
     tables:
       - name: correos_daily_report
 
+  - name: evio
+    database: bluwalk-data-warehouse
+    tables:
+      - name: charging_sessions
+
   - name: reporting
     database: drivfit-analytics-hub
     tables:
