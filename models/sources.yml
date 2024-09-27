@@ -16,6 +16,7 @@ sources:
       - name: call_answered
       - name: call_ended
       - name: call_ringing_on_agent
+      - name: call_recording
 
   - name: analytics_249934410
     database: bluwalk-data-warehouse

@@ -1,5 +1,6 @@
 WITH call_ended_log AS (
     SELECT
+        _id as db_id,
         id,
         call_uuid,
         ended_at,
@@ -11,6 +12,7 @@ WITH call_ended_log AS (
     FROM {{ ref('stg_aircall__call_ended') }}
     UNION ALL
     SELECT
+        _id as db_id,
         id,
         call_uuid,
         ended_at,
@@ -29,6 +31,7 @@ merged_calls AS (
 )
 
 SELECT
+    db_id,
     id,
     call_uuid,
     TIMESTAMP_SECONDS(ended_at) ended_at,
