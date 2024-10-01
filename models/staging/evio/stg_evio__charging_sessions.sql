@@ -9,21 +9,22 @@ source as (
 transformation as (
 
     SELECT
-    
-       _id as id,
+        TO_HEX(MD5(stop_date || CONCAT('EVIO', right(card_number, 6)) || total_power)) as transaction_key,
+       _id as transaction_id,
        total_power,
        estimated_price,
        final_price,
+       final_price_excl_vat,
        battery_charged,
-       time_charged,
+       round(time_charged*60, 2) as time_charged_min,
        co2_saved,
        payment_status,
        auth_type,
        payment_billing_info,
-       hw_id,
-       ev_id,
+       hw_id charger_id,
+       plug_id charger_plug_id,
        status,
-       plug_id,
+       ev_id,
        id_tag,
        start_date as start_timestamp,
        DATETIME(TIMESTAMP(start_date), 'Europe/Lisbon') as start_date,
@@ -32,11 +33,11 @@ transformation as (
        session_id,
        cdr_id,
        payment_method,
+       CONCAT('EVIO', right(card_number, 6)) card_name,
        card_number,
-       final_price_excl_vat,
-       ev_brand,
-       ev_model,
-       ev_license_plate,
+       ev_brand as asset_type,
+       ev_model as transaction_type,
+       ev_license_plate as user_vat,
        load_timestamp
 
     FROM source
