@@ -12,8 +12,6 @@ WITH sessions AS (
 )
 
 SELECT
-    a.transaction_key tka,
-    b.transaction_key tkb,
     a.transaction_key,
     a.transaction_id,
     a.start_timestamp,
