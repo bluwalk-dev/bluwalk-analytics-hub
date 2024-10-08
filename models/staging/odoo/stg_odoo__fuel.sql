@@ -22,7 +22,7 @@ transformation as (
             CAST(start_date AS TIMESTAMP) start_date_ts,
             DATETIME(CAST(start_date AS TIMESTAMP), 'Europe/Lisbon') start_date,
             CAST(end_date AS TIMESTAMP) end_date_ts,
-            DATETIME(CAST(start_date AS TIMESTAMP), 'Europe/Lisbon') end_date,
+            DATETIME(CAST(end_date AS TIMESTAMP), 'Europe/Lisbon') end_date,
             station_name,
             station_type,
             fuel_source AS energy_source,
