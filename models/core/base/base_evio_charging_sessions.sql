@@ -24,5 +24,5 @@ SELECT
     a.final_price,
     b.energy_id
 FROM sessions a
-LEFT JOIN {{ ref("base_service_orders_fuel") }} b ON a.transaction_key = b.transaction_key
+LEFT JOIN {{ ref("base_service_orders_electricity") }} b ON a.transaction_key = b.transaction_key
 WHERE transaction_type != 'internal'

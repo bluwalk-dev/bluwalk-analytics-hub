@@ -24,4 +24,3 @@ LEFT JOIN {{ ref('dim_partners') }} c ON a.service_partner_id = c.service_partne
 WHERE 
     a.energy_source = 'electricity' AND
     c.partner_category = 'Energy'
-
