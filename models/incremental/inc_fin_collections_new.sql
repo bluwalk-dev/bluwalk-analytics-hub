@@ -1,4 +1,6 @@
-WITH users_in_current_debts AS (
+WITH 
+
+users_in_current_debts AS (
     SELECT DISTINCT contact_id FROM {{ ref('fct_deals') }}
     WHERE deal_pipeline_id = '197150438' and is_closed = false
 ),
@@ -22,7 +24,8 @@ SELECT
         WHEN (a.risk_accounting_balance IS NULL OR a.risk_accounting_balance != a.risk_balance) THEN TRUE
         ELSE FALSE
     END to_invoice,
-    d.invoice_link
+    d.invoice_link,
+    a.risk_account_idle_time
 FROM {{ ref('base_hubspot_contacts') }} a
 LEFT JOIN {{ ref('dim_users') }} b ON a.user_id = b.user_id
 LEFT JOIN users_in_current_debts c ON a.contact_id = c.contact_id
