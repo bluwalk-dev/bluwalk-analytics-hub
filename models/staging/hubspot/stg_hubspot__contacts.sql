@@ -43,10 +43,8 @@ transformation as (
         CAST(property_risk_net_balance AS NUMERIC) risk_net_balance,
         CAST(property_risk_next_installment AS NUMERIC) risk_next_installment,
         CAST(property_risk_target_balance AS NUMERIC) risk_target_balance,
-        CAST(property_risk_accounting_balance AS NUMERIC) risk_accounting_balance
-
-        
-        
+        CAST(property_risk_accounting_balance AS NUMERIC) risk_accounting_balance,
+        CAST(property_risk_account_idle_time AS NUMERIC) risk_account_idle_time,
 
     FROM source
     WHERE _fivetran_deleted IS FALSE
