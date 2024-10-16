@@ -31,6 +31,6 @@ WHERE
   a.risk_balance < 0 and
   a.risk_deposit_amount = 0 and
   a.idle_work_marketplace IS NOT NULL AND
-  a.idle_work_marketplace > 15 AND
-  a.idle_work_marketplace < 90 AND
+  a.risk_account_idle_time > 15 AND
+  a.risk_account_idle_time < date_diff(current_date(), DATE(2024,3,31), DAY) AND
   c.contact_id IS NULL
