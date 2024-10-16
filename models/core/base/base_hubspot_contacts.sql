@@ -34,7 +34,8 @@ SELECT
     risk_net_balance,
     risk_next_installment,
     risk_target_balance,
-    risk_accounting_balance
+    risk_accounting_balance,
+    risk_account_idle_time
     
 FROM {{ ref("stg_hubspot__contacts") }}
 WHERE 
