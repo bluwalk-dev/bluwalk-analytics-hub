@@ -1,7 +1,8 @@
 WITH 
 
 users_in_current_debts AS (
-    SELECT DISTINCT contact_id FROM {{ ref('fct_deals') }}
+    SELECT DISTINCT contact_id 
+    FROM {{ ref('fct_deals') }}
     WHERE deal_pipeline_id = '197150438' and is_closed = false
 ),
 
@@ -17,6 +18,7 @@ user_debt_invoices AS (
 
 SELECT 
     a.user_id,
+    b.user_name,
     b.user_email,
     b.user_vat,
     a.risk_balance amount_total,
