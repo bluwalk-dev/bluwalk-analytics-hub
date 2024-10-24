@@ -6,16 +6,13 @@ mercadao_accounts_created AS (
         a.user_id,
         'Mercadão' AS partner_name,
         a.deal_partner_key AS partner_key,
-        DATETIME(c.last_update_ts, 'Europe/Lisbon') create_date
+        CURRENT_DATETIME() create_date
     FROM {{ ref("fct_deals") }} a
     LEFT JOIN {{ ref("dim_users") }} b ON a.user_id = b.user_id
-    LEFT JOIN {{ ref("base_mercadao_accounts") }} c 
-    ON (
-        b.user_email = c.shopper_email OR 
-        RIGHT(b.user_phone,9) = c.shopper_phone_number)
+    LEFT JOIN {{ ref("stg_mercadao__signup_status") }} c ON b.user_email = c.email
     WHERE 
-        deal_pipeline_stage_id = '324018669' AND 
-        c.partner_account_uuid IS NOT NULL
+        deal_pipeline_stage_id = '324018667' AND 
+        c.account_created = true
 ), 
 
 uber_accounts_created AS (

@@ -14,6 +14,7 @@ SELECT
     contact_phone_nr,
     user_id,
     contact_id,
+    vat,
     par_has_been_on_the_program,
     par_currently_in_program,
     par_days_in_program,

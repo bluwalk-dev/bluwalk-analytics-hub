@@ -11,6 +11,7 @@ transformation as (
     select
         
         CAST (deal_id AS INT64) AS deal_id,
+        
         CAST (property_dealname AS STRING) AS deal_name,
         CAST (property_partner_key AS STRING) AS deal_partner_key,
         CAST (property_deal_marketplace AS STRING) AS deal_marketplace,
