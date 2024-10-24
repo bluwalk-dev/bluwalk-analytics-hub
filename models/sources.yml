@@ -211,6 +211,7 @@ sources:
       - name: daily_order_summary
       - name: training_schedule
       - name: order_log
+      - name: signup_status
 
   - name: monday
     database: bluwalk-data-warehouse

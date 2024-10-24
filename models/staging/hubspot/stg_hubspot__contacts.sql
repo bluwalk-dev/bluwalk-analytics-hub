@@ -14,6 +14,7 @@ transformation as (
         CAST(property_firstname AS STRING) first_name,
         CAST(property_lastname AS STRING) last_name,
         CAST(property_email AS STRING) email,
+        CAST(property_tax_identification_number AS STRING) vat,
         CAST(is_deleted AS BOOL) is_deleted,
         CAST(property_hs_merged_object_ids AS STRING) merged_objects,
         CAST(property_odoo_partner_id AS INT64) contact_id,
