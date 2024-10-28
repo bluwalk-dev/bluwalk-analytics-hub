@@ -159,6 +159,7 @@ sources:
       - name: churn_prevention
       - name: fin_month_closing
       - name: quarter_params
+      - name: transaction_account_forwarding
       - name: user_own_vehicles
       - name: uncollectible_recovery
 
@@ -266,6 +267,10 @@ sources:
       - name: support_ticket
       - name: support_ticket_category
       - name: support_ticket_theme
+      - name: transaction_account
+      - name: transaction_category
+      - name: transaction_group
+      - name: transaction_line
       - name: trips
       - name: vehicle_category
       - name: vehicle_rental
