@@ -1,7 +1,7 @@
 WITH user_accounts AS (
     SELECT *
-    FROM {{ ref('dim_accounting_analytic_accounts') }}
-    WHERE analytic_account_type = 'User' AND analytic_account_state = 'active'
+    FROM {{ ref('rpt_finances_partner_import_helper') }}
+    WHERE sales_partner_id = 2 AND partner_account_uuid IS NOT NULL
 )
 
 SELECT
@@ -71,7 +71,7 @@ FROM {{ ref('base_bolt_earnings') }} a
 LEFT JOIN {{ ref('dim_partners_accounts') }} b ON a.partner_account_uuid = b.partner_account_uuid
 LEFT JOIN {{ ref('dim_partners_logins') }} c ON a.bolt_company_id = c.login_id
 LEFT JOIN {{ ref('dim_locations') }} d ON c.location_id = d.location_id
-LEFT JOIN user_accounts e ON b.contact_id = e.analytic_account_owner_contact_id
+LEFT JOIN user_accounts e ON b.contact_id = e.contact_id
 LEFT JOIN {{ ref('base_bolt_performance') }} f ON a.date = f.date AND a.partner_account_uuid = f.partner_account_uuid
 LEFT JOIN {{ ref('util_calendar') }} g ON a.date = g.date
 LEFT JOIN {{ ref('int_user_service_fee_per_day') }} h ON b.user_id = h.user_id AND a.date = h.date
