@@ -29,7 +29,7 @@ SELECT
     c.user_email,
     b.vehicle_license_plate,
     b.booking_rate_name,
-    CAST(b.booking_pickup_datetime AS STRING) vehicle_rental_pickup_date,
+    CAST(b.booking_pickup_datetime AS STRING) booking_pickup_datetime,
     b.booking_pickup_station_name,
     b.booking_type
 FROM hubspot_booking_created a
