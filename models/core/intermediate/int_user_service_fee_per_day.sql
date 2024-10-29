@@ -6,7 +6,7 @@ WITH vehicle_usage AS (
         -- Casting the dropoff timestamp to a date format to consider only the date part.
         CAST(a.dropoff_timestamp AS DATE) date,
         a.user_id,
-        a.vehicle_contract_id,
+        a.vehicle_contract_key,
         -- Including start date and service fee from the vehicle contracts.
         b.start_date,
         b.service_fee
@@ -15,11 +15,11 @@ WITH vehicle_usage AS (
         {{ ref('fct_user_rideshare_trips') }} a
     LEFT JOIN 
         -- Joining with 'dim_vehicle_contracts' table to get contract-related info.
-        {{ ref('dim_vehicle_contracts') }} b ON a.vehicle_contract_id = b.vehicle_contract_id
+        {{ ref('dim_vehicle_contracts') }} b ON a.vehicle_contract_key = b.vehicle_contract_key
     WHERE 
         -- Filtering out records where user_id or vehicle_contract_id is null.
         a.user_id is not null AND 
-        a.vehicle_contract_id is not null
+        a.vehicle_contract_key is not null
 )
 
 -- Main Query

@@ -93,6 +93,11 @@ sources:
       - name: fct_accounting_move_lines
       - name: dim_accounting_analytic_accounts
   
+  - name: marts
+    database: drivfit-analytics-hub
+    tables:
+      - name: rpt_bluwalk_vehicle_contracts
+
   - name: drivfit
     database: bluwalk-data-warehouse
     tables:

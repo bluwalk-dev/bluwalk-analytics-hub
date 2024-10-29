@@ -44,7 +44,7 @@ rideshare_EV_MAW as (
     FROM (
         SELECT DISTINCT c.year_month, a.contact_id
         FROM {{ ref("fct_user_rideshare_trips") }} a
-        LEFT JOIN {{ ref("dim_vehicle_contracts") }} b on a.vehicle_contract_id = b.vehicle_contract_id
+        LEFT JOIN {{ ref("dim_vehicle_contracts") }} b on a.vehicle_contract_key = b.vehicle_contract_key
         LEFT JOIN {{ ref("util_calendar") }} c ON CAST(a.dropoff_local_time AS DATE) = c.date
         where b.vehicle_fuel_type = 'electric'
     )

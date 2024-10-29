@@ -10,7 +10,7 @@ SELECT DISTINCT
     d.partner_category,
     d.partner_name
 FROM {{ ref('fct_user_rideshare_trips') }} a
-LEFT JOIN {{ ref('dim_vehicle_contracts') }} b ON a.vehicle_contract_id = b.vehicle_contract_id
+LEFT JOIN {{ ref('dim_vehicle_contracts') }} b ON a.vehicle_contract_key = b.vehicle_contract_key
 LEFT JOIN {{ ref('util_calendar') }} c ON CAST(a.request_timestamp AS DATE) = c.date
 LEFT JOIN {{ ref('dim_partners') }} d ON b.service_partner_id = d.service_partner_id
 WHERE 
