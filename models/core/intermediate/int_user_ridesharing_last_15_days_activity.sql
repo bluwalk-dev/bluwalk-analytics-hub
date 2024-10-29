@@ -2,7 +2,7 @@ SELECT
     a.user_id,
     a.vehicle_contract_type,
     a.vehicle_plate,
-    a.vehicle_contract_id,
+    a.vehicle_contract_key,
     CAST(a.end_timestamp AS DATE) ridesharing_last_activity
 FROM {{ ref('fct_user_vehicle_usage') }} a
 LEFT JOIN (

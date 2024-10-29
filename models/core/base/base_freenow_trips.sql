@@ -17,7 +17,7 @@ SELECT
     ta.driver_name,
     ta.vehicle_plate,
     z.vehicle_contract_type,
-    z.vehicle_contract_id,
+    z.vehicle_contract_key,
     ta.request_timestamp,
     ta.request_local_time,
     ta.address_pickup,
