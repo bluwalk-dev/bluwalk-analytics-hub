@@ -41,6 +41,13 @@ SELECT DISTINCT
     -- Insurance Fields
     a.insurance_policy_name,
 
+    -- Drivfit Fields
+    a.vehicle_rental_license_plate,
+    a.vehicle_rental_rate,
+    a.vehicle_rental_pickup_date,
+    a.vehicle_rental_pickup_station,
+    a.vehicle_rental_booking_type,
+
     -- Team Performance Fields
     k.activation_team as owner_team,      -- Activation team name from pipelines table
     k.marketing_point_score,              -- Marketing point score from pipelines table

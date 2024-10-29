@@ -40,6 +40,13 @@ transformation as (
         /* Training */
         CAST (property_ttv_partner_name AS STRING) AS training_tvde_partner_name,
 
+        /* Drivfit */
+        CAST (property_vdf_licenseplate AS STRING) AS vehicle_rental_license_plate,
+        CAST (property_vdf_rate_description AS STRING) AS vehicle_rental_rate,
+        CAST (property_vdf_booking_pickup_date AS STRING) AS vehicle_rental_pickup_date,
+        CAST (property_vdf_booking_pickup_station AS STRING) AS vehicle_rental_pickup_station,
+        CAST (property_vdf_booking_type AS STRING) AS vehicle_rental_booking_type,
+
         /* Insurance */
         CAST(property_ivi_policy_odoo_name AS STRING) AS insurance_policy_name,
 
