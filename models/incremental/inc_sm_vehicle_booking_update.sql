@@ -19,14 +19,13 @@ latest_vehicle_bookings AS (
                 ORDER BY booking_create_date DESC
             ) AS __row_number
         FROM {{ ref("dim_vehicle_bookings") }}
-        --WHERE booking_is_active IS TRUE
+        WHERE booking_is_active IS TRUE
         )
     WHERE __row_number = 1
 )
 
 SELECT
     a.user_id,
-    c.user_email,
     b.vehicle_license_plate,
     b.booking_rate_name,
     CAST(b.booking_pickup_datetime AS STRING) booking_pickup_datetime,
@@ -34,7 +33,6 @@ SELECT
     b.booking_type
 FROM hubspot_booking_created a
 LEFT JOIN latest_vehicle_bookings b ON a.user_id = b.driver_user_id
-LEFT JOIN {{ ref("dim_users") }} c ON a.user_id = c.user_id
 WHERE
     (vehicle_rental_license_plate != vehicle_license_plate OR vehicle_rental_license_plate IS NULL) OR
     (vehicle_rental_rate != booking_rate_name OR vehicle_rental_rate IS NULL) OR
