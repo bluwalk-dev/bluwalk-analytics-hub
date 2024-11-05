@@ -20,9 +20,8 @@ SELECT
 FROM {{ ref('stg_bolt__trips') }} ta
 LEFT JOIN {{ ref('dim_partners_accounts') }} upa on ta.partner_account_uuid = upa.partner_account_uuid
 LEFT JOIN {{ ref('dim_users') }} u on u.contact_id = upa.contact_id
-LEFT JOIN {{ ref('dim_vehicle_contracts') }} z ON ta.vehicle_plate = z.vehicle_plate
-WHERE 
-    (ta.accepted_time BETWEEN CAST(z.start_date AS TIMESTAMP) AND 
-    CAST(IFNULL(z.end_date, current_date) as TIMESTAMP) OR z.vehicle_plate IS NOT NULL) AND
-    order_state = 'finished'
+LEFT JOIN {{ ref('dim_vehicle_contracts') }} z ON ta.vehicle_plate = z.vehicle_plate AND ta.accepted_time BETWEEN CAST(z.start_date AS TIMESTAMP) AND CAST(IFNULL(z.end_date, CURRENT_DATE) AS TIMESTAMP)
+WHERE
+    order_state = 'finished' AND
+    u.user_id = 46726
 ORDER BY accepted_time DESC
