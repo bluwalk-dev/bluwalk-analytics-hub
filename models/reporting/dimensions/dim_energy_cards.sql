@@ -1,4 +1,4 @@
-WITH last_record AS (
+WITH fuel_card_log AS (
     SELECT * FROM (
         SELECT
             *, ROW_NUMBER() OVER (
@@ -11,14 +11,14 @@ WITH last_record AS (
 )
 
 SELECT
-    name,
+    name as card_name,
     supplier_id,
-    partner_id,
+    partner_id as contact_id,
     delivery_date,
     receive_date,
     b.validity,
     b.card_status,
     b.profile,
     b.last_card_use
-FROM last_record a
+FROM fuel_card_log a
 LEFT JOIN {{ ref("base_bp_card_status") }} b ON a.name = b.card_name
