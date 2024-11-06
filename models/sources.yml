@@ -244,6 +244,7 @@ sources:
       - name: account_payment
       - name: booking
       - name: close_period
+      - name: contract_type_line
       - name: fleet_vehicle
       - name: fleet_vehicle_insurance
       - name: fleet_vehicle_model
@@ -254,6 +255,7 @@ sources:
       - name: hr_employee
       - name: hr_department
       - name: ir_translation
+      - name: ir_act_report_xml
       - name: insurance_policy
       - name: insurance_policy_payment
       - name: insurance_policy_type
