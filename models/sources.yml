@@ -259,6 +259,7 @@ sources:
       - name: insurance_policy
       - name: insurance_policy_payment
       - name: insurance_policy_type
+      - name: payment_profile
       - name: product_product
       - name: product_template
       - name: product_category
