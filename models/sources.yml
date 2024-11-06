@@ -225,6 +225,11 @@ sources:
     database: bluwalk-data-warehouse
     tables:
       - name: issue_tracker_log
+    
+  - name: miio
+    database: bluwalk-data-warehouse
+    tables:
+      - name: ev_transactions
 
   - name: odoo_realtime
     database: bluwalk-data-warehouse
