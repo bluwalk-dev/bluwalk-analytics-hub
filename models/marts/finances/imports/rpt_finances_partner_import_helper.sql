@@ -3,7 +3,7 @@ WITH legal_agreements AS (
     FROM {{ ref('dim_legal_agreements') }}
     WHERE 
         legal_agreement_state = 'accepted' AND
-        legal_agreement_template_name = 'Individual Agreement Contract' AND
+        legal_agreement_template_name IN ('Individual Agreement Contract', 'Contrato de Prestação de Serviços - Particulares') AND
         contact_id IS NOT NULL
 )
 
