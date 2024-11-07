@@ -1,4 +1,12 @@
-WITH 
+WITH
+    legal_agreements AS (
+        SELECT DISTINCT contact_id
+        FROM {{ ref('dim_legal_agreements') }}
+        WHERE 
+            legal_agreement_state = 'accepted' AND
+            legal_agreement_template_name IN ('Individual Agreement Contract', 'Contrato de Prestação de Serviços - Particulares') AND
+            contact_id IS NOT NULL
+    ),
     -- CTE 'open_deals' to select open deals for the 'Work' marketplace
     open_deals AS (
         SELECT
@@ -41,9 +49,10 @@ WITH
                 user_id,
                 partner_name,
                 partner_key,
-                MIN(date) first_work_date -- Earliest parcel order date
-            FROM {{ ref("base_correos_express_orders") }}
-            WHERE date > CAST(DATE_SUB(current_date, INTERVAL 30 DAY) AS DATE)
+                MIN(date) first_work_date
+            FROM {{ ref("base_correos_express_orders") }} a
+            LEFT JOIN legal_agreements b ON a.contact_id = b.contact_id
+            WHERE date > CAST(DATE_SUB(current_date, INTERVAL 30 DAY) AS DATE) AND b.contact_id IS NOT NULL
             GROUP BY user_id, partner_name, partner_key
 
             UNION ALL
