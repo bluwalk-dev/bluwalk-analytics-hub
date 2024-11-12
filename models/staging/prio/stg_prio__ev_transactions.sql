@@ -9,6 +9,7 @@ source as (
 transformation as (
     
     SELECT
+        CAST(IdUsage AS STRING) as transaction_id,
         CAST(TIMESTAMP(TIMESTAMP(StartDate, 'Europe/Lisbon')) AS TIMESTAMP) AS start_timestamp,
         CAST(DATETIME(StartDate) AS DATETIME) AS start_date,
         CAST(TIMESTAMP_ADD(
