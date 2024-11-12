@@ -11,8 +11,6 @@ source as (
 transformation as (
 
     select
-        
-        TO_HEX(MD5(end_date_ts || card_name || quantity)) as transaction_key,
         *
     FROM (
         select
@@ -52,4 +50,7 @@ transformation as (
     )
 )
 
-select * from transformation
+select 
+    TO_HEX(MD5(end_date_ts || card_name || quantity)) as transaction_key,
+    *
+from transformation
