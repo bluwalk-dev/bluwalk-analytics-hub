@@ -9,9 +9,8 @@ source as (
 transformation as (
 
     SELECT
-       TO_HEX(MD5(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', DATETIME(TIMESTAMP_TRUNC(TIMESTAMP_ADD(stop_date, INTERVAL 500000 MICROSECOND), SECOND))) || '+00' || CONCAT('EVIO', right(card_number, 6)) || total_power)) as transaction_key,
        _id as transaction_id,
-       total_power,
+       ROUND(total_power, 2) as total_power,
        estimated_price,
        final_price,
        final_price_excl_vat,
@@ -26,10 +25,10 @@ transformation as (
        status,
        ev_id,
        id_tag,
-       FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', DATETIME(TIMESTAMP_TRUNC(TIMESTAMP_ADD(start_date, INTERVAL 500000 MICROSECOND), SECOND))) as start_timestamp,
-       DATETIME(TIMESTAMP(start_date), 'Europe/Lisbon') as start_date,
-       FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', DATETIME(TIMESTAMP_TRUNC(TIMESTAMP_ADD(stop_date, INTERVAL 500000 MICROSECOND), SECOND))) as stop_timestamp,
-       DATETIME(TIMESTAMP(stop_date), 'Europe/Lisbon') as stop_date,
+       CAST(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', DATETIME(TIMESTAMP_TRUNC(TIMESTAMP_ADD(start_date, INTERVAL 500000 MICROSECOND), SECOND))) AS TIMESTAMP) as start_timestamp,
+       CAST(DATETIME(TIMESTAMP(start_date), 'Europe/Lisbon') AS DATETIME) as start_date,
+       CAST(FORMAT_TIMESTAMP('%Y-%m-%d %H:%M:%S', DATETIME(TIMESTAMP_TRUNC(TIMESTAMP_ADD(stop_date, INTERVAL 500000 MICROSECOND), SECOND))) AS TIMESTAMP) as stop_timestamp,
+       CAST(DATETIME(TIMESTAMP(stop_date), 'Europe/Lisbon') AS DATETIME) as stop_date,
        session_id,
        cdr_id,
        payment_method,
@@ -44,4 +43,7 @@ transformation as (
     order by start_date desc
 )
 
-SELECT * FROM transformation
+SELECT 
+    TO_HEX(MD5(stop_timestamp || card_name || total_power)) as transaction_key,
+    *
+FROM transformation
