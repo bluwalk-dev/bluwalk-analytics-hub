@@ -13,6 +13,7 @@ WITH sessions AS (
 
 SELECT
     a.transaction_key,
+    a.transaction_id,
     a.start_timestamp,
     a.start_date,
     a.stop_timestamp,
