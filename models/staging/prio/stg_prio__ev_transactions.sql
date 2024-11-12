@@ -9,10 +9,16 @@ source as (
 transformation as (
     
     SELECT
-        CAST(StartDate AS TIMESTAMP) as start_timestamp,
-        DATETIME(CAST(StartDate AS TIMESTAMP), 'Europe/Lisbon') as start_date,
-        TIMESTAMP_ADD(CAST(StartDate AS TIMESTAMP), INTERVAL CAST(CAST(TotalDuration AS NUMERIC)*60 AS INT64) SECOND) as stop_timestamp,
-        DATETIME(TIMESTAMP_ADD(CAST(StartDate AS TIMESTAMP), INTERVAL CAST(CAST(TotalDuration AS NUMERIC)*60 AS INT64) SECOND), 'Europe/Lisbon') as stop_date,
+        CAST(TIMESTAMP(TIMESTAMP(StartDate, 'Europe/Lisbon')) AS TIMESTAMP) AS start_timestamp,
+        CAST(DATETIME(StartDate) AS DATETIME) AS start_date,
+        CAST(TIMESTAMP_ADD(
+            CAST(TIMESTAMP(TIMESTAMP(StartDate, 'Europe/Lisbon')) AS TIMESTAMP), 
+            INTERVAL CAST(CAST(TotalDuration AS NUMERIC)*60 AS INT64) SECOND
+        ) AS TIMESTAMP) as stop_timestamp,
+        CAST(DATETIME_ADD(
+            CAST(DATETIME(StartDate) AS DATETIME), 
+            INTERVAL CAST(CAST(TotalDuration AS NUMERIC)*60 AS INT64) SECOND
+        ) AS DATETIME) as stop_date,
         CAST(CardCode AS STRING) as card_id,
         CAST(CONCAT('PE', LPAD(REGEXP_EXTRACT(MobileCard, r'PE(\d+)'), 6, '0')) AS STRING) AS card_name,
         CAST(MobileRegistration AS STRING) as mobile_registration,
