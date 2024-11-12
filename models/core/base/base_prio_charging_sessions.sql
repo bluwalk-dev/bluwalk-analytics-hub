@@ -3,7 +3,7 @@ WITH sessions AS (
         (SELECT 
             *, 
             ROW_NUMBER() OVER (
-                PARTITION BY transaction_key 
+                PARTITION BY transaction_id
                 ORDER BY load_timestamp DESC
             ) AS __row_number
         FROM {{ ref("stg_prio__ev_transactions") }} 
