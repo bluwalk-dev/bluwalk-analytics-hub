@@ -92,6 +92,7 @@ sources:
     tables:
       - name: fct_accounting_move_lines
       - name: fct_rental_bookings
+      - name: fct_deals
       - name: dim_accounting_analytic_accounts
   
   - name: marts

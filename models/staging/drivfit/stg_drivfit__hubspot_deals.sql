@@ -5,7 +5,7 @@ with
 source as (
     select
         *
-    from {{ source('drivfit_hubspot', 'deal') }}
+    from {{ source('reporting', 'fct_deals') }}
 ),
 
 transformation as (
@@ -15,7 +15,6 @@ transformation as (
         *
 
     FROM source
-    WHERE _fivetran_deleted IS FALSE
 
 )
 
