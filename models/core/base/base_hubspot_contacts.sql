@@ -1,4 +1,6 @@
-WITH merged_objects AS (
+WITH 
+
+merged_objects AS (
     SELECT CAST(value AS INT64) value
     FROM 
         {{ ref("stg_hubspot__contacts") }},
