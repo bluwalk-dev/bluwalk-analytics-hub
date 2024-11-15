@@ -1,3 +1,17 @@
+-- Temporary to avoid duplication of vehicles
+WITH vehicles AS (
+    SELECT * FROM
+        (SELECT 
+            *, 
+            ROW_NUMBER() OVER (
+                PARTITION BY license_plate 
+                ORDER BY create_date ASC
+            ) AS __row_number
+        FROM {{ ref("stg_odoo__fleet_vehicles") }} 
+        )
+    WHERE __row_number = 1
+)
+
 /*
   This model enriches the fleet vehicle data from the stg_odoo__fleet_vehicles source
   by joining it with vehicle models, brands, and country dimension tables. It provides
@@ -44,7 +58,7 @@ SELECT
     fv.seats as vehicle_nr_seats,  -- Number of seats in the vehicle
     fv.doors as vehicle_nr_doors  -- Number of doors in the vehicle
 
-FROM {{ ref('stg_odoo__fleet_vehicles') }} fv  -- Source table: staged fleet vehicles data
+FROM vehicles fv  -- Source table: staged fleet vehicles data
 LEFT JOIN {{ ref('stg_odoo__fleet_vehicle_models') }} fvm ON fv.model_id = fvm.id  -- Joining with vehicle models
 LEFT JOIN {{ ref('stg_odoo__fleet_vehicle_model_brands') }} fvmb ON fv.brand_id = fvmb.id  -- Joining with vehicle brands
 LEFT JOIN {{ ref('dim_countries') }} c ON fv.vehicle_country_id = c.country_id  -- Joining with country dimension table
