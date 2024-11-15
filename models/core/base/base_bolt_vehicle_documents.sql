@@ -1,5 +1,5 @@
 WITH last_version_documents AS (
-    SELECT CAST(MAX(load_timestamp) AS DATE) last_version
+    SELECT MAX(load_timestamp) last_version
     FROM {{ ref("stg_bolt__expiring_documents") }} 
 )
 
@@ -11,5 +11,5 @@ SELECT
    expiration_date
 FROM {{ ref("stg_bolt__expiring_documents") }}
 WHERE 
-    CAST(load_timestamp AS DATE) = (SELECT last_version FROM last_version_documents) AND
+    load_timestamp = (SELECT last_version FROM last_version_documents) AND
     entity_type = 'car'
