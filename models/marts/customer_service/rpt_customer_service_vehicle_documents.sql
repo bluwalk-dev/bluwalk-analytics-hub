@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 WITH active_vehicles AS (
     SELECT * 
     FROM {{ ref("dim_vehicle_contracts") }}
