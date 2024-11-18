@@ -41,7 +41,8 @@ transformation as (
         CAST(PriceComDescAcessoRedeCheias AS NUMERIC) as network_access_cheias,
         CAST(PriceComDescAcessoRedeVazio AS NUMERIC) as network_access_vazio,
         CAST(ROUND(ChargingServiceValue,2) AS NUMERIC) as charging_service_value,
-        CAST(ROUND(CharingTotalValue,2) AS NUMERIC) as total_value,
+        CAST(ROUND(ChargingTotalValue,2) AS NUMERIC) as total_net_value,
+        CAST(ROUND(TotalValueWithTaxes,2) AS NUMERIC) as total_value,
         TIMESTAMP_SECONDS(CAST(loadTimestampEpoch/1000 AS INT64)) as load_timestamp,
         CAST(loadUser AS STRING) as load_user
     FROM source
