@@ -5,6 +5,7 @@ SELECT
     a.card_name,
     a.charger_id,
     a.quantity,
+    a.total_net_value,
     a.total_value,
     a.energy_id,
     b.contact_id,
