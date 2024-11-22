@@ -12,6 +12,8 @@ SELECT
     data_fim,
     tipo_de_recibo,
     premio_total,
+    premio_comercial,
+    comissao_total,
     valor_a_pagar
 FROM
     (SELECT 
