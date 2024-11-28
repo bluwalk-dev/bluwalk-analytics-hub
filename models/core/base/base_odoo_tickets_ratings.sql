@@ -1,11 +1,12 @@
 SELECT DISTINCT
     'odoo' feedback_system,
+    'Bluwalk' brand,
     CAST(st.date_create AS DATETIME) AS date_time,
     st.id ticket_id,
     u.user_id,
     u.contact_id,
-    e.employee_user_id agent_employee_id,
     e.employee_short_name agent_name,
+    'Customer Service' agent_team,
     CAST(customer_rating as STRING) original_score,
     CAST(CAST(customer_rating AS INT64)/4 AS NUMERIC) as normalized_score,
     comment feedback_comment

@@ -17,6 +17,12 @@ sources:
       - name: call_ended
       - name: call_ringing_on_agent
       - name: call_recording
+  
+  - name: aircall_v3
+    database: bluwalk-data-warehouse
+    tables:
+      - name: call
+      - name: numbers
 
   - name: analytics_249934410
     database: bluwalk-data-warehouse
@@ -200,6 +206,15 @@ sources:
       - name: contact
       - name: deal
       - name: deal_contact
+      - name: owner
+      - name: team
+      - name: team_user
+      - name: ticket
+      - name: ticket_contact
+      - name: ticket_engagement
+      - name: ticket_pipeline
+      - name: ticket_pipeline_stage
+      - name: users
 
   - name: instagram_business
     database: bluwalk-data-warehouse
@@ -297,7 +312,11 @@ sources:
     database: bluwalk-data-warehouse
     tables:
       - name: account_account
+      - name: hr_department
+      - name: hr_employee
+      - name: res_company
       - name: res_partner
+      
 
   - name: prio
     database: bluwalk-data-warehouse

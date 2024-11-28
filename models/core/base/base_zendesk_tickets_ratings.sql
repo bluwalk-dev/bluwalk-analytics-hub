@@ -1,11 +1,12 @@
 SELECT 
     'zendesk' feedback_system,
+    'Bluwalk' brand,
     CAST(a.created_at AS DATETIME) date_time,
     CAST(a.id AS INT64) ticket_id,
     u.user_id,
     u.contact_id,
-    e.employee_user_id agent_employee_id,
     e.employee_short_name agent_name,
+    'Customer Service' agent_team,
     CAST(satisfaction_rating_score AS STRING) original_score,
     CAST(IF(satisfaction_rating_score='good',1,0) AS NUMERIC) normalized_score,
     satisfaction_rating_comment feedback_comment

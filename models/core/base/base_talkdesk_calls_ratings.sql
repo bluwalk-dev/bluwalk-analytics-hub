@@ -1,12 +1,13 @@
 SELECT 
 
     'talkdesk' feedback_system,
+    'Bluwalk' brand,
     CAST(a.call_start_time AS DATETIME) date_time,
     CAST(c.id AS INT64) ticket_id,
     g.user_id,
     g.contact_id,
-    f.employee_user_id agent_employee_id,
     f.employee_short_name agent_name,
+    'Customer Service' agent_team,
     b.exit original_score,
     CAST(b.exit AS NUMERIC) normalized_score,
     '' feedback_comment

@@ -1,9 +1,11 @@
+{{ config(materialized='table') }}
+
 with
 
 source as (
     select
         *
-    from {{ source('hubspot', 'users') }}
+    from {{ source('odoo_enterprise', 'hr_employee') }}
 ),
 
 transformation as (
@@ -13,7 +15,7 @@ transformation as (
         *
 
     from source
-
+    
 )
 
 select * from transformation
