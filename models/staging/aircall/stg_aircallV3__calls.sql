@@ -1,17 +1,14 @@
 with
 
 source as (
-    select
-        *
-    from {{ source('hubspot', 'users') }}
+    SELECT *
+    FROM {{ source('aircall_v3', 'call') }}
 ),
 
 transformation as (
 
     select
-        
         *
-
     from source
 
 )
