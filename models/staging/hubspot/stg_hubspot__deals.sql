@@ -49,6 +49,8 @@ transformation as (
 
         /* Insurance */
         CAST(property_ivi_policy_odoo_name AS STRING) AS insurance_policy_name,
+        CAST(property_hs_date_entered_appointmentscheduled AS TIMESTAMP) as insurance_entered_open,
+        CAST(property_hs_date_exited_appointmentscheduled AS TIMESTAMP) as insurance_exited_open,
 
         /* Personal Vehicle */
         property_lost_reason_personal_car AS personal_vehicle_lost_reason,

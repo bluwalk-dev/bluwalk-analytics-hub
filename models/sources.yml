@@ -23,6 +23,7 @@ sources:
     tables:
       - name: call
       - name: numbers
+      - name: users
 
   - name: analytics_249934410
     database: bluwalk-data-warehouse
@@ -185,6 +186,7 @@ sources:
       - name: deal_pipeline
       - name: deal_pipeline_stage
       - name: deal_stage
+      - name: engagement_email
       - name: merged_deal
       - name: owner
       - name: owner_team

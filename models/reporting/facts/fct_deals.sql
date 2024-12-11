@@ -40,6 +40,8 @@ SELECT DISTINCT
 
     -- Insurance Fields
     a.insurance_policy_name,
+    a.insurance_entered_open,
+    a.insurance_exited_open,
 
     -- Drivfit Fields
     a.vehicle_rental_license_plate,
