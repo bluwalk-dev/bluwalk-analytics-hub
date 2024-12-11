@@ -1,6 +1,8 @@
 SELECT
     date,
     team,
+    missed_inbound,
+    total_valid_inbound,
     CASE 
         WHEN total_valid_inbound = 0 THEN NULL
         ELSE ROUND(missed_inbound/total_valid_inbound,4)

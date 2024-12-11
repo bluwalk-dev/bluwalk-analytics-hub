@@ -38,6 +38,8 @@ service_pipelines AS (
 SELECT
     b.team,
     b.brand,
+    c.name as agent_name,
+    c.email as agent_email,
     a.*
 FROM (
     SELECT
@@ -75,5 +77,6 @@ FROM (
     FROM {{ ref('stg_aircall_legacy_calls') }}
 ) a
 LEFT JOIN service_pipelines b on a.number_name = b.number_name
+LEFT JOIN {{ ref('stg_aircallV3__users') }} c ON a.user_id = c.id
 WHERE team IS NOT NULL
 ORDER BY started_local ASC
