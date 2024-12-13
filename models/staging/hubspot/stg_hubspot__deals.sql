@@ -51,6 +51,14 @@ transformation as (
         CAST(property_ivi_policy_odoo_name AS STRING) AS insurance_policy_name,
         CAST(property_hs_date_entered_appointmentscheduled AS TIMESTAMP) as insurance_entered_open,
         CAST(property_hs_date_exited_appointmentscheduled AS TIMESTAMP) as insurance_exited_open,
+        CAST(property_hs_date_entered_contractsent AS TIMESTAMP) as insurance_entered_accepted,
+        CAST(property_hs_date_exited_contractsent AS TIMESTAMP) as insurance_exited_accepted,
+        CAST(property_hs_date_entered_decisionmakerboughtin AS TIMESTAMP) as insurance_entered_proposal_sent,
+        CAST(property_hs_date_exited_decisionmakerboughtin AS TIMESTAMP) as insurance_exited_proposal_sent,
+        CASE WHEN property_proposal_fidelidade IS NOT NULL THEN TRUE ELSE FALSE END as insurance_quote_fidelidade,
+        CASE WHEN property_proposal_allianz IS NOT NULL THEN TRUE ELSE FALSE END as insurance_quote_allianz,
+        CASE WHEN property_proposal_lusitania IS NOT NULL THEN TRUE ELSE FALSE END as insurance_quote_lusitania,
+        CASE WHEN property_proposal_tranquilidade IS NOT NULL THEN TRUE ELSE FALSE END as insurance_quote_tranquilidade,
 
         /* Personal Vehicle */
         property_lost_reason_personal_car AS personal_vehicle_lost_reason,

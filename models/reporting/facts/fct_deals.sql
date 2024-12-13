@@ -42,6 +42,14 @@ SELECT DISTINCT
     a.insurance_policy_name,
     a.insurance_entered_open,
     a.insurance_exited_open,
+    a.insurance_entered_accepted,
+    a.insurance_exited_accepted,
+    a.insurance_entered_proposal_sent,
+    a.insurance_exited_proposal_sent,
+    a.insurance_quote_fidelidade,
+    a.insurance_quote_allianz,
+    a.insurance_quote_lusitania,
+    a.insurance_quote_tranquilidade,
 
     -- Drivfit Fields
     a.vehicle_rental_license_plate,
