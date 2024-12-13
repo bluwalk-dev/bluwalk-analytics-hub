@@ -17,7 +17,7 @@ select
         WHEN a.fuel_id IS NOT NULL THEN 'Fuel'
         WHEN a.trips_id IS NOT NULL THEN 'Work'
         WHEN a.rental_contract_id IS NOT NULL THEN 'Vehicle Rental'
-        WHEN a.tolls_id IS NOT NULL THEN 'Toll'
+        --WHEN a.tolls_id IS NOT NULL THEN 'Toll'
         WHEN a.insurance_claim_id IS NOT NULL THEN 'Insurance Claim'
         WHEN a.vehicle_damage_id IS NOT NULL THEN 'Vehicle Damage'
         WHEN a.rental_vehicle_id IS NOT NULL THEN  'Vehicle Rental'
@@ -27,7 +27,7 @@ select
         WHEN a.fuel_id IS NOT NULL THEN a.fuel_id
         WHEN a.trips_id IS NOT NULL THEN a.trips_id
         WHEN a.rental_contract_id IS NOT NULL THEN a.rental_contract_id
-        WHEN a.tolls_id IS NOT NULL THEN a.tolls_id
+        --WHEN a.tolls_id IS NOT NULL THEN a.tolls_id
         WHEN a.insurance_claim_id IS NOT NULL THEN a.insurance_claim_id
         WHEN a.vehicle_damage_id IS NOT NULL THEN a.vehicle_damage_id
         WHEN a.rental_vehicle_id IS NOT NULL THEN a.rental_vehicle_id
