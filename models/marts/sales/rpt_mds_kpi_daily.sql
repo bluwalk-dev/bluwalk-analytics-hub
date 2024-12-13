@@ -20,8 +20,9 @@ staged_deals_open AS (
         c.date,
         COUNT(*) AS staged_deals_open
     FROM {{ ref("fct_deals") }} d
-    JOIN {{ ref("util_calendar") }} c 
-    ON c.date BETWEEN DATE(d.insurance_entered_open) AND COALESCE(DATE(d.insurance_exited_open), CURRENT_DATE())
+    JOIN {{ ref("util_calendar") }} c
+    ON c.date >= DATE(d.insurance_entered_open) 
+       AND c.date < COALESCE(DATE(d.insurance_exited_open), DATE_ADD(CURRENT_DATE(), INTERVAL 1 DAY))
     WHERE d.deal_pipeline_id = 'default'
     GROUP BY c.date
 ),
