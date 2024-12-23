@@ -3,7 +3,8 @@ calendar_agents AS (
     SELECT
         c.date,
         a.user_name as agent_name,
-        a.email as agent_email
+        a.email as agent_email,
+        a.hubspot_team_name as agent_team
     FROM {{ ref("util_calendar") }} c
     CROSS JOIN {{ ref("base_hubspot_users") }} a
     WHERE hubspot_team_name = 'Insurance'
@@ -16,7 +17,8 @@ calls AS (
         SUM(total_inbound) as total_inbound,
         SUM(total_outbound) as total_outbound
     FROM {{ ref("agg_operations_daily_team_agent_calls") }} a
-    WHERE team = 'Insurance'
+    LEFT JOIN {{ ref("base_hubspot_users") }} b ON a.agent_email = b.email
+    WHERE hubspot_team_name = 'Insurance'
     GROUP BY
         date,
         agent_name,
