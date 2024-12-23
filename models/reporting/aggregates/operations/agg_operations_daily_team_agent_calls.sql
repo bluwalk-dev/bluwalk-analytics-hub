@@ -7,7 +7,9 @@ WITH call_metrics AS (
         COUNTIF(direction = 'inbound') AS total_inbound,
         COUNTIF(direction = 'outbound') AS total_outbound
     FROM {{ ref('base_aircall_calls') }}
-    WHERE user_id IS NOT NULL
+    WHERE 
+        user_id IS NOT NULL AND
+        asset IS NOT NULL
     GROUP BY date, agent_name, agent_email, team
 )
 
