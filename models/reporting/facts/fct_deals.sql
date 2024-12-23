@@ -39,7 +39,10 @@ SELECT DISTINCT
     a.personal_vehicle_lost_reason,
 
     -- Insurance Fields
+    a.insurance_insurer_id,
+    a.insurance_policy_type_id,
     a.insurance_policy_name,
+    a.insurance_annual_premium,
     a.insurance_entered_open,
     a.insurance_exited_open,
     a.insurance_entered_accepted,
