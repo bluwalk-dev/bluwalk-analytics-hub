@@ -49,6 +49,12 @@ transformation as (
 
         /* Insurance */
         CAST(property_ivi_policy_odoo_name AS STRING) AS insurance_policy_name,
+        CAST(property_ivi_insurance_insurer AS INT64) AS insurance_insurer_id,
+        CASE 
+            WHEN SAFE_CAST(property_ivi_policy_type AS INT64) IS NULL THEN 1
+            ELSE CAST(property_ivi_policy_type AS INT64)
+        END AS insurance_policy_type_id,
+        CAST(property_insurance_current_annual_price AS NUMERIC) AS insurance_annual_premium,
         CAST(property_hs_date_entered_appointmentscheduled AS TIMESTAMP) as insurance_entered_open,
         CAST(property_hs_date_exited_appointmentscheduled AS TIMESTAMP) as insurance_exited_open,
         CAST(property_hs_date_entered_contractsent AS TIMESTAMP) as insurance_entered_accepted,
