@@ -43,7 +43,8 @@ policies_accepted AS (
         insurance_insurer_id as insurer_contact_id,
         insurance_policy_type_id as insurance_type_id,
         hs_owner_id as owner_id,
-        COUNT(*) as policies_accepted
+        COUNT(*) as policies_accepted,
+        SUM(insurance_annual_premium) as policies_premium
     FROM {{ ref("fct_deals") }}
     WHERE 
         deal_pipeline_id = 'default' AND 
@@ -62,7 +63,8 @@ SELECT
     a.insurance_type,
     a.owner_name,
     COALESCE(b.policies_issued, 0) policies_issued,
-    COALESCE(c.policies_accepted, 0) policies_accepted
+    COALESCE(c.policies_accepted, 0) policies_accepted,
+    COALESCE(c.policies_premium, 0) policies_premium
 FROM all_combinations a
 LEFT JOIN policies b ON 
     a.date = b.close_date AND 
