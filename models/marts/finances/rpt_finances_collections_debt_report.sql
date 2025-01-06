@@ -47,7 +47,7 @@ last_activity as (
     WHERE 
         account_type = 'user' AND 
         trips_id IS NOT NULL
-    GROUP BY analytic_account_owner_contact_id
+    GROUP BY contact_id
 )
 
 SELECT * EXCEPT(user_related_partners) FROM (
