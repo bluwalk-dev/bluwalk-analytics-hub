@@ -1,25 +1,14 @@
 WITH 
 
-analytic_balance AS (
+transaction_account_balance AS (
     SELECT
-        analytic_account_owner_contact_id contact_id,
-        ROUND(SUM(amount),2) AS balance
-    FROM {{ ref('fct_accounting_analytic_lines') }}
-    GROUP BY analytic_account_owner_contact_id
-),
-acccounting_balance AS (
-    SELECT
-      aaa.analytic_account_owner_contact_id contact_id, 
-      -sum(am.amount_due) balance
-    FROM {{ ref('fct_accounting_move_lines') }} aml
-    LEFT JOIN {{ ref('dim_accounting_analytic_accounts') }} aaa on aml.analytic_account_id = aaa.analytic_account_id
-    LEFT JOIN {{ ref('fct_accounting_moves') }} am on am.id = aml.move_id
-    WHERE 
-        aml.analytic_account_id is not null AND 
-        aml.move_state = 'posted' AND 
-        aaa.analytic_account_type = 'User' AND 
-        am.amount_due != 0
-    GROUP BY aaa.analytic_account_owner_contact_id
+        contact_id,
+        SUM(amount) as amount,
+        -1 * SUM(amount_residual) as residual,
+        SUM(amount_balance) as balance,
+    FROM {{ ref('fct_financial_user_transaction_lines') }}
+    GROUP BY
+        contact_id
 ),
 deposits AS (
     SELECT * FROM (
@@ -35,9 +24,9 @@ deposits AS (
     WHERE deposit > 0
 ),
 user_related_partners AS (
-    SELECT DISTINCT analytic_account_owner_contact_id user_related_partners
-    FROM {{ ref('fct_accounting_analytic_lines') }}
-    WHERE analytic_account_type = 'User'
+    SELECT DISTINCT contact_id user_related_partners
+    FROM {{ ref('fct_financial_user_transaction_lines') }}
+    WHERE account_type = 'user'
 ),
 last_activity as (
     SELECT
@@ -57,14 +46,13 @@ SELECT * EXCEPT(user_related_partners) FROM (
         a.contact_full_name,
         e.user_related_partners,
         f.last_activity,
-        IFNULL(b.balance, 0) as analytic_balance,
-        IFNULL(c.balance, 0) as accounting_balance,
-        IFNULL(b.balance, 0) + IFNULL(c.balance, 0) as outstanding_balance,
+        IFNULL(b.amount, 0) as analytic_balance,
+        IFNULL(b.residual, 0) as accounting_balance,
+        IFNULL(b.balance, 0) as outstanding_balance,
         IFNULL(d.deposit, 0) as deposit,
-        IFNULL(b.balance, 0) + IFNULL(c.balance, 0) + IFNULL(d.deposit, 0) AS net_balance
+        IFNULL(b.balance, 0) + IFNULL(d.deposit, 0) AS net_balance
     FROM {{ ref('dim_contacts') }} a
-    LEFT JOIN analytic_balance b ON a.contact_id = b.contact_id
-    LEFT JOIN acccounting_balance c ON a.contact_id = c.contact_id
+    LEFT JOIN transaction_account_balance b ON a.contact_id = b.contact_id
     LEFT JOIN deposits d ON a.contact_id = d.contact_id
     LEFT JOIN user_related_partners e ON a.contact_id = e.user_related_partners
     LEFT JOIN last_activity f ON a.contact_id = f.contact_id
