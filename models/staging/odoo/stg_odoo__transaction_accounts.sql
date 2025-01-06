@@ -19,7 +19,6 @@ transformation as (
         partner_nif as contact_vat,
         type as transaction_account_type,
 
-
     from source
     
 )

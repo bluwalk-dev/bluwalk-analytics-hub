@@ -41,12 +41,12 @@ user_related_partners AS (
 ),
 last_activity as (
     SELECT
-        analytic_account_owner_contact_id contact_id,
+        contact_id,
         MAX(date) last_activity
-    FROM {{ ref('fct_accounting_analytic_lines') }}
+    FROM {{ ref('fct_financial_user_transaction_lines') }}
     WHERE 
-        analytic_account_type = 'User' AND 
-        order_type = 'Work'
+        account_type = 'user' AND 
+        trips_id IS NOT NULL
     GROUP BY analytic_account_owner_contact_id
 )
 
