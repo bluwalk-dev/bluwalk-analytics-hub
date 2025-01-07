@@ -43,7 +43,7 @@ accepted_deals AS (
     WHERE 
         d.deal_pipeline_id = 'default' AND 
         d.insurance_entered_accepted IS NOT NULL AND
-        d.insurance_entered_accepted != COALESCE(insurance_exited_accepted, TIMESTAMP_SECONDS(4103043935)) AND
+        d.insurance_entered_accepted != COALESCE(d.insurance_exited_accepted, TIMESTAMP_SECONDS(4103043935))
     GROUP BY c.date
 )
 
