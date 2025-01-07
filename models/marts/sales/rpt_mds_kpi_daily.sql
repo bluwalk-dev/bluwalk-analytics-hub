@@ -40,7 +40,10 @@ accepted_deals AS (
     FROM {{ ref("fct_deals") }} d
     JOIN {{ ref("util_calendar") }} c 
     ON c.date = DATE(d.insurance_entered_accepted)
-    WHERE d.deal_pipeline_id = 'default' AND d.insurance_entered_accepted IS NOT NULL
+    WHERE 
+        d.deal_pipeline_id = 'default' AND 
+        d.insurance_entered_accepted IS NOT NULL AND
+        d.insurance_entered_accepted != COALESCE(insurance_exited_accepted, TIMESTAMP_SECONDS(4103043935)) AND
     GROUP BY c.date
 )
 
