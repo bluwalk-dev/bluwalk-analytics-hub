@@ -6,13 +6,13 @@ WITH open_vehicle_contracts AS (
         vehicle_contract_type = 'car_rental'
 ), last_account_update as (
     SELECT
-        analytic_account_owner_contact_id as contact_id,
+        contact_id,
         MAX(date) last_activity
-    FROM {{ ref('fct_accounting_analytic_lines') }}
+    FROM {{ ref('fct_financial_user_transaction_lines') }}
     WHERE 
-        analytic_account_type = 'User' AND
-        move_id IS NULL
-    GROUP BY analytic_account_owner_contact_id
+        account_type = 'user' AND
+        financial_document_id IS NULL
+    GROUP BY contact_id
 )
 
 SELECT DISTINCT

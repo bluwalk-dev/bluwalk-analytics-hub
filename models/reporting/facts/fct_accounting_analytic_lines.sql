@@ -1,4 +1,4 @@
-select
+SELECT
     a.id,
     a.date,
     a.name,
