@@ -41,10 +41,7 @@ SELECT * FROM
         b.vehicle_plate,
         d.org_name account_login_name,
         a.document_name,
-        CASE 
-            WHEN a.expiration_date < current_date THEN 'expired'
-            ELSE 'active'
-        END document_status,
+        a.document_status,
         a.expiration_date
     FROM {{ ref("base_bolt_vehicle_documents") }} a
     LEFT JOIN active_vehicles b ON a.vehicle_plate = b.vehicle_plate
