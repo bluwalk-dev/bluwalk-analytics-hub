@@ -106,6 +106,7 @@ sources:
     database: drivfit-analytics-hub
     tables:
       - name: rpt_bluwalk_vehicle_contracts
+      - name: rpt_vehicle_current_status
 
   - name: drivfit
     database: bluwalk-data-warehouse

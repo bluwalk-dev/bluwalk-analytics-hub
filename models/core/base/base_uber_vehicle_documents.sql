@@ -18,6 +18,9 @@ SELECT
     a.document_global_type_name,
     a.document_type_name,
     a.document_status,
-    a.document_expires_at
+    a.document_expires_at,
+    c.org_name as account_name,
+    c.location_name
 FROM last_version_documents a
 LEFT JOIN {{ ref("base_uber_vehicles") }} b ON a.vehicle_id = b.vehicle_id
+LEFT JOIN {{ ref("dim_partners_logins") }} c ON a.vehicle_owner_id = c.login_id

@@ -4,12 +4,19 @@ WITH last_version_documents AS (
 )
 
 SELECT
-   REPLACE(identifier, '-', '') vehicle_plate,
-   company_id,
-   type_title document_name,
-   entity_id,
-   expiration_date
-FROM {{ ref("stg_bolt__expiring_documents") }}
+    REPLACE(a.identifier, '-', '') vehicle_plate,
+    a.company_id,
+    a.type_title document_name,
+    a.entity_id,
+    CASE 
+        WHEN a.expiration_date < current_date THEN 'expired'
+        ELSE 'active'
+    END document_status,
+    a.expiration_date,
+    b.org_name as account_name,
+    b.location_name
+FROM {{ ref("stg_bolt__expiring_documents") }} a
+LEFT JOIN {{ ref("dim_partners_logins") }} b ON a.company_id = b.login_id
 WHERE 
     load_timestamp = (SELECT last_version FROM last_version_documents) AND
     entity_type = 'car'
