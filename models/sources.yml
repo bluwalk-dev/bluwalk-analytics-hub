@@ -315,6 +315,7 @@ sources:
     database: bluwalk-data-warehouse
     tables:
       - name: account_account
+      - name: account_move
       - name: hr_department
       - name: hr_employee
       - name: res_company
