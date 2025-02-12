@@ -26,6 +26,7 @@ SELECT
     a.journal_id,
     b.journal_name,
     a.partner_id contact_id,
+    e.contact_vat,
     a.amount_untaxed_signed amount_untaxed,
     a.amount_tax_signed amount_tax,
     a.amount_total_signed amount_total,
@@ -33,10 +34,11 @@ SELECT
     a.invoice_payment_state payment_state,
     a.iexpress_invoice_permalink invoice_link
 FROM {{ ref('stg_odoo__account_moves') }} a
-LEFT JOIN {{ ref('dim_accounting_journals') }} b ON 
+LEFT JOIN {{ ref('dim_accounting_journals') }} b ON
     a.journal_id = b.journal_id AND
     a.financial_system = b.journal_financial_system
 LEFT JOIN {{ ref('util_calendar') }} c ON c.date = a.date
+LEFT JOIN {{ ref('dim_contacts') }} e ON a.partner_id = e.contact_id
 
 UNION ALL
 
@@ -67,7 +69,8 @@ SELECT
     END move_type,
     a.journal_id,
     b.journal_name,
-    d.contact_id,
+    NULL as contact_id,
+    d.accounting_contact_vat,
     a.amount_untaxed_signed amount_untaxed,
     a.amount_tax_signed amount_tax,
     a.amount_total_signed amount_total,
@@ -79,4 +82,4 @@ LEFT JOIN {{ ref('dim_accounting_journals') }} b ON
     a.journal_id = b.journal_id AND
     a.financial_system = b.journal_financial_system
 LEFT JOIN {{ ref('util_calendar') }} c ON c.date = a.date
-LEFT JOIN {{ ref('dim_contacts') }} d ON a.partner_id = d.contact_odoo_ee_id
+LEFT JOIN {{ ref('dim_accounting_accounts') }} d ON a.partner_id = d.accounting_contact_id

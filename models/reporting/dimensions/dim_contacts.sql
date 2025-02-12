@@ -1,8 +1,3 @@
--- res_partner_enriched model
--- This model enriches the res_partner data from the stg_odoo__res_partners source
--- by joining it with the dim_locations dimension table. It provides a comprehensive
--- view of contact information including location details.
-
 SELECT 
     
     -- Basic contact information
