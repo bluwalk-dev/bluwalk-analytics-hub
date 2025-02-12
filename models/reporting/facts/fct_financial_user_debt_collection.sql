@@ -22,5 +22,6 @@ LEFT JOIN {{ ref('dim_accounting_journals')}} aj on aj.journal_id = aml_credit.j
 LEFT JOIN {{ ref('fct_accounting_moves') }} am on aml_debit.move_id = am.id
 WHERE 
     am.journal_id = 99 AND 
-    am.move_state = 'posted'
+    am.move_state = 'posted' AND
+    am.financial_system = 'odoo_ce'
 ORDER BY date DESC

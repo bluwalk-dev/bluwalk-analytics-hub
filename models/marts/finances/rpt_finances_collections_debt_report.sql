@@ -18,7 +18,8 @@ deposits AS (
         FROM {{ ref('fct_accounting_moves') }}
         WHERE 
             move_type IN ('Supplier Deposit', 'Supplier Deposit Refund') AND
-            move_state = 'posted'
+            move_state = 'posted' AND
+            financial_system = 'odoo_ce'
         
         GROUP BY contact_id)
     WHERE deposit > 0

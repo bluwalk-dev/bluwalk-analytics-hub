@@ -12,6 +12,8 @@ transformation as (
 
     select
         
+        TO_HEX(MD5('odoo_ce' || 'account.journal' || id)) as key,
+        'odoo_ce' as financial_system,
         *
 
     from source

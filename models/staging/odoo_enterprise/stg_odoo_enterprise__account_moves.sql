@@ -12,9 +12,12 @@ transformation as (
 
     select
         
+        TO_HEX(MD5('odoo_ee' || 'account.move' || id)) as key,
+        'odoo_ee' as financial_system,
         *
 
     from source
+    where company_id = 4
     
 )
 
