@@ -48,4 +48,5 @@ FROM
         i.full_reconcile_id IS NOT NULL
     ) a
 LEFT JOIN {{ ref('fct_accounting_moves') }} b ON a.move_id = b.id
+WHERE b.financial_system = 'odoo_ce'
 ORDER BY date DESC
