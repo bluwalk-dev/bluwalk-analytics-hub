@@ -13,6 +13,7 @@ SELECT
     rp.city as contact_city,  -- City name
     rp.birthday as contact_birthdate,  -- Birthdate of the contact
     rp.gender as contact_gender,  -- Gender of the contact
+    rp.is_company as contact_is_company,
 
     -- Location information joined from dim_locations
     l.location_name AS contact_location,  -- Name of the location
