@@ -42,7 +42,7 @@ LEFT JOIN {{ ref('dim_contacts') }} e ON a.partner_id = e.contact_id
 
 UNION ALL
 
--- Odoo CE transactions --
+-- Odoo EE transactions --
 SELECT
     key,
     financial_system,
@@ -83,3 +83,4 @@ LEFT JOIN {{ ref('dim_accounting_journals') }} b ON
     a.financial_system = b.journal_financial_system
 LEFT JOIN {{ ref('util_calendar') }} c ON c.date = a.date
 LEFT JOIN {{ ref('dim_accounting_contacts') }} d ON a.partner_id = d.accounting_contact_id
+WHERE company_id = 4
