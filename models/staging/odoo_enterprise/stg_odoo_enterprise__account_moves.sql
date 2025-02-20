@@ -17,7 +17,6 @@ transformation as (
         *
 
     from source
-    where company_id = 4
     
 )
 
