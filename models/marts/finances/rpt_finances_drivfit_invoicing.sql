@@ -12,4 +12,3 @@ from {{ ref('stg_odoo_enterprise__account_moves') }}
 where 
 	journal_id = 104 and
 	partner_id != 1586
-	

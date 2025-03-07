@@ -264,6 +264,8 @@ sources:
       - name: booking
       - name: close_period
       - name: contract_type_line
+      - name: financial_document
+      - name: financial_system
       - name: fleet_vehicle
       - name: fleet_vehicle_insurance
       - name: fleet_vehicle_model
