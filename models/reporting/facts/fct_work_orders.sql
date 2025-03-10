@@ -2,6 +2,7 @@ SELECT
     a.work_order_id,
     a.work_order_name,
     a.work_order_status,
+    a.work_order_hash,
     a.statement,
     a.contact_id,
     c.user_id,

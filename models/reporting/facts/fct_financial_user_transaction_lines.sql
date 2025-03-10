@@ -20,7 +20,19 @@ SELECT
     a.trips_id,
     a.fuel_id,
     a.rental_vehicle_id,
-    a.misc_id
+    a.misc_id,
+    CASE
+        WHEN a.fuel_id IS NOT NULL THEN 'Fuel'
+        WHEN a.trips_id IS NOT NULL THEN 'Work'
+        WHEN a.rental_vehicle_id IS NOT NULL THEN  'Vehicle Rental'
+        ELSE NULL
+    END order_type,
+    CASE
+        WHEN a.fuel_id IS NOT NULL THEN a.fuel_id
+        WHEN a.trips_id IS NOT NULL THEN a.trips_id
+        WHEN a.rental_vehicle_id IS NOT NULL THEN a.rental_vehicle_id
+        ELSE NULL
+    END order_id
 FROM {{ ref('stg_odoo__transaction_lines') }} a
 LEFT JOIN {{ ref('stg_odoo__transaction_accounts') }} b ON a.account_id = b.transaction_account_id
 LEFT JOIN {{ ref('stg_odoo__transaction_categories') }} c ON a.category_id = c.id

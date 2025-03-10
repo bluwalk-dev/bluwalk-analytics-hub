@@ -25,6 +25,6 @@ FROM (
     UNION ALL
     -- Insurance Services
     SELECT * FROM {{ ref('agg_sm_daily_insurance_activity') }}
-    -- Subscription Services
+
 )
 ORDER BY date DESC, user_id DESC
