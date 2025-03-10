@@ -27,3 +27,4 @@ WHERE
     b.start_date IS NOT NULL AND 
     contact_id IS NOT NULL AND
     a.date <= CURRENT_DATE()
+ORDER BY date DESC

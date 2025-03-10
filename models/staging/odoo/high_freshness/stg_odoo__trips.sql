@@ -14,6 +14,7 @@ transformation as (
         id work_order_id,
         name work_order_name,
         status work_order_status,
+        transaction_hash as work_order_hash,
         payment_cycle statement,
         billing_account_id,
         partner_id contact_id,
