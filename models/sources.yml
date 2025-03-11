@@ -318,6 +318,7 @@ sources:
     tables:
       - name: account_account
       - name: account_move
+      - name: account_move_line
       - name: account_journal
       - name: hr_department
       - name: hr_employee
