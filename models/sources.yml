@@ -317,6 +317,7 @@ sources:
     database: bluwalk-data-warehouse
     tables:
       - name: account_account
+      - name: account_bank_statement_line
       - name: account_move
       - name: account_move_line
       - name: account_journal
