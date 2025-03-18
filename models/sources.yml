@@ -256,6 +256,7 @@ sources:
       - name: account_account
       - name: account_analytic_account
       - name: account_analytic_line
+      - name: account_bank_statement_line
       - name: account_partial_reconcile
       - name: account_move_line
       - name: account_move
