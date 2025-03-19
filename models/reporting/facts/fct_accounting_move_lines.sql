@@ -75,3 +75,4 @@ left join {{ ref('dim_accounting_accounts') }} c ON
     a.financial_system_id = c.account_financial_system_id
 LEFT JOIN {{ ref('dim_accounting_contacts') }} d ON 
     a.partner_id = d.accounting_contact_id
+WHERE a.company_id = 4
