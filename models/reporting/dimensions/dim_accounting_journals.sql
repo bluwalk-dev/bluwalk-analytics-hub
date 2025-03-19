@@ -3,6 +3,7 @@
 
 SELECT
     key as journal_key,
+    financial_system_id as journal_financial_system_id,
     financial_system as journal_financial_system,
     id AS journal_id, -- Unique identifier for the journal
     name AS journal_name, -- Name of the journal
@@ -15,6 +16,7 @@ UNION ALL
 
 SELECT
     key as journal_key,
+    financial_system_id as journal_financial_system_id,
     financial_system as journal_financial_system,
     id AS journal_id, -- Unique identifier for the journal
     JSON_VALUE(name, "$.pt_PT") AS journal_name, -- Name of the journal

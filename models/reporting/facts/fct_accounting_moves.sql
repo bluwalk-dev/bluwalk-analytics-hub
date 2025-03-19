@@ -1,7 +1,7 @@
 -- Odoo CE transactions --
 SELECT
     key,
-    1 as financial_system_id,
+    financial_system_id,
     financial_system,
     a.id,
     a.name,
@@ -46,7 +46,7 @@ UNION ALL
 -- Odoo EE transactions --
 SELECT
     key,
-    4 as financial_system_id,
+    financial_system_id,
     financial_system,
     a.id,
     a.name,
