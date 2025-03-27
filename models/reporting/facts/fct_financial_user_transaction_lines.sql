@@ -11,6 +11,8 @@ SELECT
     a.date,
     a.category_id,
     c.name as category_name,
+    c.group_id,
+    e.name as group_name,
     a.payment_cycle,
     financial_document_id,
     a.amount,
@@ -37,3 +39,4 @@ FROM {{ ref('stg_odoo__transaction_lines') }} a
 LEFT JOIN {{ ref('stg_odoo__transaction_accounts') }} b ON a.account_id = b.transaction_account_id
 LEFT JOIN {{ ref('stg_odoo__transaction_categories') }} c ON a.category_id = c.id
 LEFT JOIN {{ ref('dim_users') }} d ON b.user_id = d.user_id
+LEFT JOIN {{ ref('stg_odoo__transaction_groups') }} e ON c.group_id = e.id
