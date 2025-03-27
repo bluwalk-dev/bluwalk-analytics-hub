@@ -55,12 +55,34 @@ transformation as (
             ELSE CAST(property_ivi_policy_type AS INT64)
         END AS insurance_policy_type_id,
         CAST(property_insurance_current_annual_price AS NUMERIC) AS insurance_annual_premium,
-        CAST(property_hs_date_entered_appointmentscheduled AS TIMESTAMP) as insurance_entered_open,
-        CAST(property_hs_date_exited_appointmentscheduled AS TIMESTAMP) as insurance_exited_open,
-        CAST(property_hs_date_entered_contractsent AS TIMESTAMP) as insurance_entered_accepted,
-        CAST(property_hs_date_exited_contractsent AS TIMESTAMP) as insurance_exited_accepted,
-        CAST(property_hs_date_entered_decisionmakerboughtin AS TIMESTAMP) as insurance_entered_proposal_sent,
-        CAST(property_hs_date_exited_decisionmakerboughtin AS TIMESTAMP) as insurance_exited_proposal_sent,
+        
+        COALESCE(
+            CAST(property_hs_date_entered_appointmentscheduled AS TIMESTAMP),
+            CAST(property_hs_v_2_date_entered_appointmentscheduled AS TIMESTAMP)
+        ) AS insurance_entered_open,
+        COALESCE(
+            CAST(property_hs_date_date_exited_appointmentscheduled AS TIMESTAMP),
+            CAST(property_hs_v_2_date_exited_appointmentscheduled AS TIMESTAMP)
+        ) AS insurance_exited_open,
+        
+        COALESCE(
+            CAST(property_hs_date_entered_contractsent AS TIMESTAMP),
+            CAST(property_hs_v_2_date_entered_contractsent AS TIMESTAMP)
+        ) AS insurance_entered_accepted,
+        COALESCE(
+            CAST(property_hs_date_exited_contractsent AS TIMESTAMP),
+            CAST(property_hs_v_2_date_exited_contractsent AS TIMESTAMP)
+        ) AS insurance_exited_accepted,
+
+        COALESCE(
+            CAST(property_hs_date_entered_decisionmakerboughtin AS TIMESTAMP),
+            CAST(property_hs_v_2_date_entered_decisionmakerboughtin AS TIMESTAMP)
+        ) AS insurance_entered_proposal_sent,
+        COALESCE(
+            CAST(property_hs_date_exited_decisionmakerboughtin AS TIMESTAMP),
+            CAST(property_hs_v_2_date_exited_decisionmakerboughtin AS TIMESTAMP)
+        ) AS insurance_exited_proposal_sent,
+        
         CASE WHEN property_proposal_fidelidade IS NOT NULL THEN TRUE ELSE FALSE END as insurance_quote_fidelidade,
         CASE WHEN property_proposal_allianz IS NOT NULL THEN TRUE ELSE FALSE END as insurance_quote_allianz,
         CASE WHEN property_proposal_lusitania IS NOT NULL THEN TRUE ELSE FALSE END as insurance_quote_lusitania,
