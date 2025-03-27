@@ -11,6 +11,7 @@ SELECT
     upa.sales_partner_id,
     upa.partner_name,
     '' partner_login_id,
+    '' partner_login_location,
     upa.contact_id,
     u.user_id,
     upa.partner_account_uuid,
