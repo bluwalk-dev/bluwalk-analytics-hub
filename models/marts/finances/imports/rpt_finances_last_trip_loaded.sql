@@ -1,7 +1,7 @@
 SELECT
     partner_name,
     partner_login_location,
-    max(request_local_time)
+    max(request_local_time) last_trip
 FROM {{ ref('fct_user_rideshare_trips') }}
 WHERE 
     partner_name IS NOT NULL AND
