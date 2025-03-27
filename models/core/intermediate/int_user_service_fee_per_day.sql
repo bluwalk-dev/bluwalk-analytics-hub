@@ -1,4 +1,6 @@
-WITH vehicle_usage AS (
+WITH 
+
+vehicle_usage AS (
     SELECT DISTINCT
         CAST(a.dropoff_timestamp AS DATE) date,
         a.user_id,

@@ -61,7 +61,7 @@ transformation as (
             CAST(property_hs_v_2_date_entered_appointmentscheduled AS TIMESTAMP)
         ) AS insurance_entered_open,
         COALESCE(
-            CAST(property_hs_date_date_exited_appointmentscheduled AS TIMESTAMP),
+            CAST(property_hs_date_exited_appointmentscheduled AS TIMESTAMP),
             CAST(property_hs_v_2_date_exited_appointmentscheduled AS TIMESTAMP)
         ) AS insurance_exited_open,
         
