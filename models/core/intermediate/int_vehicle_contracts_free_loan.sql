@@ -1,20 +1,49 @@
-/*
-  vehicle_rental_contract_enriched model
-  This model enriches the rental contract data from the stg_odoo__rental_contracts source
-  by joining it with various dimension tables like vehicles, contacts, vehicle categories,
-  and segments. It provides a comprehensive view of rental contracts, including vehicle details,
-  contract terms, pricing, and associated contact information.
+WITH vehicles AS (
+    SELECT 
+        fv.id as vehicle_id,  -- Unique identifier for the vehicle
+        c.country_name as vehicle_country,  -- Country name where the vehicle is registered
+        fv.license_plate as vehicle_plate,  -- License plate number of the vehicle
+        fv.vin_sn as vehicle_vin,  -- Vehicle Identification Number (VIN)
+        fvmb.name as vehicle_brand,  -- Brand name of the vehicle
+        fvm.name as vehicle_model,  -- Model name of the vehicle
 
-  Source Tables:
-  - stg_odoo__rental_contracts: Contains basic rental contract information.
-  - stg_odoo__rate_bases: Contains rate base details for rental contracts.
-  - dim_contacts: Contains contact details, used here for supplier information.
-  - stg_odoo__vehicle_categories: Contains vehicle category information.
-  - stg_odoo__segments: Contains segment details for vehicle categories.
-  - dim_accounting_analytic_accounts: Contains accounting details, used for billing information.
-  - dim_vehicles: Contains detailed vehicle information.
-  - dim_users: Contains user information linked to analytic accounts.
-*/
+        fv.driver_id as current_driver_contract_id,
+
+        -- Concatenating brand and model for a full name representation
+        CONCAT(fvmb.name, ' ', fvm.name) as vehicle_brand_model,
+
+        fv.vehicle_model_version,  -- Version of the vehicle model
+        fv.transmission as vehicle_transmission,  -- Transmission type of the vehicle
+
+        -- Transmission code: 'M' for manual, 'A' for automatic, NULL for others
+        CASE 
+            WHEN fv.transmission = 'manual' THEN 'M'
+            WHEN fv.transmission = 'automatic' THEN 'A'
+            ELSE NULL 
+        END as vehicle_transmission_code,
+
+        fv.fuel_type as vehicle_fuel_type,  -- Fuel type of the vehicle
+
+        -- Fuel type code: 'D' for diesel, 'E' for electric, etc.
+        CASE 
+            WHEN fv.fuel_type = 'diesel' THEN 'D'
+            WHEN fv.fuel_type = 'electric' THEN 'E'
+            WHEN fv.fuel_type = 'hybrid' THEN 'H'
+            WHEN fv.fuel_type = 'lpg' THEN 'L'
+            WHEN fv.fuel_type = 'gasoline' THEN 'G'
+            ELSE NULL 
+        END as vehicle_fuel_type_code,
+
+        fv.color as vehicle_color,  -- Color of the vehicle
+        fv.seats as vehicle_nr_seats,  -- Number of seats in the vehicle
+        fv.doors as vehicle_nr_doors  -- Number of doors in the vehicle
+
+    FROM {{ ref("stg_odoo__fleet_vehicles") }}  fv  -- Source table: staged fleet vehicles data
+    LEFT JOIN {{ ref('stg_odoo__fleet_vehicle_models') }} fvm ON fv.model_id = fvm.id  -- Joining with vehicle models
+    LEFT JOIN {{ ref('stg_odoo__fleet_vehicle_model_brands') }} fvmb ON fv.brand_id = fvmb.id  -- Joining with vehicle brands
+    LEFT JOIN {{ ref('dim_countries') }} c ON fv.vehicle_country_id = c.country_id  -- Joining with country dimension table
+    WHERE active IS TRUE  -- Filtering only active vehicles
+)
 
 SELECT 
     TO_HEX(MD5(rc.name || 'Free Loan')) as vehicle_contract_key,
@@ -76,7 +105,7 @@ LEFT JOIN {{ ref('dim_partners') }} c ON rb.partner_id = c.partner_contact_id  -
 LEFT JOIN {{ ref('stg_odoo__vehicle_categories') }} vc ON rb.vehicle_category_id = vc.id  -- Joining with vehicle categories
 LEFT JOIN {{ ref('stg_odoo__segments') }} s ON vc.segment_id = s.id  -- Joining with segments for vehicle segment details
 LEFT JOIN {{ ref('dim_accounting_analytic_accounts') }} aaa ON rc.billing_account_id = aaa.analytic_account_id  -- Joining with accounting analytic accounts
-LEFT JOIN {{ ref('dim_vehicles') }} fv ON rc.vehicle_id = fv.vehicle_id  -- Joining with vehicles for detailed vehicle information
+LEFT JOIN vehicles fv ON rc.vehicle_id = fv.vehicle_id  -- Joining with vehicles for detailed vehicle information
 LEFT JOIN {{ ref('dim_users') }} u ON aaa.analytic_account_owner_contact_id = u.contact_id  -- Joining with users for user details
 WHERE 
     rc.active IS TRUE AND -- Filtering only active rental contracts
