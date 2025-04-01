@@ -16,7 +16,8 @@ WITH
         FROM {{ ref("fct_deals") }}
         WHERE
             is_closed = FALSE AND -- Filter for open deals
-            partner_marketplace = 'Work' -- Filter for 'Work' marketplace
+            partner_marketplace = 'Work' AND -- Filter for 'Work' marketplace
+            deal_pipeline_stage_id NOT IN ('294191047', '307257314', '322811066') -- Except stage Open
     ),
     -- CTE 'activity_data' to gather user's first work date across various categories
     activity_data AS (
