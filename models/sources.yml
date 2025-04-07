@@ -290,6 +290,7 @@ sources:
       - name: res_country_city
       - name: res_country
       - name: res_partner
+      - name: res_partner_bank
       - name: res_sales_partner
       - name: res_sales_partner_type
       - name: res_sales_partner_account
