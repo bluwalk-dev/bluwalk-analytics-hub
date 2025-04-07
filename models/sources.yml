@@ -326,6 +326,7 @@ sources:
       - name: hr_employee
       - name: res_company
       - name: res_partner
+      - name: res_partner_bank
       
 
   - name: prio
