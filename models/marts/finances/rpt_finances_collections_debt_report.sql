@@ -11,17 +11,36 @@ transaction_account_balance AS (
         contact_id
 ),
 deposits AS (
-    SELECT * FROM (
-        SELECT
-            contact_id,
-            SUM(amount_untaxed) as deposit
-        FROM {{ ref('fct_accounting_moves') }}
-        WHERE 
-            move_type IN ('Supplier Deposit', 'Supplier Deposit Refund') AND
-            move_state = 'posted' AND
-            financial_system = 'odoo_ce'
-        
-        GROUP BY contact_id)
+    SELECT *
+    FROM (
+        SELECT contact_id, SUM(deposit) AS deposit
+        FROM (
+
+            SELECT
+                contact_id,
+                amount_untaxed AS deposit
+            FROM {{ ref('fct_accounting_moves') }}
+            WHERE 
+                move_type IN ('Supplier Deposit', 'Supplier Deposit Refund')
+                AND move_state = 'posted'
+                AND financial_system = 'odoo_ce'
+                AND extract(year from date) < 2025
+            
+            UNION ALL
+            
+            SELECT
+                b.contact_id,
+                (-1 * a.balance) AS deposit
+            FROM {{ ref('fct_accounting_move_lines') }} a
+            LEFT JOIN {{ ref('dim_contacts') }} b ON a.entity_id = b.contact_odoo_ee_id
+            WHERE 
+                journal_id = 118 
+                AND account_id = 8510 
+                AND move_state = 'posted'
+                AND financial_system = 'odoo_ee'
+        ) AS combined
+        GROUP BY contact_id
+    ) AS final
     WHERE deposit > 0
 ),
 user_related_partners AS (
