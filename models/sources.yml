@@ -315,6 +315,13 @@ sources:
       - name: voucher
       - name: voucher_type
   
+  - name: odoo_drivfit
+    schema: odoo
+    database: drivfit-data-warehouse
+    tables:
+      - name: account_move
+      - name: res_partner
+
   - name: odoo_enterprise
     database: bluwalk-data-warehouse
     tables:
