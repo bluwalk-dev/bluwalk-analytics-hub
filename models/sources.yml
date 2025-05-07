@@ -268,7 +268,10 @@ sources:
       - name: financial_document
       - name: financial_system
       - name: fleet_vehicle
+      - name: fleet_vehicle_deal
       - name: fleet_vehicle_insurance
+      - name: fleet_vehicle_log_contract
+      - name: fleet_vehicle_cost
       - name: fleet_vehicle_model
       - name: fleet_vehicle_model_brand
       - name: fuel
@@ -320,6 +323,13 @@ sources:
     database: drivfit-data-warehouse
     tables:
       - name: account_move
+      
+      - name: fleet_vehicle
+      - name: fleet_vehicle_cost
+      - name: fleet_vehicle_deal
+      - name: fleet_vehicle_model_brand
+      - name: fleet_vehicle_model
+      - name: fleet_vehicle_log_contract
       - name: res_partner
 
   - name: odoo_enterprise

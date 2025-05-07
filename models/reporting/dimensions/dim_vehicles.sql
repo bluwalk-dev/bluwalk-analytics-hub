@@ -26,6 +26,7 @@ SELECT
     fv.vin_sn as vehicle_vin,  -- Vehicle Identification Number (VIN)
     fvmb.name as vehicle_brand,  -- Brand name of the vehicle
     fvm.name as vehicle_model,  -- Model name of the vehicle
+    d.name as vehicle_deal_name,
 
     fv.driver_id as current_driver_contract_id,
 
@@ -62,4 +63,5 @@ FROM vehicles fv  -- Source table: staged fleet vehicles data
 LEFT JOIN {{ ref('stg_odoo__fleet_vehicle_models') }} fvm ON fv.model_id = fvm.id  -- Joining with vehicle models
 LEFT JOIN {{ ref('stg_odoo__fleet_vehicle_model_brands') }} fvmb ON fv.brand_id = fvmb.id  -- Joining with vehicle brands
 LEFT JOIN {{ ref('dim_countries') }} c ON fv.vehicle_country_id = c.country_id  -- Joining with country dimension table
+LEFT JOIN {{ ref('stg_odoo__fleet_vehicle_deals') }} d ON fv.deal_id = d.id
 WHERE active IS TRUE  -- Filtering only active vehicles
