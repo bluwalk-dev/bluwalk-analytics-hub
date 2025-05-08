@@ -178,6 +178,12 @@ sources:
       - name: user_own_vehicles
       - name: uncollectible_recovery
 
+  - name: hubspot_drivfit
+    schema: hubspot
+    database: drivfit-data-warehouse
+    tables:
+      - name: deal
+
   - name: hubspot
     database: bluwalk-data-warehouse
     tables:
@@ -323,7 +329,7 @@ sources:
     database: drivfit-data-warehouse
     tables:
       - name: account_move
-      
+      - name: billable_item
       - name: fleet_vehicle
       - name: fleet_vehicle_cost
       - name: fleet_vehicle_deal
