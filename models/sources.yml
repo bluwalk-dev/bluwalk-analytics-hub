@@ -351,7 +351,6 @@ sources:
       - name: res_company
       - name: res_partner
       - name: res_partner_bank
-      
 
   - name: prio
     database: bluwalk-data-warehouse
@@ -366,6 +365,13 @@ sources:
       - name: entities
       - name: events
       - name: impact_patterns
+
+  - name: quatenus
+    schema: quatenus
+    database: drivfit-data-warehouse
+    tables:
+      - name: extendedEvents
+      - name: journal
 
   - name: repsol
     database: bluwalk-data-warehouse
