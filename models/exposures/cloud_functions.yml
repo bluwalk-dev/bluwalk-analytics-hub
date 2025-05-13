@@ -25,3 +25,127 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_wm_user_partner_account_validated')
+
+  - name: cloud_function_scheduler_segment_fuel_card_activated
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_sm_energy_card_activated')
+
+  - name: cloud_function_scheduler_segment_fuel_card_activity
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_sm_energy_card_activity')
+
+  - name: cloud_function_scheduler_segment_insurance_renewal
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_sm_insurance_renewal')
+
+  - name: cloud_function_scheduler_segment_marketplace_activity
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_wm_marketplace_activity')
+
+  - name: cloud_function_scheduler_segment_rideshare_performance_report
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('rpt_rideshare_performance_report')
+
+  - name: cloud_function_scheduler_segment_risk_profile_update
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('util_week_intervals')
+      - ref('snap_odoo_statement_close')
+      - ref('inc_fin_risk_profile')
+
+  - name: cloud_function_scheduler_segment_new_uncollectible
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_fin_collections_new')
+
+  - name: cloud_function_scheduler_segment_vehicle_activated
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_sm_vehicle_activated')
+
+  - name: cloud_function_scheduler_segment_vehicle_booking_update
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_sm_vehicle_booking_update')
+
+  - name: cloud_function_scheduler_segment_vehicle_open
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_sm_vehicles_active')
+
+  - name: cloud_function_scheduler_segment_vehicle_rental_pickup
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_sm_vehicle_rental_pickup')
+  
+  - name: cloud_function_trip_address_geocode
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_geocode_addresses')
+
+  - name: cloud_function_trip_zip_geocode
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_geocode_zip_codes')
+
+  - name: cloud_function_api_fleet_rental_debits
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('rpt_finances_fleet_opl_processing_contracts')
+      - ref('rpt_finances_fleet_opl_processing_debits')
+  
+  - name: cloud_function_api_mercadao_availability
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('stg_mercadao__availability')
+      - ref('dim_users')      

@@ -12,11 +12,6 @@ sources:
     tables:
       - name: cloudaudit_googleapis_com_data_access_*
 
-  - name: monday
-    database: bluwalk-data-warehouse
-    tables:
-      - name: issue_tracker_log
-
   - name: snapshots
     schema: snapshots
     tables:
