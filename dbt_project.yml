@@ -39,6 +39,9 @@ models:
     incremental:
       +schema: incremental
       materialized: view
+    interface:
+      +schema: interface
+      materialized: view
     marts:
       +schema: marts
       materialized: view
