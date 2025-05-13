@@ -2,16 +2,16 @@ version: 2
 
 sources:
 - name: analytics_249934410
-    database: bluwalk-data-warehouse
-    tables:
-      - name: events_*
+  database: bluwalk-data-warehouse
+  tables:
+    - name: events_*
 
-  - name: analytics_342899811
-    database: bluwalk-data-warehouse
-    tables:
-      - name: events_*
+- name: analytics_342899811
+  database: bluwalk-data-warehouse
+  tables:
+    - name: events_*
 
-  - name: analytics_323684004
-    database: bluwalk-data-warehouse
-    tables:
-      - name: events_*
+- name: analytics_323684004
+  database: bluwalk-data-warehouse
+  tables:
+    - name: events_*
