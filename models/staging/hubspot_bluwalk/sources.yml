@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+  - name: hubspot
+    database: bluwalk-data-warehouse
+    schema: hubspot
+    tables:
+      - name: contact
+      - name: deal
+      - name: deal_contact
+      - name: deal_pipeline
+      - name: deal_pipeline_stage
+      - name: deal_stage
+      - name: engagement_email
+      - name: merged_deal
+      - name: owner
+      - name: owner_team
+      - name: property
+      - name: property_option
+      - name: team
+      - name: team_user
+      - name: ticket
+      - name: ticket_contact
+      - name: ticket_engagement
+      - name: ticket_pipeline
+      - name: ticket_pipeline_stage
+      - name: users

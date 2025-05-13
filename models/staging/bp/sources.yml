@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: bp
+    database: bluwalk-data-warehouse
+    schema: bp
+    tables:
+      - name: cards
+      - name: invoice_transactions
+      - name: transactions
+      - name: transactions_v2
+      - name: transactions_v3

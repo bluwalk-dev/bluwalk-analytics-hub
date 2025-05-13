@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: flight_aware
+    database: bluwalk-data-warehouse
+    schema: flight_aware
+    tables:
+      - name: airports
+      - name: scheduled_arrivals

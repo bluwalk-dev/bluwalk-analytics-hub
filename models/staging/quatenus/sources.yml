@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: quatenus
+    schema: quatenus
+    database: drivfit-data-warehouse
+    tables:
+      - name: extendedEvents
+      - name: journal

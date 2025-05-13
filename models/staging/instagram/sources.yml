@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: instagram_business
+    database: bluwalk-data-warehouse
+    tables:
+      - name: user_insights

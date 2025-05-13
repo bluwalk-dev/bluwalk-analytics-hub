@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: facebook_pages
+    database: bluwalk-data-warehouse
+    schema: facebook_pages
+    tables:
+      - name: daily_page_metrics_total
+      - name: unique_daily_page_metrics_total
+
+  - name: facebook_ads
+    database: bluwalk-data-warehouse
+    schema: facebook_ads
+    tables:
+      - name: ads
+      - name: ad_sets
+      - name: campaigns
+      - name: insights

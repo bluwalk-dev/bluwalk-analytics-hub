@@ -3,7 +3,7 @@ with
 source as (
     select
         *
-    from {{ source('bluwalk_website_prod', 'nps_response_submitted') }} 
+    from {{ source('segment', 'nps_response_submitted') }} 
 ),
 
 transformation as (

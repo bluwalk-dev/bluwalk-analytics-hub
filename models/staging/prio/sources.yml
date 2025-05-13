@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: prio
+    database: bluwalk-data-warehouse
+    tables:
+      - name: ev_transactions
+      - name: invoice_transactions
+      - name: ff_invoice_transactions

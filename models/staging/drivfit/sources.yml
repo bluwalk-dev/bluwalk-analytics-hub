@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: drivfit_hubspot
+    database: drivfit-data-warehouse
+    schema: hubspot
+    tables:
+      - name: contact
+      - name: deal
+      - name: deal_contact
+      - name: owner
+      - name: team
+      - name: team_user
+      - name: ticket
+      - name: ticket_contact
+      - name: ticket_engagement
+      - name: ticket_pipeline
+      - name: ticket_pipeline_stage
+      - name: users

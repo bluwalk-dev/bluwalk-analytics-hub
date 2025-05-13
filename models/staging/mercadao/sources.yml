@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: mercadao
+    database: bluwalk-data-warehouse
+    tables:
+      - name: account_status_log
+      - name: availability
+      - name: daily_order_summary
+      - name: training_schedule
+      - name: order_log
+      - name: signup_status

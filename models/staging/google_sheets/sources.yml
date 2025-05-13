@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: google_sheets
+    database: bluwalk-data-warehouse
+    tables:
+      - name: ad_group_classification
+      - name: churn_prevention
+      - name: fin_month_closing
+      - name: quarter_params
+      - name: transaction_account_forwarding
+      - name: user_own_vehicles
+      - name: uncollectible_recovery

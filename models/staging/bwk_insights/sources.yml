@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: generic
+    database: bluwalk-data-warehouse
+    tables:
+      - name: address_geocoding
+      - name: calendar
+      - name: close_period_log
+      - name: reporting_structure
+      - name: zip_codes
+      - name: zones

@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: segment
+    database: bluwalk-data-warehouse
+    schema: bluwalk_website_prod
+    tables:
+      - name: account_created
+      - name: application_submitted
+      - name: nps_response_submitted

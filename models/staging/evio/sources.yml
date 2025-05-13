@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: evio
+    database: bluwalk-data-warehouse
+    schema: evio
+    tables:
+      - name: charging_sessions

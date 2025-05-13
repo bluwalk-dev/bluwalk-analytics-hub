@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: aircall
+    database: bluwalk-data-warehouse
+    schema: aircall
+    tables:
+      - name: call_created
+      - name: call_answered
+      - name: call_ended
+      - name: call_ringing_on_agent
+
+  - name: aircall_v2
+    database: bluwalk-data-warehouse
+    schema: aircall_v2
+    tables:
+      - name: call_created
+      - name: call_answered
+      - name: call_ended
+      - name: call_ringing_on_agent
+      - name: call_recording
+  
+  - name: aircall_v3
+    database: bluwalk-data-warehouse
+    schema: aircall_v3
+    tables:
+      - name: call
+      - name: numbers
+      - name: users

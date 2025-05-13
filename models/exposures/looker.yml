@@ -1,0 +1,13 @@
+version: 2
+
+exposures:
+  
+  - name: looker_main_dashboard
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('dm_datastudio_daily')
+      - ref('dm_datastudio_weekly')
+      - ref('dm_datastudio_monthly')

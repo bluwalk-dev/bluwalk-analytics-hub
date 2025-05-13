@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: odoo_enterprise
+    database: bluwalk-data-warehouse
+    tables:
+      - name: account_account
+      - name: account_bank_statement_line
+      - name: account_move
+      - name: account_move_line
+      - name: account_journal
+      - name: hr_department
+      - name: hr_employee
+      - name: res_company
+      - name: res_partner
+      - name: res_partner_bank

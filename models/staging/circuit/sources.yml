@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: circuit
+    database: bluwalk-data-warehouse
+    schema: circuit
+    tables:
+      - name: cron_config
+      - name: drivers
+      - name: plans

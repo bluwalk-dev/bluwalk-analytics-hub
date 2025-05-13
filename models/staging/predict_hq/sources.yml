@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: predict_hq
+    database: bluwalk-data-warehouse
+    tables:
+      - name: entities
+      - name: events
+      - name: impact_patterns

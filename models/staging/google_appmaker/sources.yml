@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: appmaker
+    database: bluwalk-data-warehouse
+    schema: appmaker
+    tables:
+      - name: driver_ledger_table
+      - name: driver_statement

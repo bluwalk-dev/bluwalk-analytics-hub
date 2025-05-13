@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: correos
+    database: bluwalk-data-warehouse
+    schema: correos
+    tables:
+      - name: correos_daily_report

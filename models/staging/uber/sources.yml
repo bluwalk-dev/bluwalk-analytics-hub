@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: uber
+    database: bluwalk-data-warehouse
+    tables:
+      - name: cron_config
+      - name: driver_activity
+      - name: driver_status
+      - name: trip_activity
+      - name: driver_performance
+      - name: driver_quality
+      - name: payment_ledger
+      - name: payments_order
+      - name: payment_transactions
+      - name: vehicles
+      - name: vehicle_compliance
