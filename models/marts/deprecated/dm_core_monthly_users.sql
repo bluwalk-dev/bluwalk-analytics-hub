@@ -1,3 +1,7 @@
+{{ config(
+    enabled = false
+) }}
+
 SELECT
     a.year_month,                 -- The year and month from the calendar table
     a.start_date,                 -- The start date of the month from the calendar table

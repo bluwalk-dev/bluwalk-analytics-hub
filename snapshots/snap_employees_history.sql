@@ -1,3 +1,7 @@
+{{ config(
+    enabled = false
+) }}
+
 {% snapshot snap_employees_history %}
 
 {{

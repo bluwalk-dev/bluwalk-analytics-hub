@@ -1,3 +1,7 @@
+{{ config(
+    enabled = false
+) }}
+
 SELECT
   event_date,
   TIMESTAMP_MICROS(event_timestamp) event_timestamp,

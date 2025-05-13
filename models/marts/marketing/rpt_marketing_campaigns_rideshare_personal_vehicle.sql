@@ -1,4 +1,7 @@
-{{ config(materialized='table') }}
+{{ config(
+    materialized = 'table',
+    enabled = false
+) }}
 
 WITH form_submit AS (
     SELECT

@@ -24,6 +24,6 @@ SELECT
     c.id hubspot_team_id,
     c.name hubspot_team_name,
     d.owner_id hubspot_owner_id
-FROM {{ ref("stg_drivfit__hubspot_users") }} a
-LEFT JOIN {{ ref("stg_drivfit__hubspot_teams") }} c on a.primary_team_id = c.id
-LEFT JOIN {{ ref("stg_drivfit__hubspot_owners") }} d on a.email = d.email
+FROM {{ ref("stg_hubspot_drivfit__users") }} a
+LEFT JOIN {{ ref("stg_hubspot_drivfit__teams") }} c on a.primary_team_id = c.id
+LEFT JOIN {{ ref("stg_hubspot_drivfit__owners") }} d on a.email = d.email

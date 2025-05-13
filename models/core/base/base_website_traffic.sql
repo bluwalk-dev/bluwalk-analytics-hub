@@ -1,3 +1,7 @@
+{{ config(
+    enabled = false
+) }}
+
 -- Define a Common Table Expression (CTE) named 'UserInfoGA3'
 WITH
   UserInfoGA3 AS (

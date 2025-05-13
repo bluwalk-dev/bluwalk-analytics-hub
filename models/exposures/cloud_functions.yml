@@ -1,0 +1,27 @@
+version: 2
+
+exposures:
+  
+  - name: cloud_function_scheduler_segment_account_activated
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_wm_user_partner_account_activated')
+  
+  - name: cloud_function_scheduler_segment_account_created
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_wm_user_partner_account_created')
+  
+  - name: cloud_function_scheduler_segment_account_validated
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('inc_wm_user_partner_account_validated')
