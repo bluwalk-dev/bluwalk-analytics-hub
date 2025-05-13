@@ -2,7 +2,7 @@ WITH
 all_deals AS (
     SELECT CAST(close_date AS DATE) AS close_date, deal_pipeline_id, deal_pipeline_name as pipeline_name, deal_value as bonus FROM {{ ref('fct_deals') }} WHERE is_closed_won = TRUE
     UNION ALL
-    SELECT CAST(close_date AS DATE) AS close_date, deal_pipeline_id, deal_pipeline_name as pipeline_name, deal_team_bonus as bonus FROM {{ ref('stg_drivfit__hubspot_deals') }} WHERE is_closed_won = TRUE
+    SELECT CAST(close_date AS DATE) AS close_date, deal_pipeline_id, deal_pipeline_name as pipeline_name, deal_team_bonus as bonus FROM {{ ref('int_hubspot_drivfit_deals') }} WHERE is_closed_won = TRUE
 ),
 insurance_won as (
   select b.policy_id, amount

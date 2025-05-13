@@ -1,3 +1,7 @@
+{{ config(
+    enabled = false
+) }}
+
 SELECT
     year_month,
     COUNT(DISTINCT user_pseudo_id) AS unique_visitors,

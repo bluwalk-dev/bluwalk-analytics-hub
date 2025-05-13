@@ -1,3 +1,7 @@
+{{ config(
+    enabled = false
+) }}
+
 SELECT
     b.year_week,
     c.start_date,

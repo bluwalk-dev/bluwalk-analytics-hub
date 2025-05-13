@@ -14,5 +14,5 @@ SELECT
     a.booking_rate_weekly_price,
     a.booking_mileage_limit,
     a.create_date AS booking_create_date
-FROM {{ ref('stg_drivfit__vehicle_bookings') }} a
+FROM {{ ref('fct_fleet_rental_bookings') }} a
 LEFT JOIN {{ ref('dim_users') }} b ON a.driver_vat = b.user_vat

@@ -1,4 +1,5 @@
 {{ config(
+    enabled = false,
     materialized='incremental',
     unique_key=['event_timestamp', 'user_pseudo_id'],
     partition_by={

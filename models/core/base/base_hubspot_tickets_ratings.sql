@@ -29,7 +29,7 @@ SELECT
     CAST(t.property_hs_feedback_last_ces_rating AS STRING) original_score,
     CAST((CAST(t.property_hs_feedback_last_ces_rating AS INT64) - 1) / 6 AS NUMERIC) normalized_score,
     CAST(t.property_hs_feedback_last_ces_follow_up AS STRING) feedback_comment
-FROM {{ ref("stg_drivfit__hubspot_tickets") }} t
+FROM {{ ref("stg_hubspot_drivfit__tickets") }} t
 LEFT JOIN {{ ref("base_hubspot_users") }} e ON CAST(t.property_hs_all_owner_ids AS INT64) = e.hubspot_owner_id
 WHERE property_hs_feedback_last_survey_date is not null
 

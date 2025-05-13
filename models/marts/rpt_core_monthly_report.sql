@@ -8,7 +8,7 @@ SELECT
     a.new_activations,
     a.re_activations,
     a.nr_churns,
-    IFNULL(b.unique_visitors, 0) as website_visitors,
+    NULL as website_visitors,
     IFNULL(c.nr_signups, 0) as nr_signups,
     a.churn_rate,
     a.retention_rate,
@@ -19,7 +19,6 @@ SELECT
     IFNULL(ROUND(e.nps_score, 2),0) nps_score,
     a.lifespan
 FROM {{ ref('dm_core_monthly_marketplace_users') }} a
-LEFT JOIN {{ ref('agg_marketing_monthly_website_traffic') }} b ON a.year_month = b.year_month
 LEFT JOIN {{ ref('agg_wm_monthly_signups') }} c ON a.year_month = c.year_month
 LEFT JOIN {{ ref('agg_finances_monthly_revenue') }} d ON a.year_month = d.year_month
 LEFT JOIN {{ ref('agg_customer_service_monthly_nps') }} e ON a.year_month = e.year_month

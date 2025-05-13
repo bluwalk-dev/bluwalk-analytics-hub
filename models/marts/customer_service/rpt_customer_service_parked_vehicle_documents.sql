@@ -1,7 +1,25 @@
+{{ 
+  config(
+    tags = ['google_sheets'],
+    meta = 
+        { "
+            url": "https://docs.google.com/spreadsheets/d/13G8KHJhiiW4EZHlxoqweW7AEGHxDTCgOB8_4YZj5ths" 
+        }
+  ) 
+}}
+
 WITH park_vehicles AS (
-    SELECT *
-    FROM {{ ref("stg_drivfit__vehicle_current_status") }}
-    WHERE 
+    SELECT
+        c.vehicle_license_plate,
+        c.vehicle_name,
+        b.station_name,
+        b.station_location,
+        a.status,
+        a.stage
+    FROM {{ ref('stg_odoo_drivfit__fleet_vehicles') }} a
+    LEFT JOIN {{ ref('dim_fleet_stations') }} b ON a.station_id = b.station_id
+    LEFT JOIN {{ ref('dim_fleet_vehicles') }} c ON a.id = c.vehicle_id
+    WHERE
         stage = 'active' AND 
         status = 'park'
 )

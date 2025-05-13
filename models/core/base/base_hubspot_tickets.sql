@@ -46,8 +46,8 @@ WITH tickets AS (
         cast(a.property_first_agent_reply_date as datetime) as first_reply,
         NULL resolution_time
         
-    from {{ ref("stg_drivfit__hubspot_tickets") }} a
-    left join {{ ref("stg_drivfit__hubspot_ticket_pipeline_stages") }} c on a.property_hs_pipeline_stage = cast(c.stage_id as int)
+    from {{ ref("stg_hubspot_drivfit__tickets") }} a
+    left join {{ ref("stg_hubspot_drivfit__ticket_pipeline_stages") }} c on a.property_hs_pipeline_stage = cast(c.stage_id as int)
     left join {{ ref("base_hubspot_users") }} e on CAST(a.property_hs_all_owner_ids AS INT64) = e.hubspot_owner_id
     WHERE property_hs_pipeline = 0
 ),

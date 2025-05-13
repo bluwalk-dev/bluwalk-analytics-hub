@@ -182,7 +182,16 @@ sources:
     schema: hubspot
     database: drivfit-data-warehouse
     tables:
+      - name: contact
       - name: deal
+      - name: deal_contact
+      - name: deal_pipeline
+      - name: merged_deal
+      - name: owner
+      - name: users
+      - name: team
+      - name: ticket
+      - name: ticket_pipeline_stage
 
   - name: hubspot
     database: bluwalk-data-warehouse
@@ -328,7 +337,9 @@ sources:
     schema: odoo
     database: drivfit-data-warehouse
     tables:
+      - name: account_analytic_account
       - name: account_move
+      - name: booking
       - name: billable_item
       - name: fleet_vehicle
       - name: fleet_vehicle_cost
@@ -336,7 +347,16 @@ sources:
       - name: fleet_vehicle_model_brand
       - name: fleet_vehicle_model
       - name: fleet_vehicle_log_contract
+      - name: fleet_vehicle_station
+      - name: lease_contract_condition
+      - name: lease_contract
+      - name: rate_base
+      - name: rate_mileage
+      - name: rental_contract
       - name: res_partner
+      - name: res_country_city
+      - name: res_country
+      - name: vehicle_category
 
   - name: odoo_enterprise
     database: bluwalk-data-warehouse

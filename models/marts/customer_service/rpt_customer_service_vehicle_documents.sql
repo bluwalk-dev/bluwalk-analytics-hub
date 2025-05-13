@@ -1,4 +1,8 @@
-{{ config(materialized='table') }}
+{{ 
+  config(
+    materialized = 'table'
+  ) 
+}}
 
 WITH active_vehicles AS (
     SELECT * 
