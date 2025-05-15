@@ -7,8 +7,8 @@ sources:
       - name: cron_config
       - name: driver_activity
       - name: driver_status
-      - name: trip_activity
       - name: driver_performance
+      - name: driver_performance_v2
       - name: driver_quality
       - name: payment_ledger
       - name: payments_order
@@ -16,3 +16,5 @@ sources:
       - name: report_requests
       - name: vehicles
       - name: vehicle_compliance
+      - name: vehicle_performance
+      - name: trip_activity
