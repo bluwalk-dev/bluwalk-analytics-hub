@@ -1,17 +1,22 @@
-{{ config(materialized='table') }}
+{{ 
+  config(
+    materialized='table',
+    tags=['high_freshness']
+  ) 
+}}
 
 with
 
 source as (
     select
         *
-    from {{ source('odoo_drivfit', 'rental_contract') }}
+    from {{ source('odoo_drivfit', 'res_partner') }}
 ),
 
 transformation as (
 
     select
-        
+
         *
 
     from source

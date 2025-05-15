@@ -1,4 +1,9 @@
-{{ config(materialized='table') }}
+{{ 
+  config(
+    materialized='table',
+    tags=['medium_freshness']
+  ) 
+}}
 
 SELECT * FROM (
     SELECT DISTINCT

@@ -18,6 +18,16 @@ exposures:
       - ref('rpt_insights_where_timewindow')
       - ref('rpt_insights_where_weekday_timewindow')
       - ref('rpt_insights_where_weekday')
+      - ref('intf_insights_airport_arrivals_list')
+      - ref('intf_insights_airport_arrivals')
+      - ref('intf_insights_events_list')
+      - ref('intf_insights_events')
+      - ref('intf_insights_when_all')
+      - ref('intf_insights_when_timewindow')
+      - ref('intf_insights_where_all')
+      - ref('intf_insights_where_timewindow')
+      - ref('intf_insights_where_weekday_timewindow')
+      - ref('intf_insights_where_weekday')
   
   - name: odoo_scheduler_financial_documents
     type: application
@@ -26,3 +36,4 @@ exposures:
     description: ?????
     depends_on:
       - ref('inc_fin_deleted_documents')
+      - ref('intf_fin_deleted_documents')

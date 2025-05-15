@@ -10,7 +10,7 @@ with
 source as (
     select
         *
-    from {{ source('odoo_realtime', 'close_period') }}
+    from {{ source('odoo_drivfit', 'lease_contract') }}
 ),
 
 transformation as (
@@ -21,7 +21,6 @@ transformation as (
 
     from source
     
-
 )
 
 select * from transformation

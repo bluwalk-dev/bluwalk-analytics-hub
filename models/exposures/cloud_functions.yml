@@ -2,6 +2,10 @@ version: 2
 
 exposures:
   
+  ####
+  # Scheduler - Segment
+  ####
+
   - name: cloud_function_scheduler_segment_account_activated
     type: application
     owner:
@@ -116,6 +120,22 @@ exposures:
     depends_on:
       - ref('inc_sm_vehicle_rental_pickup')
   
+  ####
+  # Scheduler - Bolt Data Extraction
+  ####
+
+  - name: cloud_function_scheduler_segment_account_activated
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('intf_bolt_cron_config')
+  
+  ####
+  # Scheduler - Other Services
+  ####
+
   - name: cloud_function_trip_address_geocode
     type: application
     owner:
@@ -131,6 +151,10 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_geocode_zip_codes')
+  
+  ####
+  # API
+  ####
 
   - name: cloud_function_api_fleet_rental_debits
     type: application

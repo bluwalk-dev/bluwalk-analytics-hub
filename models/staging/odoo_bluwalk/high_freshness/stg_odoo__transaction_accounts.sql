@@ -1,4 +1,9 @@
-{{ config(materialized='table') }}
+{{ 
+  config(
+    materialized='table',
+    tags=['high_freshness']
+  ) 
+}}
 
 with
 
