@@ -5,43 +5,41 @@
     partition_by={'field': 'write_date', 'data_type': 'timestamp'},
     incremental_strategy='merge',
     unique_key='work_order_id'
-  ) 
+  )
 }}
 
--- Pull raw source
 with src as (
-  select * 
+  select *
   from {{ source('odoo_realtime', 'trips') }}
 ),
 
-{%- if is_incremental() -%}
+{% if is_incremental() %}
 
--- 1) Limit watermark scan to the last 7 days’ partitions
+-- 1) Compute watermark over last 7 days using the write_date column directly
 watermark as (
   select
     max(write_date) as max_ts
   from {{ this }}
-  where _PARTITIONDATE >= date_sub(current_date(), interval 7 day)
+  where date(write_date) >= date_sub(current_date(), interval 7 day)
 ),
 
--- 2) Only candidates in those same recent partitions
+-- 2) Only new/updated rows in that same window
 updates as (
   select *
   from src
   where write_date > (select max_ts from watermark)
-    and _PARTITIONDATE >= date_sub(current_date(), interval 7 day)
+    and date(write_date) >= date_sub(current_date(), interval 7 day)
 )
 
-{%- else -%}
+{% else %}
 
--- First run: everything
+-- First run: load all rows
 updates as (
   select * from src
 )
 
-{%- endif -%}
+{% endif %}
 
--- Transform & upsert
 , transformation as (
   select
     id                         as work_order_id,
