@@ -2,7 +2,7 @@
   config(
     materialized='incremental',
     tags=['high_freshness'],
-    partition_by={'field': 'write_date', 'data_type': 'timestamp'},
+    partition_by={'field': 'write_date', 'data_type': 'date'},
     incremental_strategy='merge',
     unique_key='work_order_id'
   )
@@ -15,19 +15,19 @@ with src as (
 
 {% if is_incremental() %}
 
--- 1) Compute watermark on the latest 7-day window using direct write_date filter
+-- 1) Compute watermark over the last 7 days using DATETIME_SUB
 watermark as (
   select
     max(write_date) as max_ts
   from {{ this }}
-  where write_date >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
+  where write_date >= DATETIME_SUB(CURRENT_DATETIME(), INTERVAL 7 DAY)
 ),
 
--- 2) Select only new or updated rows from the same window
+-- 2) Only new/updated rows in that same window
 updates as (
   select *
   from src
-  where write_date >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
+  where write_date >= DATETIME_SUB(CURRENT_DATETIME(), INTERVAL 7 DAY)
     and write_date > (select max_ts from watermark)
 )
 
