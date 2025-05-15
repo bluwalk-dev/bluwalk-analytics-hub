@@ -1,11 +1,11 @@
-{{ 
+{{
   config(
     materialized='incremental',
     tags=['high_freshness'],
     partition_by={'field': 'write_date', 'data_type': 'timestamp'},
     incremental_strategy='merge',
-    unique_key='id'
-  ) 
+    unique_key='work_order_id'
+  )
 }}
 
 with source as (
@@ -16,10 +16,10 @@ with source as (
 filtered as (
     {% if is_incremental() %}
       -- only grab rows created/updated since last run
-      select * 
+      select *
       from source
       where write_date > (
-        select max(write_date) 
+        select max(write_date)
         from {{ this }}
       )
     {% else %}
