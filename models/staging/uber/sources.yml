@@ -13,5 +13,6 @@ sources:
       - name: payment_ledger
       - name: payments_order
       - name: payment_transactions
+      - name: report_requests
       - name: vehicles
       - name: vehicle_compliance
