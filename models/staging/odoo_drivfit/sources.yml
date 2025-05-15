@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: odoo_drivfit
-    schema: odoo
-    database: drivfit-data-warehouse
+    schema: odoo_drivfit
+    database: bluwalk-data-warehouse
     tables:
       - name: account_analytic_account
       - name: account_move
