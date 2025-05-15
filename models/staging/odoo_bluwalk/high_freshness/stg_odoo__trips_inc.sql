@@ -1,4 +1,4 @@
-{{ 
+{{
   config(
     materialized='incremental',
     tags=['high_freshness'],
@@ -15,25 +15,25 @@ with src as (
 
 {% if is_incremental() %}
 
--- 1) Compute watermark over last 7 days using the write_date column directly
+-- 1) Compute watermark on the latest 7-day window using direct write_date filter
 watermark as (
   select
     max(write_date) as max_ts
   from {{ this }}
-  where date(write_date) >= date_sub(current_date(), interval 7 day)
+  where write_date >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
 ),
 
--- 2) Only new/updated rows in that same window
+-- 2) Select only new or updated rows from the same window
 updates as (
   select *
   from src
-  where write_date > (select max_ts from watermark)
-    and date(write_date) >= date_sub(current_date(), interval 7 day)
+  where write_date >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
+    and write_date > (select max_ts from watermark)
 )
 
 {% else %}
 
--- First run: load all rows
+-- Initial load: all rows
 updates as (
   select * from src
 )
