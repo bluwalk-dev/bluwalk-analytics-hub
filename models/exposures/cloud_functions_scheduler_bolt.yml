@@ -1,0 +1,43 @@
+version: 2
+
+exposures:
+  
+  - name: cloud_function_scheduler_bolt_driver_engagement
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('intf_bolt_cron_config')
+  
+  - name: cloud_function_scheduler_bolt_earnings_report
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('intf_bolt_cron_config')
+
+  - name: cloud_function_scheduler_bolt_expiring_documents
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('intf_bolt_cron_config')
+  
+  - name: cloud_function_scheduler_bolt_trip_report
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('intf_bolt_cron_config')
+  
+  - name: cloud_function_scheduler_bolt_vehicle_engagement
+    type: application
+    owner:
+      name: Bluwalk Dev
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('intf_bolt_cron_config')

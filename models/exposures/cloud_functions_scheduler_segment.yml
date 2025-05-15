@@ -2,10 +2,6 @@ version: 2
 
 exposures:
   
-  ####
-  # Scheduler - Segment
-  ####
-
   - name: cloud_function_scheduler_segment_account_activated
     type: application
     owner:
@@ -145,25 +141,3 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_geocode_zip_codes')
-  
-  ####
-  # API
-  ####
-
-  - name: cloud_function_api_fleet_rental_debits
-    type: application
-    owner:
-      name: Bluwalk Dev
-    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
-    depends_on:
-      - ref('rpt_finances_fleet_opl_processing_contracts')
-      - ref('rpt_finances_fleet_opl_processing_debits')
-  
-  - name: cloud_function_api_mercadao_availability
-    type: application
-    owner:
-      name: Bluwalk Dev
-    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
-    depends_on:
-      - ref('stg_mercadao__availability')
-      - ref('dim_users')      
