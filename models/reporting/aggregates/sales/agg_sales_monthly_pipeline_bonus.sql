@@ -15,7 +15,7 @@ insurance_won as (
     group by policy_id
     ) a on a.policy_id = b.policy_id and a.start_date = b.start_date
   where a.policy_id is not null
-)
+),
 bonus_current AS (
     SELECT
         a.year_month,
