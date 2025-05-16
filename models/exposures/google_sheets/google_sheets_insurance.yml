@@ -1,0 +1,30 @@
+version: 2
+
+exposures:
+
+  - name: google_sheet_mds_data_sharing
+    type: application
+    owner:
+      name: Insurance
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/1-BIWiwjfEKuykWw7GhGNxSioL7q9eD3FDAdakbzqhls/
+    depends_on:
+      - ref('rpt_mds_kpi_daily_agent_insurer_line')
+      - ref('rpt_mds_kpi_daily_agent_insurer')
+      - ref('rpt_mds_kpi_daily_agent')
+      - ref('rpt_mds_kpi_daily')
+  
+  - name: google_sheet_mds_insurance_validation
+    type: application
+    owner:
+      name: Insurance
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/1-BIWiwjfEKuykWw7GhGNxSioL7q9eD3FDAdakbzqhls/
+    depends_on:
+      - ref('dim_insurance_policies')
+      - ref('base_mds_documents')
+      - ref('base_mds_reconciliation')
+      - ref('stg_odoo__insurance_policy_payments')
+      - ref('stg_odoo__insurance_policies')
+      
+      
