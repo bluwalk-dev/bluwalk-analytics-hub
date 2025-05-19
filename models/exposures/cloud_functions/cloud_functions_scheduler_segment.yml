@@ -36,7 +36,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_sm_energy_card_activated')
-      - ref('intf_segment_energy_card_validated')
+      - ref('intf_segment_energy_card_activated')
 
   - name: cloud_function_scheduler_segment_fuel_card_activity
     type: application
