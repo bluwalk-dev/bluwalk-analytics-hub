@@ -1,7 +1,7 @@
 version: 2
 
 exposures:
-  - name: google_sheet_document_management
+  - name: google_sheet_fleet_team_performance_metrics
     type: application
     owner:
       name: Customer Service Team
