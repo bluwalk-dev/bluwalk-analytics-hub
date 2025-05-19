@@ -1,4 +1,3 @@
--- This SELECT statement is meant to calculate churn rates for each month.
 SELECT 
     a.year_month, -- Select the year and month from the churned users table.
     a.partner_marketplace,
