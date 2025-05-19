@@ -9,6 +9,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_wm_user_partner_account_activated')
+      - ref('intf_segment_account_activated')
   
   - name: cloud_function_scheduler_segment_account_created
     type: application
@@ -17,6 +18,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_wm_user_partner_account_created')
+      - ref('intf_segment_account_created')
   
   - name: cloud_function_scheduler_segment_account_validated
     type: application
@@ -25,6 +27,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_wm_user_partner_account_validated')
+      - ref('intf_segment_account_validated')
 
   - name: cloud_function_scheduler_segment_fuel_card_activated
     type: application
@@ -33,6 +36,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_sm_energy_card_activated')
+      - ref('intf_segment_energy_card_validated')
 
   - name: cloud_function_scheduler_segment_fuel_card_activity
     type: application
@@ -41,6 +45,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_sm_energy_card_activity')
+      - ref('intf_segment_energy_card_last_15_day_usage')
 
   - name: cloud_function_scheduler_segment_insurance_renewal
     type: application
@@ -49,6 +54,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_sm_insurance_renewal')
+      - ref('intf_segment_insurance_renewal_notification')
 
   - name: cloud_function_scheduler_segment_marketplace_activity
     type: application
@@ -57,6 +63,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_wm_marketplace_activity')
+      - ref('intf_segment_user_work_activity')
 
   - name: cloud_function_scheduler_segment_rideshare_performance_report
     type: application
@@ -75,6 +82,7 @@ exposures:
       - ref('util_week_intervals')
       - ref('snap_odoo_statement_close')
       - ref('inc_fin_risk_profile')
+      - ref('intf_segment_user_financial_risk')
 
   - name: cloud_function_scheduler_segment_new_uncollectible
     type: application
@@ -83,6 +91,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_fin_collections_new')
+      - ref('intf_segment_debt_new')
 
   - name: cloud_function_scheduler_segment_vehicle_activated
     type: application
@@ -91,6 +100,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_sm_vehicle_activated')
+      - ref('intf_segment_vehicle_activated')
 
   - name: cloud_function_scheduler_segment_vehicle_booking_update
     type: application
@@ -99,6 +109,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_sm_vehicle_booking_update')
+      - ref('intf_segment_vehicle_booking_updated')
 
   - name: cloud_function_scheduler_segment_vehicle_open
     type: application
@@ -107,6 +118,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_sm_vehicles_active')
+      - ref('intf_segment_vehicles_active')
 
   - name: cloud_function_scheduler_segment_vehicle_rental_pickup
     type: application
@@ -115,6 +127,7 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('inc_sm_vehicle_rental_pickup')
+      - ref('intf_segment_fleet_rental_pickup')
   
   ####
   # Scheduler - Bolt Data Extraction
