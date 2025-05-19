@@ -1,0 +1,11 @@
+version: 2
+
+exposures:
+  - name: google_sheet_import_driver_vehicle_rentals
+    type: application
+    owner:
+      name: Finances
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/1RPwv0HDL52dYYBfT76aWlDuDKQlNPsy2cHTqPm4Grts/
+    depends_on:
+      - ref('rpt_finances_driver_vehicle_rentals_import')
