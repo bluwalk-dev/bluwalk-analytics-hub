@@ -10,7 +10,7 @@ with
 source as (
     select
         *
-    from {{ source('odoo_realtime', 'account_move_line') }}
+    from {{ source('odoo_bluwalk', 'account_move_line') }}
 ),
 
 transformation as (

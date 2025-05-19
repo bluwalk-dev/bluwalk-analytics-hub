@@ -9,7 +9,7 @@ with
 
 source as (
     SELECT *
-    FROM {{ source('odoo_realtime', 'product_template') }}
+    FROM {{ source('odoo_bluwalk', 'product_template') }}
 ),
 
 transformation as (

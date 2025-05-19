@@ -8,7 +8,7 @@ with
 
 source as (
     SELECT *
-    FROM {{ source('odoo_realtime', 'ir_translation') }}
+    FROM {{ source('odoo_bluwalk', 'ir_translation') }}
 ),
 
 transformation as (

@@ -1,9 +1,9 @@
 version: 2
 
 sources:
-  - name: odoo_realtime
+  - name: odoo_bluwalk
     database: bluwalk-data-warehouse
-    schema: odoo_realtime
+    schema: odoo_bluwalk
     tables:
       - name: account_account
       - name: account_analytic_account

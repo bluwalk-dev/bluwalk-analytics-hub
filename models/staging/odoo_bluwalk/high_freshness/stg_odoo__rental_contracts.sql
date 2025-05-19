@@ -10,7 +10,7 @@ with
 source as (
     select
         *
-    from {{ source('odoo_realtime', 'rental_contract') }}
+    from {{ source('odoo_bluwalk', 'rental_contract') }}
 ),
 
 transformation as (
