@@ -1,6 +1,6 @@
 WITH open_vehicle_contracts AS (
     SELECT *
-    FROM {{ ref('inc_sm_vehicles_active') }}
+    FROM {{ ref('intf_segment_vehicles_active') }}
     WHERE 
         active_vehicle_contracts = TRUE AND
         vehicle_contract_type = 'car_rental'
