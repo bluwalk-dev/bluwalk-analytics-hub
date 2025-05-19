@@ -1,4 +1,6 @@
-WITH item_days AS (
+WITH 
+
+item_days AS (
   SELECT
     c.date,
     t.contract_id,
@@ -15,10 +17,10 @@ WITH item_days AS (
     *
     ( CASE 
         WHEN t.contract_type = 'short-term' 
-          THEN t.quantity / 24.0     -- ensure float division
+          THEN t.quantity / 24.0
         ELSE 1 
       END
-    )               AS day_delta
+    ) AS day_delta
   FROM {{ ref('fct_fleet_billable_items') }} t
   JOIN {{ ref('util_calendar') }} c
     ON c.date BETWEEN t.period_start AND t.period_end
@@ -31,21 +33,12 @@ SELECT
   contract_type,
   contract_name,
   customer_type,
-
-  -- round only once, after aggregation
   ROUND(SUM(day_delta), 2) AS total_days
-
 FROM item_days
-
 GROUP BY
   date,
   contract_id,
   contract_type,
   contract_name,
   customer_type
-
--- filter on the raw sum, which avoids double ROUND() calls
 HAVING SUM(day_delta) > 0
-
-ORDER BY
-  date
