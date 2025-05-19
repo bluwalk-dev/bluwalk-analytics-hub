@@ -6,11 +6,11 @@
 }}
 
 SELECT
-  a.year_week,
-  a.start_date,
-  a.end_date,
-  a.payment_delay,
-  a.release_delay,
-  a.invoiced_debt,
-  a.fast_collection_ratio
+  year_week,
+  start_date,
+  end_date,
+  payment_delay,
+  release_delay,
+  invoiced_debt,
+  fast_collection_ratio
 FROM {{ ref('rpt_finances_weekly_performance') }}
