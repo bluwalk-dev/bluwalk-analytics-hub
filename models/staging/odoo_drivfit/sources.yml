@@ -18,6 +18,10 @@ sources:
       - name: fleet_vehicle_station
       - name: lease_contract_condition
       - name: lease_contract
+      - name: product_category
+      - name: product_product
+      - name: product_template
+      - name: purchase_order_line
       - name: rate_base
       - name: rate_mileage
       - name: rental_contract
