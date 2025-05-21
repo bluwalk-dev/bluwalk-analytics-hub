@@ -1,7 +1,6 @@
 {{ 
   config(
-    materialized='table',
-    tags=['medium_freshness']
+    materialized='table'
   ) 
 }}
 
