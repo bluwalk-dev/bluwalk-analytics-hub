@@ -1,7 +1,6 @@
 {{ 
   config(
-    materialized='table',
-    tags=['medium_freshness']
+    materialized='table'
   ) 
 }}
 
@@ -10,7 +9,7 @@ with
 source as (
     select
         *
-    from {{ source('odoo_bluwalk', 'fleet_vehicle_cost') }}
+    from {{ source('odoo_bluwalk', 'fleet_vehicle_deal') }}
 ),
 
 transformation as (
