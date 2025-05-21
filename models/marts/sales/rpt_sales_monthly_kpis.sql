@@ -1,6 +1,7 @@
 SELECT 
     a.year_month,
-    b.bonus
+    b.bonus,
+    b.insurance_deal_value
 FROM {{ ref('util_month_intervals') }} a
 LEFT JOIN {{ ref('agg_sales_monthly_bonus') }} b ON a.year_month = b.year_month
 WHERE 
