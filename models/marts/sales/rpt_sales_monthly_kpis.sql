@@ -1,9 +1,8 @@
 SELECT 
-    a.year_month,
-    b.bonus,
-    b.insurance_deal_value
-FROM {{ ref('util_month_intervals') }} a
-LEFT JOIN {{ ref('agg_sales_monthly_bonus') }} b ON a.year_month = b.year_month
+    year_month,
+    bonus,
+    insurance_deal_value
+FROM {{ ref('agg_sales_monthly_bonus') }}
 WHERE 
-    a.year_month <= CAST(FORMAT_DATE('%Y%m', CURRENT_DATE()) AS INT64)
-ORDER BY a.year_month DESC
+    year_month <= CAST(FORMAT_DATE('%Y%m', CURRENT_DATE()) AS INT64)
+ORDER BY year_month DESC
