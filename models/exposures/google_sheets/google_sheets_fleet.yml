@@ -9,3 +9,5 @@ exposures:
     url: https://docs.google.com/spreadsheets/d/1BvAo9-KaBwoJjWDJfMXRW51zjHuWDmUAdvqKrkY1gls
     depends_on:
       - ref('rpt_fleet_monthly_kpis')
+      - ref('rpt_fleet_monthly_kpis_purchase_order_list')
+      - ref('rpt_fleet_monthly_kpis_revenue_list')
