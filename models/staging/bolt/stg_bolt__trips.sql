@@ -1,30 +1,36 @@
-SELECT DISTINCT
-    CAST(company_id AS INT64) as bolt_company_id,
-    CAST(date AS date) as date,
-    CAST(order_id AS INT64) as order_id,
-    CAST(driver_first_name AS STRING) as driver_first_name,
-    CAST(driver_last_name AS STRING) as driver_last_name,
-    CONCAT(driver_first_name, ' ', driver_last_name) driver_name,
-    CAST(driver_id AS STRING) as partner_account_uuid,
-    CAST(pickup_address AS STRING) pickup_address,
-    CAST(pickup_arrived_at AS TIMESTAMP) pickup_arrived_at,
-    CAST(pickup_departed_at AS TIMESTAMP) pickup_departed_at,
-    CAST(payment_method AS STRING) payment_method,
-    CAST(ride_distance AS NUMERIC) ride_distance,
-    CAST(ride_distance_unit AS STRING) ride_distance_unit,
-    CAST(tip AS NUMERIC) tip,
-    CAST(total_price AS NUMERIC) total_price,
-    CAST(currency AS STRING) currency,
-    CAST(driver_assigned_time AS TIMESTAMP) driver_assigned_time,
-    CAST(accepted_time AS TIMESTAMP) accepted_time,
-    DATETIME(CAST(accepted_time AS TIMESTAMP), 'Europe/Lisbon') accepted_time_local,
-    CAST(order_state AS STRING) order_state,
-    CAST(driver_rating AS NUMERIC) driver_rating,
-    CAST(drop_off_address AS STRING) drop_off_address,
-    CAST(drop_off_time AS TIMESTAMP) drop_off_time,
-    DATETIME(CAST(drop_off_time AS TIMESTAMP), 'Europe/Lisbon') drop_off_time_local,
-    CAST(search_category AS STRING) search_category,
-    CAST(replace(car_reg_number,'-','') AS STRING) vehicle_plate,
-    TIMESTAMP_MILLIS(load_timestamp) load_timestamp,
-    CAST(driver_phone AS STRING) as driver_phone
-FROM {{ source('bolt', 'trips_history') }}
+SELECT
+  CAST(company_id   AS INT64)   AS bolt_company_id,
+  CAST(date         AS DATE)    AS date,
+  CAST(order_id     AS INT64)   AS order_id,
+  driver_first_name,
+  driver_last_name,
+  CONCAT(driver_first_name, ' ', driver_last_name) AS driver_name,
+  CAST(driver_id    AS STRING)  AS partner_account_uuid,
+  pickup_address,
+  pickup_arrived_at,
+  pickup_departed_at,
+  payment_method,
+  ride_distance,
+  ride_distance_unit,
+  tip,
+  total_price,
+  currency,
+  driver_assigned_time,
+  accepted_time,
+  DATETIME(accepted_time, 'Europe/Lisbon') AS accepted_time_local,
+  order_state,
+  driver_rating,
+  drop_off_address,
+  drop_off_time,
+  DATETIME(drop_off_time, 'Europe/Lisbon') AS drop_off_time_local,
+  search_category,
+  REPLACE(car_reg_number, '-', '') AS vehicle_plate,
+  TIMESTAMP_MILLIS(load_timestamp) AS load_timestamp,
+  driver_phone
+FROM {{ source('bolt','trips_history') }}
+QUALIFY
+  ROW_NUMBER()
+    OVER (
+      PARTITION BY company_id, DATE, order_id
+      ORDER BY load_timestamp DESC
+    ) = 1
