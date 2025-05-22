@@ -34,10 +34,10 @@ SELECT
         WHEN j.churn_rate IS NULL OR j.churn_rate = 0 THEN NULL
         ELSE ROUND(1 / j.churn_rate, 4)
     END user_lifespan,
-    m.revenue_per_active_user,
+    n.revenue_per_active_user,
     h.nr_active_users_connected_vehicle,
     k.nr_won_deals as won_deals_connected_vehicle,
-    l.nps_score,
+    o.nps_score,
 
     -- Fleet Metrics
     f.total_rentals as total_fleet_rentals,
@@ -72,11 +72,12 @@ LEFT JOIN {{ ref('agg_fleet_rental_monthly') }} f on a.year_month = f.year_month
 LEFT JOIN {{ ref('agg_fleet_monthly_size') }} g on a.year_month = g.year_month
 LEFT JOIN connected_vehicle_active_users h ON a.year_month = h.year_month
 LEFT JOIN {{ ref('agg_wm_monthly_customers_active') }} i ON a.year_month = i.year_month
+LEFT JOIN {{ ref('agg_wm_monthly_users_churn_rate') }} j ON a.year_month = j.year_month
+LEFT JOIN connected_vehicle_deal_won k ON a.year_month = k.year_month
 LEFT JOIN {{ ref('agg_wm_monthly_users_activations')}} l ON a.year_month = l.year_month
 LEFT JOIN {{ ref('agg_wm_monthly_users_active')}} m ON a.year_month = m.year_month
-LEFT JOIN {{ ref('agg_wm_monthly_users_churn_rate') }} j ON a.year_month = j.year_month
-LEFT JOIN {{ ref('agg_customer_service_monthly_nps') }} l ON a.year_month = l.year_month
-LEFT JOIN {{ ref('agg_wm_monthly_users_revenue')}} m ON a.year_month = m.year_month
-LEFT JOIN connected_vehicle_deal_won k ON a.year_month = k.year_month
+LEFT JOIN {{ ref('agg_wm_monthly_users_revenue')}} n ON a.year_month = n.year_month
+LEFT JOIN {{ ref('agg_customer_service_monthly_nps') }} o ON a.year_month = o.year_month
+
 WHERE a.start_date <= CURRENT_DATE()
 ORDER BY year_month DESC
