@@ -25,7 +25,8 @@ FROM {{ ref('util_calendar') }} a
 LEFT JOIN {{ ref('agg_customer_service_daily_average_rating') }} b ON a.date = b.date
 LEFT JOIN {{ ref('agg_customer_service_daily_first_reply') }} c ON a.date = c.date
 LEFT JOIN {{ ref('agg_customer_service_daily_missed_call_ratio') }} d ON a.date = d.date
-LEFT JOIN {{ ref('agg_customer_service_daily_resolution') }} e ON a.date = f.date
+LEFT JOIN {{ ref('agg_customer_service_daily_resolution') }} e ON a.date = e.date
 WHERE 
   a.date > '2023-01-01' AND
   a.date < current_date()
+ORDER BY a.date DESC

@@ -12,15 +12,15 @@ WITH revenue AS (
 SELECT
     a.year_month,
     b.nr_active_users,
-    a.total_revenue,
+    c.total_revenue,
     CASE
         WHEN b.nr_active_users = 0 THEN NULL
-        ELSE ROUND(a.total_revenue / b.nr_active_users, 2)
+        ELSE ROUND(c.total_revenue / b.nr_active_users, 2)
     END AS revenue_per_active_user
 FROM {{ ref('util_month_intervals') }} a
 LEFT JOIN {{ ref('agg_wm_monthly_users_active')}} b ON a.year_month = b.year_month
 LEFT JOIN revenue c ON a.year_month = c.year_month
 WHERE
     a.end_date <= current_date
-GROUP BY b.year_month
-ORDER BY b.year_month DESC
+GROUP BY a.year_month, b.nr_active_users, c.total_revenue
+ORDER BY a.year_month DESC
