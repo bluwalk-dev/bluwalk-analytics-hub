@@ -1,7 +1,7 @@
 version: 2
 
 exposures:
-  - name: google_sheet_sales_performance_metrics
+  - name: google_sheet_sales_team_performance_metrics
     type: application
     owner:
       name: Customer Service Team
