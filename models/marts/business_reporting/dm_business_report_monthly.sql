@@ -1,3 +1,10 @@
+{{ 
+  config(
+    materialized='table',
+    tags=['medium_freshness']
+  ) 
+}}
+
 WITH 
 
 connected_vehicle_active_users AS (
@@ -14,7 +21,9 @@ connected_vehicle_deal_won AS (
 )
 
 SELECT 
-    a.year_month, 
+    a.year_month,
+    a.start_date,
+    a.end_date,
     -- User Activity Metrics
     i.nr_active_customers,
     m.nr_active_users,
