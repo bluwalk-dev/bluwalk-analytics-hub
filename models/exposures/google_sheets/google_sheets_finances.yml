@@ -9,11 +9,3 @@ exposures:
     url: https://docs.google.com/spreadsheets/d/1RPwv0HDL52dYYBfT76aWlDuDKQlNPsy2cHTqPm4Grts/
     depends_on:
       - ref('rpt_finances_driver_vehicle_rentals_import')
-  
-  - name: google_sheet_finances_drivfit_management
-    type: application
-    owner:
-      name: Finances
-    description: ?????
-    url: https://docs.google.com/spreadsheets/d/1GOp94d2ntkAKJLvHfjpb4rm-LoH2v8iZVktO7kd6EdY
-    depends_on:
