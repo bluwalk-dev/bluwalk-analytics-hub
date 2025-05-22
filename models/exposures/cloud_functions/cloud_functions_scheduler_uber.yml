@@ -25,7 +25,7 @@ exposures:
       - source('uber', 'report_requests')
       - source('uber', 'cron_config')
 
-  - name: cloud_function_scheduler_uber_vehicles
+  - name: cloud_function_scheduler_uber_vehicles_details
     type: application
     owner:
       name: Bluwalk Dev
