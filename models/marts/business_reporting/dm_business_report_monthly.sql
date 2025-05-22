@@ -25,7 +25,7 @@ SELECT
     a.start_date,
     a.end_date,
 
-    -- User Activity Metrics
+    -- Users
     i.nr_active_customers,
     m.nr_active_users,
     l.nr_activations,
