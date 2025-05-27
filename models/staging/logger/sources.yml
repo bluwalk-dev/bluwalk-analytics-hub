@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: generic
+    database: bluwalk-data-warehouse
+    tables:
+      - name: log_sms
+      - name: reconciliation
