@@ -1,0 +1,12 @@
+version: 2
+
+exposures:
+
+  - name: google_sheet_marketing_master
+    type: application
+    owner:
+      name: Marketing Team
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/1SbiwVtGRRTzgSKapu75XBTgS0a7sY7QmXC5jXANGM6k
+    depends_on:
+      - ref('rpt_advertising_ad_group_report')

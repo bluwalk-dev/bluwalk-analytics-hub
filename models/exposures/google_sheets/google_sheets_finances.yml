@@ -9,3 +9,81 @@ exposures:
     url: https://docs.google.com/spreadsheets/d/1RPwv0HDL52dYYBfT76aWlDuDKQlNPsy2cHTqPm4Grts/
     depends_on:
       - ref('rpt_finances_driver_vehicle_rentals_import')
+  
+  - name: google_sheet_import_lease_contract_debits
+    type: application
+    owner:
+      name: Finances
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/1GZ2C_Tf21IwIamdXkR7a7htLlkh-DK7ZV-vbQvkCcL0/
+    depends_on:
+      - ref('rpt_finances_fleet_opl_processing_contracts')
+      - ref('rpt_finances_fleet_opl_processing_debits')
+      - ref('rpt_finances_fleet_opl_processing_odometer')
+  
+  - name: google_sheet_import_uber
+    type: application
+    owner:
+      name: Finances
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/1bIp4hpjWiWMLU-z0DZpNzFDHSiLyJ_oMJR5KuQFIPWI/
+    depends_on:
+      - ref('rpt_finances_service_fee_attribution')
+      - ref('rpt_finances_partner_import_helper')
+      - ref('rpt_finances_fuel_spending')
+      - ref('rpt_finances_last_trip_loaded')
+  
+  - name: google_sheet_import_uber_eats
+    type: application
+    owner:
+      name: Finances
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/1DAII1OgrwWD4I3bX9heZImnFCNFIKczl9cOyCrf0JU0/
+    depends_on:
+      - ref('rpt_finances_partner_import_helper')
+  
+  - name: google_sheet_import_bolt_food
+    type: application
+    owner:
+      name: Finances
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/11iTLVNZxMo2SBThx3o4WrXNQSkTgis8yjGiI81LHU4s/
+    depends_on:
+      - ref('rpt_finances_partner_import_helper')
+  
+  - name: google_sheet_import_bp
+    type: application
+    owner:
+      name: Finances
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/1mFYJku215otrbyAgIAxcQdU5MDlF2J8ZWlAxtVHuDYI/
+    depends_on:
+      - ref('rpt_finances_bp_import')
+  
+  - name: google_sheet_import_evio
+    type: application
+    owner:
+      name: Finances
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/1wwT570GuVmncFhhCehJi27Fkaxrx7KpC6eIA97mFdBo/
+    depends_on:
+      - ref('rpt_finances_evio_import')
+  
+  - name: google_sheet_import_prio_electric
+    type: application
+    owner:
+      name: Finances
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/18kPLywVM7VcFWlWGN15GYwvwXzJKY7usmWCmK_2Ixr8/
+    depends_on:
+      - ref('rpt_finances_prio_import')
+  
+  - name: google_sheet_import_uber_for_business
+    type: application
+    owner:
+      name: Finances
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/19CGm3h7tbeDdF8gSF08Ck94jt2rd39inP-ZncI69ls0/
+    depends_on:
+      - ref('dim_accounting_contacts')
+      - ref('fct_accounting_moves')
