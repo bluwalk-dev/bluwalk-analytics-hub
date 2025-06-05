@@ -17,8 +17,10 @@ sources:
       - name: fleet_vehicle_model_brand
       - name: fleet_vehicle_model
       - name: fleet_vehicle_log_contract
+      - name: fleet_vehicle_log_repair
       - name: fleet_vehicle_odometer
       - name: fleet_vehicle_station
+      - name: insurance_claim_repair_rel
       - name: lease_contract_condition
       - name: lease_contract
       - name: product_category
