@@ -6,5 +6,6 @@ SELECT
   vat as contact_vat,
   street as contact_address,
   zip as contact_zip,
-  city as contact_city
+  city as contact_city,
+  parent_id as contact_parent_id
 FROM {{ ref('stg_odoo_drivfit__res_partners') }}
