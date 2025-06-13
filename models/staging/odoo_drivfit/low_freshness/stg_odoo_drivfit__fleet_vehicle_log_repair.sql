@@ -10,7 +10,7 @@ with
 source as (
     select
         *
-    from {{ source('odoo_drivfit', 'fleet_vehicle_log_repair') }}
+    from {{ source('odoo_drivfit', 'fleet_vehicle_log_services') }}
 ),
 
 transformation as (
