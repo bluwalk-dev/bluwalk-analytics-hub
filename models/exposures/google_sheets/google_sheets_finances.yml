@@ -87,3 +87,13 @@ exposures:
     depends_on:
       - ref('dim_accounting_contacts')
       - ref('fct_accounting_moves')
+
+  - name: google_sheet_accounting_via_verde
+    type: application
+    owner:
+      name: Finances
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/1Rn6of2BVl6_K71WpjKg_YM0LkabBgmRBa6zioFTyjuY
+    depends_on:
+      - ref('dim_accounting_contacts')
+      ## Tem uma ligação ao Drivfit Analytics Hub ##
