@@ -6,6 +6,8 @@ sources:
     database: drivfit-data-warehouse
     tables:
       - name: contact
+      - name: contact_company
+      - name: company
       - name: deal
       - name: deal_contact
       - name: deal_pipeline
