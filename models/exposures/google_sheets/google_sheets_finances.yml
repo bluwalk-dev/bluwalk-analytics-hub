@@ -32,6 +32,16 @@ exposures:
       - ref('rpt_finances_partner_import_helper')
       - ref('rpt_finances_fuel_spending')
       - ref('rpt_finances_last_trip_loaded')
+    
+  - name: google_sheet_import_uber_campaign25
+    type: application
+    owner:
+      name: Finances
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/1njy_Dda5XX764roU9gDvcmPQx2YFpOO42d23h_dNTgY
+    depends_on:
+      - ref('rpt_finances_partner_import_helper')
+      - ref('rpt_finances_uber_campaign25_import')
   
   - name: google_sheet_import_uber_eats
     type: application
