@@ -19,7 +19,10 @@ insurance_won as (
 bonus_current AS (
     SELECT
         a.year_month,
-        b.pipeline_name,
+        CASE
+            WHEN deal_pipeline_id = '165261801' THEN 'Drivfit - Motoristas'
+            ELSE b.pipeline_name
+        END as pipeline_name,
         COUNT(*) as won_deals,
         CASE
             WHEN deal_pipeline_id IN ('155110085', '165261801') THEN 10 * COUNT(*)
