@@ -1,8 +1,8 @@
 WITH
 all_deals AS (
-    SELECT CAST(close_date AS DATE) AS close_date, deal_pipeline_id, deal_pipeline_name as pipeline_name, deal_value as bonus FROM {{ ref('fct_deals') }} WHERE is_closed_won = TRUE
+    SELECT CAST(close_date AS DATE) AS close_date, deal_pipeline_id, deal_pipeline_name as pipeline_name FROM {{ ref('fct_deals') }} WHERE is_closed_won = TRUE
     UNION ALL
-    SELECT CAST(close_date AS DATE) AS close_date, deal_pipeline_id, deal_pipeline_name as pipeline_name, deal_team_bonus as bonus FROM {{ ref('int_hubspot_drivfit_deals') }} WHERE is_closed_won = TRUE
+    SELECT CAST(close_date AS DATE) AS close_date, deal_pipeline_id, deal_pipeline_name as pipeline_name FROM {{ ref('int_hubspot_drivfit_deals') }} WHERE is_closed_won = TRUE
 ),
 insurance_won as (
   select b.policy_id, amount
@@ -23,6 +23,11 @@ bonus_current AS (
         COUNT(*) as won_deals,
         CASE
             WHEN deal_pipeline_id IN ('155110085', '165261801') THEN 10 * COUNT(*)
+            WHEN deal_pipeline_id IN ('586124258') THEN
+                CASE 
+                    WHEN a.year_month > 202506 THEN 10 * COUNT(*)
+                    ELSE 0
+                END
             ELSE 2 * COUNT(*)
         END as bonus
     FROM {{ ref('util_calendar') }} a
@@ -35,10 +40,10 @@ bonus_current AS (
             '180111309', -- Digital Fuel Card
             '177902584', -- Parcel Delivery
             '177891797', -- Groceries Delivery
-            '165261801' -- Drivfit - Drivers
+            '165261801', -- Drivfit - Drivers
+            '586124258' -- Drivfit - Operators
         ) AND
-        year_month > 202502 AND
-        b.bonus > 0
+        year_month > 202502
     GROUP BY year_month, pipeline_name, deal_pipeline_id
 
     UNION ALL
