@@ -20,6 +20,7 @@ sources:
       - name: fleet_vehicle_log_services
       - name: fleet_vehicle_odometer
       - name: fleet_vehicle_station
+      - name: fleet_vehicle_status
       - name: insurance_claim_repair_rel
       - name: lease_contract_condition
       - name: lease_contract
