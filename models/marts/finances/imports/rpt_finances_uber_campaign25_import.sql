@@ -39,10 +39,10 @@ trips AS (
         ) THEN 0 ELSE 1
       END
     ) AS trips_off_peak
-  FROM {{ ref("fct_user_rideshare_trips") }} AS u
+  FROM {{ ref("base_uber_trips") }} AS u
   LEFT JOIN {{ ref("dim_vehicles") }} AS v ON u.vehicle_plate = v.vehicle_plate
   JOIN calendar AS c ON CAST(u.request_local_time AS DATE) = c.date
-  WHERE u.partner_name = 'Uber' AND v.vehicle_fuel_type = 'electric'
+  WHERE v.vehicle_fuel_type = 'electric'
   GROUP BY u.contact_id, c.year_week
 ),
 
