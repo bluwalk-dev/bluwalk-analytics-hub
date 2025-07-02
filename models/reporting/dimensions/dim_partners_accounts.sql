@@ -1,15 +1,3 @@
-/*
-  partner_account_enriched model
-  This model enriches the sales partner account data from the stg_odoo__res_sales_partner_accounts source
-  by joining it with the dim_partners and dim_users dimension tables. It provides a comprehensive
-  view of partner accounts, including contact and user details, partner names, and account status.
-
-  Source Tables:
-  - stg_odoo__res_sales_partner_accounts: Contains basic sales partner account information.
-  - dim_partners: Contains detailed partner information.
-  - dim_users: Contains user information linked to contacts.
-*/
-
 SELECT
     LOWER(a.account_unique_id) AS partner_account_uuid,  -- Unique identifier for the partner account
     a.partner_id AS contact_id,  -- Contact identifier associated with the partner account
