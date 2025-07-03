@@ -16,32 +16,32 @@ trips AS (
     SUM(
       CASE
         WHEN (
-          (EXTRACT(DAYOFWEEK   FROM u.request_local_time) BETWEEN 2 AND 6
-           AND EXTRACT(HOUR     FROM u.request_local_time) BETWEEN 7  AND 9 )
-          OR (EXTRACT(DAYOFWEEK FROM u.request_local_time) BETWEEN 2 AND 6
-           AND EXTRACT(HOUR     FROM u.request_local_time) BETWEEN 16 AND 18)
-          OR (EXTRACT(DAYOFWEEK FROM u.request_local_time) IN (1,7))
-          OR (EXTRACT(DAYOFWEEK FROM u.request_local_time) = 6
-           AND EXTRACT(HOUR     FROM u.request_local_time) BETWEEN 19 AND 23)
+          (EXTRACT(DAYOFWEEK   FROM u.dropoff_local_time) BETWEEN 2 AND 6
+           AND EXTRACT(HOUR     FROM u.dropoff_local_time) BETWEEN 7  AND 9 )
+          OR (EXTRACT(DAYOFWEEK FROM u.dropoff_local_time) BETWEEN 2 AND 6
+           AND EXTRACT(HOUR     FROM u.dropoff_local_time) BETWEEN 16 AND 18)
+          OR (EXTRACT(DAYOFWEEK FROM u.dropoff_local_time) IN (1,7))
+          OR (EXTRACT(DAYOFWEEK FROM u.dropoff_local_time) = 6
+           AND EXTRACT(HOUR     FROM u.dropoff_local_time) BETWEEN 19 AND 23)
         ) THEN 1 ELSE 0
       END
     ) AS trips_peak,
     SUM(
       CASE
         WHEN (
-          (EXTRACT(DAYOFWEEK   FROM u.request_local_time) BETWEEN 2 AND 6
-           AND EXTRACT(HOUR     FROM u.request_local_time) BETWEEN 7  AND 9 )
-          OR (EXTRACT(DAYOFWEEK FROM u.request_local_time) BETWEEN 2 AND 6
-           AND EXTRACT(HOUR     FROM u.request_local_time) BETWEEN 16 AND 18)
-          OR (EXTRACT(DAYOFWEEK FROM u.request_local_time) IN (1,7))
-          OR (EXTRACT(DAYOFWEEK FROM u.request_local_time) = 6
-           AND EXTRACT(HOUR     FROM u.request_local_time) BETWEEN 19 AND 23)
+          (EXTRACT(DAYOFWEEK   FROM u.dropoff_local_time) BETWEEN 2 AND 6
+           AND EXTRACT(HOUR     FROM u.dropoff_local_time) BETWEEN 7  AND 9 )
+          OR (EXTRACT(DAYOFWEEK FROM u.dropoff_local_time) BETWEEN 2 AND 6
+           AND EXTRACT(HOUR     FROM u.dropoff_local_time) BETWEEN 16 AND 18)
+          OR (EXTRACT(DAYOFWEEK FROM u.dropoff_local_time) IN (1,7))
+          OR (EXTRACT(DAYOFWEEK FROM u.dropoff_local_time) = 6
+           AND EXTRACT(HOUR     FROM u.dropoff_local_time) BETWEEN 19 AND 23)
         ) THEN 0 ELSE 1
       END
     ) AS trips_off_peak
   FROM {{ ref("base_uber_trips") }} AS u
   LEFT JOIN {{ ref("dim_vehicles") }} AS v ON u.vehicle_plate = v.vehicle_plate
-  JOIN calendar AS c ON CAST(u.request_local_time AS DATE) = c.date
+  JOIN calendar AS c ON CAST(u.dropoff_local_time AS DATE) = c.date
   WHERE v.vehicle_fuel_type = 'electric'
   GROUP BY u.contact_id, c.year_week
 ),
