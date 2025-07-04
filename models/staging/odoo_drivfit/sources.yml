@@ -8,6 +8,7 @@ sources:
       - name: account_analytic_account
       - name: account_move
       - name: booking
+      - name: booking_return
       - name: billable_item
       - name: fleet_vehicle
       - name: fleet_vehicle_cost
