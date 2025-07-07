@@ -12,6 +12,7 @@ calendar AS (
 trips AS (
   SELECT
     u.contact_id,
+    u.partner_account_uuid,
     c.year_week,
     SUM(
       CASE
@@ -43,7 +44,7 @@ trips AS (
   LEFT JOIN {{ ref("dim_vehicles") }} AS v ON u.vehicle_plate = v.vehicle_plate
   JOIN calendar AS c ON CAST(u.dropoff_local_time AS DATE) = c.date
   WHERE v.vehicle_fuel_type = 'electric'
-  GROUP BY u.contact_id, c.year_week
+  GROUP BY u.contact_id, u.partner_account_uuid, c.year_week
 ),
 
 -- 3) vehicle contract type, grouped once per week/contact
@@ -74,6 +75,7 @@ financials AS (
 
 SELECT
   t.contact_id,
+  t.partner_account_uuid,
   t.year_week,
   v.vehicle_contract_type,
   t.trips_peak,
@@ -84,5 +86,4 @@ SELECT
 FROM trips AS t
 LEFT JOIN vehicle_contract_type AS v ON t.contact_id = v.contact_id AND t.year_week   = v.year_week
 LEFT JOIN financials AS f ON t.contact_id = f.contact_id AND t.year_week   = f.year_week
-
 ORDER BY t.year_week, t.contact_id
