@@ -10,7 +10,7 @@ transformation as (
 
     SELECT
     
-        *
+        * EXCEPT(_fivetran_deleted, _fivetran_synced)
 
     FROM source
 
