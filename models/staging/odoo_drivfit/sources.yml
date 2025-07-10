@@ -34,5 +34,6 @@ sources:
       - name: rental_contract
       - name: res_partner
       - name: res_country_city
+      - name: res_country_state
       - name: res_country
       - name: vehicle_category

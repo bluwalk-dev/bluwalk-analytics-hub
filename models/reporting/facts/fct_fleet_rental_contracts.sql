@@ -5,6 +5,7 @@ SELECT * FROM (
         vehicle_license_plate as vehicle_plate,
         vehicle_id,
         customer_id,
+        driver_id,
         b.contact_vat,
         rental_contact_state as vehicle_contract_state,
         start_date,
@@ -23,6 +24,7 @@ SELECT * FROM (
         vehicle_fuel_letter
     from {{ ref('base_fleet_rental_contracts') }} a
     left join {{ ref('int_odoo_drivfit_contacts') }} b on a.driver_id = b.contact_id
+    where a.active is true
 
     UNION ALL
 
@@ -32,6 +34,7 @@ SELECT * FROM (
         vehicle_license_plate as vehicle_plate,
         vehicle_id,
         customer_id,
+        driver_id,
         b.contact_vat,
         lease_contact_state as vehicle_contract_state,
         start_date,
