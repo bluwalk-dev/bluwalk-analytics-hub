@@ -56,4 +56,4 @@ exposures:
     description: ?????
     url: https://docs.google.com/spreadsheets/d/1IicD1DuhRZja2g_SHKbC5vSz9gf0ZH6afAijcNWCUH4
     depends_on:
-      - ref('intf_fleet_kyc_search_contact')
+      - ref('rpt_fleet_traffic_fine_report')

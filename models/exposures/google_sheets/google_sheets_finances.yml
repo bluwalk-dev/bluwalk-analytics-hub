@@ -107,3 +107,12 @@ exposures:
     depends_on:
       - ref('dim_accounting_contacts')
       ## Tem uma ligação ao Drivfit Analytics Hub ##
+  
+  - name: google_sheet_accounting_import_tolls_movida
+    type: application
+    owner:
+      name: Finances
+    description: ?????
+    url: https://docs.google.com/spreadsheets/d/1hPmR65GftnJK_aixyQfl2WQ2_v5wLtch8SGsd0Vg2DU
+    depends_on:
+      - ref('fct_fleet_rental_contracts')

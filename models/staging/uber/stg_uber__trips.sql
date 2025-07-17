@@ -17,10 +17,13 @@ transformation as (
         CAST(vehicleUUID AS STRING) AS vehicle_uuid,
         CAST(replace(left(vehiclePlate,8),'-','') AS STRING) AS vehicle_plate,
         CAST(serviceType AS STRING) AS service_type,
-        TIMESTAMP(requestTimestamp) AS request_timestamp,
-        DATETIME(TIMESTAMP(requestTimestamp), 'Europe/Lisbon') as request_local_time,
-        TIMESTAMP(dropOffTimestamp) AS dropoff_timestamp,
-        DATETIME(TIMESTAMP(dropOffTimestamp), 'Europe/Lisbon') as dropoff_local_time,
+
+        TIMESTAMP(DATETIME(requestTimestamp), 'Europe/Lisbon') AS request_timestamp,
+        DATETIME(TIMESTAMP(DATETIME(requestTimestamp), 'Europe/Lisbon'), 'Europe/Lisbon') as request_local_time,
+
+        TIMESTAMP(DATETIME(dropOffTimestamp), 'Europe/Lisbon') AS dropoff_timestamp,
+        DATETIME(TIMESTAMP(DATETIME(dropOffTimestamp), 'Europe/Lisbon'), 'Europe/Lisbon') as dropoff_local_time,
+
         CAST(pickupAddress AS STRING) AS address_pickup,
         CAST(dropOffAddress AS STRING) AS address_dropoff,
         CAST(tripDistance AS NUMERIC) AS trip_distance,
