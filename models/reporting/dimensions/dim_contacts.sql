@@ -32,5 +32,7 @@ SELECT
 FROM {{ ref('stg_odoo__res_partners') }} rp  -- Source table: staged res partners data
 LEFT JOIN {{ ref('dim_locations') }} l on rp.operation_city_id = l.location_id  -- Joining with location dimension table
 LEFT JOIN {{ ref('stg_odoo_enterprise__res_partners') }} rpe on rpe.vat = rp.vat  -- Source table: staged res partners data
-WHERE rp.active is true  -- Filtering only active contacts
+WHERE 
+    rp.active is true AND
+    rpe.active is true
 ORDER BY contact_id DESC  -- Ordering by contact_id in descending order for recent entries first
