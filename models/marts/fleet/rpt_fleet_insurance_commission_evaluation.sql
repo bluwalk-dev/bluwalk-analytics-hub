@@ -1,4 +1,6 @@
-WITH insurance_claims AS (
+WITH 
+
+insurance_claims AS (
   SELECT
     id AS claim_id,
     CAST(claim_date AS DATE) AS claim_date,
@@ -21,6 +23,17 @@ repair_counts AS (
   GROUP BY insurance_claim_id
 ),
 
+invoices AS (
+    SELECT
+        REGEXP_EXTRACT(name, r'Processo de Sinistro\s*Nº\s*(\d+)') AS claim_process_nr,
+        date,
+        move_name as invoice_nr
+    FROM {{ ref('base_fleet_enterprise_accounting_move_lines') }}
+    WHERE 
+        product_id = 124
+        AND name LIKE 'Processo de Sinistro Nº%'
+),
+
 contact_info AS (
   SELECT
     child.contact_id,
@@ -32,16 +45,18 @@ contact_info AS (
 )
 
 SELECT
-  ic.claim_date,
-  ci.workshop_name,
-  ci.supplier_name,
-  ci.supplier_vat,
-  ic.claim_name,
-  ic.claim_process_nr,
-  ic.responsability_final,
-  ic.repair_cost,
-  round((0.1 * ic.repair_cost),2) as commission,
-  FALSE as is_invoiced
+    ic.claim_date,
+    ci.workshop_name,
+    ci.supplier_name,
+    ci.supplier_vat,
+    ic.claim_name,
+    ic.claim_process_nr,
+    ic.responsability_final,
+    ic.repair_cost,
+    round((0.1 * ic.repair_cost),2) as commission,
+    invoice_nr IS NOT NULL AS is_invoiced,
+    invoice_nr
 FROM insurance_claims ic
 JOIN repair_counts rc ON ic.claim_id = rc.insurance_claim_id
 LEFT JOIN contact_info ci ON ic.stoppage_location = ci.contact_id
+LEFT JOIN invoices i ON ic.claim_process_nr = i.claim_process_nr
