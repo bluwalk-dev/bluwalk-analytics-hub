@@ -116,3 +116,4 @@ exposures:
     url: https://docs.google.com/spreadsheets/d/1hPmR65GftnJK_aixyQfl2WQ2_v5wLtch8SGsd0Vg2DU
     depends_on:
       - ref('fct_fleet_rental_contracts')
+      - ref('stg_odoo_drivfit__tolls')

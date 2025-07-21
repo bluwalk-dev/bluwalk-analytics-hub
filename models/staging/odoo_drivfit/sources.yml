@@ -36,4 +36,5 @@ sources:
       - name: res_country_city
       - name: res_country_state
       - name: res_country
+      - name: tolls
       - name: vehicle_category
