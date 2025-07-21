@@ -1,14 +1,3 @@
-/*
-  user_enriched model
-  This model enriches the user data from the stg_odoo__res_users source
-  by joining it with the dim_contacts dimension table. It provides a comprehensive
-  view of user details, including contact information and account status.
-
-  Source Tables:
-  - stg_odoo__res_users: Contains basic user account information.
-  - dim_contacts: Contains detailed contact information.
-*/
-
 SELECT 
     ru.id as user_id,  -- Unique identifier for the user
     e.contact_id,  -- Contact identifier associated with the user
@@ -33,5 +22,7 @@ SELECT
 
 FROM {{ ref('stg_odoo__res_users') }} ru  -- Source table: staged res users data
 LEFT JOIN {{ ref('dim_contacts') }} e ON ru.partner_id = e.contact_id  -- Joining with contacts dimension table for detailed contact information
-WHERE ru.active IS TRUE AND e.contact_id IS NOT NULL  -- Filtering only active users with associated contact information
+WHERE 
+    ru.active IS TRUE AND 
+    e.contact_id IS NOT NULL
 ORDER BY ru.create_date DESC  -- Ordering by account creation date in descending order
