@@ -13,6 +13,7 @@ transformation as (
         * EXCEPT(_fivetran_deleted, _fivetran_synced)
 
     FROM source
+    WHERE _fivetran_deleted = FALSE
 
 )
 
