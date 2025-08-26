@@ -2,39 +2,39 @@ version: 2
 
 sources:
   - name: zendesk
-    database: bluwalk-data-warehouse
-    schema: zendesk
+    database: bluwalk-analytics-hub
+    schema: raw
     description: "Status: Inactive. This source contains all Zendesk-related data, including support ticket information, user details, and satisfaction ratings."
     tables:
-      - name: attachments
+      - name: src_zendesk_attachments
         description: "Contains metadata about file attachments within Zendesk tickets, such as content types, file names, and URLs."
 
-      - name: group_memberships
+      - name: src_zendesk_group_memberships
         description: "Tracks associations between users and groups in Zendesk, detailing membership creation and updates."
 
-      - name: groups
+      - name: src_zendesk_groups
         description: "Details the groups created in Zendesk, including their names, creation, and update timestamps."
 
-      - name: organizations
+      - name: src_zendesk_organizations
         description: "Lists all the organizations in Zendesk, along with related information like names, shared tickets, and comments."
 
-      - name: satisfaction_ratings
+      - name: src_zendesk_satisfaction_ratings
         description: "Captures customer satisfaction ratings for tickets, including comments and the associated ticket and user IDs."
 
-      - name: ticket_events
+      - name: src_zendesk_ticket_events
         description: "Logs ticket-related events, tracking status changes, assignments, tags, and satisfaction ratings."
 
-      - name: ticket_fields
+      - name: src_zendesk_ticket_fields
         description: "Defines custom fields within tickets, including descriptions, positions, and visibility settings."
 
-      - name: ticket_forms
+      - name: src_zendesk_ticket_forms
         description: "Stores Zendesk ticket form configurations, which determine the layout and fields of a ticket."
 
-      - name: ticket_metrics
+      - name: src_zendesk_ticket_metrics
         description: "Records various metrics related to ticket handling and resolution, including wait times and resolution durations."
 
-      - name: tickets
+      - name: src_zendesk_tickets
         description: "Main table containing tickets raised in Zendesk, their status, assignee, requester, and other key ticket details."
 
-      - name: users
+      - name: src_zendesk_users
         description: "Contains details about users in Zendesk, including their roles, contact information, and activity status."
