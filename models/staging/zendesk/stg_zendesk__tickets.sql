@@ -2,7 +2,7 @@ with
 
 source as (
     SELECT *
-    FROM {{ source('zendesk', 'tickets') }}
+    FROM {{ source('zendesk', 'src_zendesk_tickets') }}
 ),
 
 transformation as (

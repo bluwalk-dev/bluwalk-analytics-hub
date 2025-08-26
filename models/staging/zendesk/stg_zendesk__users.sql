@@ -2,7 +2,7 @@ with
 
 source as (
     SELECT *
-    FROM {{ source('zendesk', 'users') }}
+    FROM {{ source('zendesk', 'src_zendesk_users') }}
 ),
 
 transformation as (
