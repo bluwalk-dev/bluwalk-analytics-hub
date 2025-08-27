@@ -3,6 +3,7 @@ version: 2
 sources:
   - name: uber
     database: bluwalk-data-warehouse
+    schema: uber
     tables:
       - name: cron_config
       - name: driver_activity
@@ -18,3 +19,11 @@ sources:
       - name: vehicle_compliance
       - name: vehicle_performance
       - name: trip_activity
+  
+  - name: uber_v2
+    database: bluwalk-analytics-hub
+    schema: raw
+    tables:
+      - name: src_uber_organizations
+      - name: src_uber_report_types
+      - name: src_uber_report_requests
