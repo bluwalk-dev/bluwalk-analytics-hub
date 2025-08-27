@@ -16,6 +16,7 @@ SELECT
 FROM (    
     SELECT
         org_id,
+        org_name,
         b.name as report_type
     FROM {{ ref('stg_uber__organizations') }} a
     CROSS JOIN {{ ref('stg_uber__report_types') }} b
