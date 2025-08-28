@@ -6,7 +6,7 @@ WITH sessions AS (
                 PARTITION BY transaction_id 
                 ORDER BY load_timestamp DESC
             ) AS __row_number
-        FROM {{ ref("stg_evio__charging_sessions") }} 
+        FROM {{ ref("stg_evio__sessions") }} 
         )
     WHERE __row_number = 1
 )
