@@ -24,6 +24,7 @@ sources:
     database: bluwalk-analytics-hub
     schema: raw
     tables:
+      - name: src_uber_driver_quality
       - name: src_uber_organizations
       - name: src_uber_report_types
       - name: src_uber_report_requests
