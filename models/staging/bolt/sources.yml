@@ -16,3 +16,11 @@ sources:
       - name: trips_history
       - name: vehicle_engagement
       - name: vehicle_documents
+
+  - name: bolt_v2
+    database: bluwalk-analytics-hub
+    schema: raw
+    tables:
+      - name: src_bolt_organizations
+      - name: src_bolt_report_types
+      - name: src_bolt_driver_earnings
