@@ -1,10 +1,11 @@
 WITH last_loaded_report AS (
-    SELECT 
-        bolt_company_id as org_id,
-        'EARNINGS_REPORT' as report_type,
-        max(date) last_loaded
-    FROM {{ ref('stg_bolt__driver_earnings') }}
-    GROUP BY org_id, report_type
+    SELECT bolt_company_id as org_id, 'EARNINGS_REPORT' as report_type, max(date) last_loaded
+    FROM {{ ref('stg_bolt__driver_earnings') }} GROUP BY org_id, report_type
+    
+    UNION ALL
+
+    SELECT bolt_company_id as org_id, 'DRIVERS_REPORT' as report_type, max(date) last_loaded
+    FROM {{ ref('stg_bolt__driver_engagement') }} GROUP BY org_id, report_type
 )
 
 SELECT
