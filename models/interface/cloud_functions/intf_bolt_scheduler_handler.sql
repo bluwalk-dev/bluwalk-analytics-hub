@@ -19,6 +19,7 @@ FROM (
         b.name as report_type
     FROM {{ ref('stg_bolt__organizations') }} a
     CROSS JOIN {{ ref('stg_bolt__report_types') }} b
+    WHERE a.is_active = true
 ) x
 LEFT JOIN last_loaded_report y ON 
     x.org_id = y.org_id AND
