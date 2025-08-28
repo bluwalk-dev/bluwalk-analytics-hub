@@ -4,7 +4,7 @@ WITH last_loaded_report AS (
     
     UNION ALL
 
-    SELECT bolt_company_id as org_id, 'DRIVERS_REPORT' as report_type, max(date) last_loaded
+    SELECT CAST(bolt_company_id AS STRING) as org_id, 'DRIVERS_REPORT' as report_type, max(date) last_loaded
     FROM {{ ref('stg_bolt__driver_engagement') }} GROUP BY org_id, report_type
 )
 
