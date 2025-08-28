@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: evio
-    database: bluwalk-data-warehouse
-    schema: evio
+    database: bluwalk-analytics-hub
+    schema: raw
     tables:
-      - name: charging_sessions
+      - name: src_evio_sessions

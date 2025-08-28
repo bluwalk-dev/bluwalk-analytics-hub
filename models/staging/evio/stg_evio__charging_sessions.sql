@@ -3,7 +3,7 @@ with
 source as (
     select
         *
-    from {{ source('evio', 'charging_sessions') }}
+    from {{ source('evio', 'src_evio_sessions') }}
 ),
 
 transformation as (
@@ -37,7 +37,8 @@ transformation as (
        ev_brand as asset_type,
        ev_model as transaction_type,
        ev_license_plate as user_vat,
-       load_timestamp
+       load_timestamp,
+       run_id
 
     FROM source
     order by start_date desc
