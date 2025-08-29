@@ -3,7 +3,7 @@ with
 source as (
     SELECT
         * 
-    FROM {{ source('mds', 'receipts') }}
+    FROM {{ source('mds_v2', 'src_mds_documents') }}
 ),
 
 transformation as (
@@ -29,7 +29,8 @@ transformation as (
         CAST(COMISSAO_PARCEIRO as NUMERIC) as commission_partner,
         GESTAO_DE_COBRANCA as collection_management,
         REPLACE(MODO_PAGAMENTO, 'nan', '') as payment_method,
-        load_timestamp
+        load_timestamp,
+        run_id
 
     from source
 )
