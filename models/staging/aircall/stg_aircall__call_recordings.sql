@@ -2,7 +2,7 @@ with
 
 source as (
     SELECT *
-    FROM {{ source('aircall_v2', 'call_recording') }}
+    FROM {{ source('aircall_new', 'src_aircall_call_recordings') }}
 ),
 
 transformation as (
