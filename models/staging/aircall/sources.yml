@@ -27,3 +27,9 @@ sources:
       - name: call
       - name: numbers
       - name: users
+  
+  - name: aircall_new
+    database: bluwalk-analytics-hub
+    schema: raw
+    tables:
+      - name: src_aircall_call_recordings
