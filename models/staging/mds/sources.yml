@@ -3,10 +3,12 @@ version: 2
 sources:
   - name: mds
     database: bluwalk-data-warehouse
+    schema: mds
     tables:
       - name: reconciliation
   
   - name: mds_v2
     database: bluwalk-analytics-hub
+    schema: raw
     tables:
       - name: src_mds_documents
