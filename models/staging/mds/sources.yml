@@ -4,5 +4,9 @@ sources:
   - name: mds
     database: bluwalk-data-warehouse
     tables:
-      - name: receipts
       - name: reconciliation
+  
+  - name: mds_v2
+    database: bluwalk-analytics-hub
+    tables:
+      - name: src_mds_documents
