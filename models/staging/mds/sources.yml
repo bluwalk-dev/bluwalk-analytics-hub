@@ -12,3 +12,4 @@ sources:
     schema: raw
     tables:
       - name: src_mds_documents
+        description: "Inserted by a cloud function from Daily Automated Email sent from MDS to info@bluwalk.com"
