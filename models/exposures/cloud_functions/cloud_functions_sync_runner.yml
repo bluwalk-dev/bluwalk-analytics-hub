@@ -1,0 +1,15 @@
+version: 2
+
+exposures:
+
+  - name: cf_sr_fleet_lease_billing
+    type: application
+    owner:
+      name: Devoteam
+    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
+    depends_on:
+      - ref('intf_fleet_sync_lease_billing__conditions_per_product')
+      - ref('intf_fleet_sync_lease_billing__debits_grouped')
+      - ref('intf_fleet_sync_lease_billing__debits_etf')
+      - ref('intf_fleet_sync_lease_billing__odometer')
+      

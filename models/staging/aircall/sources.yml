@@ -33,3 +33,4 @@ sources:
     schema: raw
     tables:
       - name: src_aircall_call_recordings
+        description: "Inserted by a cloud function from Aircall API"
