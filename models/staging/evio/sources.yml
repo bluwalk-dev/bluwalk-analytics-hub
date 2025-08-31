@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: evio
     database: bluwalk-analytics-hub
-    schema: raw
+    schema: source_evio
     tables:
       - name: src_evio_sessions
         description: "Inserted by a cloud function from Evio API"
