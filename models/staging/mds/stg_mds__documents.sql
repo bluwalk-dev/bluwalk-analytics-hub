@@ -3,7 +3,7 @@ with
 source as (
     SELECT
         * 
-    FROM {{ source('mds_v2', 'src_mds_documents') }}
+    FROM `bluwalk-analytics-hub.source_mds.src_mds_documents`
 ),
 
 transformation as (
