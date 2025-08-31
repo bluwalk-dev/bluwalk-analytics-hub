@@ -9,7 +9,7 @@ sources:
   
   - name: mds_v2
     database: bluwalk-analytics-hub
-    schema: raw
+    schema: source_mds
     tables:
       - name: src_mds_documents
         description: "Inserted by a cloud function from Daily Automated Email sent from MDS to info@bluwalk.com"
