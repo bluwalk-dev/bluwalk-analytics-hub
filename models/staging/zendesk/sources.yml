@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: zendesk
     database: bluwalk-analytics-hub
-    schema: raw
+    schema: source_zendesk
     description: "Status: Inactive. This source contains all Zendesk-related data, including support ticket information, user details, and satisfaction ratings."
     tables:
       - name: src_zendesk_attachments
