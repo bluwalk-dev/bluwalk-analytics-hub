@@ -16,7 +16,7 @@ WITH periods AS (
                 ELSE LAG(local_datetime) OVER (PARTITION BY org_alt_name ORDER BY local_datetime)
             END AS start_period,
             local_datetime AS end_period
-        FROM {{ ref('stg_uber__payment_orders') }}
+        FROM bluwalk-analytics-hub.staging.stg_uber_payment_orders
         WHERE transaction_description = 'so.payout'
     ) a
     LEFT JOIN {{ ref('util_calendar') }} b ON CAST(a.start_period AS DATE) = b.date
@@ -29,7 +29,7 @@ WITH periods AS (
                 PARTITION BY transaction_uuid 
                 ORDER BY load_timestamp DESC
             ) AS __row_number
-        FROM {{ ref("stg_uber__payment_orders") }} 
+        FROM bluwalk-analytics-hub.staging.stg_uber_payment_orders
         )
     WHERE __row_number = 1
 )
