@@ -23,4 +23,4 @@ transformation as (
 
 )
 
-select * from transformation
+select * from bluwalk-analytics-hub.staging.stg_uber_driver_quality
