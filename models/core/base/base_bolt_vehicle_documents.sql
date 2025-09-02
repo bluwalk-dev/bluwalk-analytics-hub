@@ -1,6 +1,6 @@
 WITH last_version_documents AS (
     SELECT MAX(load_timestamp) last_version
-    FROM {{ ref("stg_bolt__expiring_documents") }} 
+    FROM bluwalk-analytics-hub.staging.stg_bolt_documents_expiring
 )
 
 SELECT
@@ -15,7 +15,7 @@ SELECT
     a.expiration_date,
     b.org_name as account_name,
     b.location_name
-FROM {{ ref("stg_bolt__expiring_documents") }} a
+FROM bluwalk-analytics-hub.staging.stg_bolt_documents_expiring a
 LEFT JOIN {{ ref("dim_partners_logins") }} b ON a.company_id = b.login_id
 WHERE 
     load_timestamp = (SELECT last_version FROM last_version_documents) AND

@@ -16,6 +16,6 @@ FROM
             PARTITION BY vehicle_id
             ORDER BY extraction_timestamp DESC
         ) AS __row_number
-    FROM {{ ref("stg_bolt__vehicle_engagements") }} 
+    FROM bluwalk-analytics-hub.staging.stg_bolt_vehicle_engagement
     )
 WHERE __row_number = 1
