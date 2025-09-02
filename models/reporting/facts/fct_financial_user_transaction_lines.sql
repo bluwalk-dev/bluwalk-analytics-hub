@@ -35,8 +35,8 @@ SELECT
         WHEN a.rental_vehicle_id IS NOT NULL THEN a.rental_vehicle_id
         ELSE NULL
     END order_id
-FROM {{ ref('stg_odoo__transaction_lines') }} a
-LEFT JOIN {{ ref('stg_odoo__transaction_accounts') }} b ON a.account_id = b.transaction_account_id
-LEFT JOIN {{ ref('stg_odoo__transaction_categories') }} c ON a.category_id = c.id
-LEFT JOIN {{ ref('dim_users') }} d ON b.user_id = d.user_id
-LEFT JOIN {{ ref('stg_odoo__transaction_groups') }} e ON c.group_id = e.id
+FROM bluwalk-analytics-hub.staging.stg_odoo_bw_transaction_lines a
+LEFT JOIN bluwalk-analytics-hub.staging.stg_odoo_bw_transaction_accounts b ON a.account_id = b.transaction_account_id
+LEFT JOIN bluwalk-analytics-hub.staging.stg_odoo_bw_transaction_categories c ON a.category_id = c.id
+LEFT JOIN bluwalk-analytics-hub.core.core_users d ON b.user_id = d.user_id
+LEFT JOIN bluwalk-analytics-hub.staging.stg_odoo_bw_transaction_groups e ON c.group_id = e.id

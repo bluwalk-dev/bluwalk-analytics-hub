@@ -1,7 +1,0 @@
-version: 2
-
-sources:
-  - name: miio
-    database: bluwalk-data-warehouse
-    tables:
-      - name: ev_transactions

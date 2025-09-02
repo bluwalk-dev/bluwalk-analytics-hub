@@ -7,7 +7,7 @@ WITH odoo_policies AS (
   FROM {{ ref("stg_odoo__insurance_policy_payments") }} a
   LEFT JOIN {{ ref("stg_odoo__insurance_policies") }} b
     ON a.policy_id = b.id
-  LEFT JOIN {{ ref("stg_odoo__res_partners") }} c
+  LEFT JOIN bluwalk-analytics-hub.staging.stg_odoo_bw_res_partners c
     ON b.insurer_id = c.id
   WHERE a.start_date < (
     SELECT DATE_TRUNC(

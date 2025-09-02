@@ -1,4 +1,4 @@
 SELECT
     *
 FROM 
-    {{ ref('stg_odoo__transaction_accounts') }}
+    bluwalk-analytics-hub.staging.stg_odoo_bw_transaction_accounts

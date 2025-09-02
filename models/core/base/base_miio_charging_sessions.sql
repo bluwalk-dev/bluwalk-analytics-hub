@@ -6,7 +6,7 @@ WITH sessions AS (
                 PARTITION BY transaction_key 
                 ORDER BY load_timestamp DESC
             ) AS __row_number
-        FROM {{ ref("stg_miio__ev_transactions") }} 
+        FROM bluwalk-analytics-hub.staging.stg_miio_transactions 
         )
     WHERE __row_number = 1
 )

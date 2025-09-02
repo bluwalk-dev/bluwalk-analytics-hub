@@ -27,9 +27,9 @@ SELECT
     b.partner_contact_id,
     b.sales_partner_id,
     a.nr_trips
-FROM {{ ref('stg_odoo__trips') }} a
+FROM bluwalk-analytics-hub.staging.stg_odoo_bw_trips a
 LEFT JOIN {{ ref('dim_partners') }} b ON a.res_sales_partner_id = b.sales_partner_id
-LEFT JOIN {{ ref('dim_users') }} c ON a.contact_id = c.contact_id
+LEFT JOIN bluwalk-analytics-hub.core.core_users c ON a.contact_id = c.contact_id
 LEFT JOIN {{ ref('util_calendar') }} d ON a.end_date = d.date
 WHERE 
     b.partner_marketplace = 'Work' AND
