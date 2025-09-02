@@ -18,9 +18,9 @@ SELECT
     ta.drop_off_time_local as dropoff_local_time,
     ta.drop_off_address as address_dropoff,
     ta.ride_distance as trip_distance
-FROM {{ ref('stg_bolt__trips') }} ta
+FROM bluwalk-analytics-hub.staging.stg_bolt_trips ta
 LEFT JOIN {{ ref('dim_partners_accounts') }} upa on ta.partner_account_uuid = upa.partner_account_uuid
-LEFT JOIN {{ ref('dim_users') }} u on u.contact_id = upa.contact_id
+LEFT JOIN bluwalk-analytics-hub.core.core_users u on u.contact_id = upa.contact_id
 LEFT JOIN {{ ref('dim_vehicle_contracts') }} z ON ta.vehicle_plate = z.vehicle_plate AND ta.accepted_time BETWEEN CAST(z.start_date AS TIMESTAMP) AND CAST(IFNULL(z.end_date, CURRENT_DATE) AS TIMESTAMP)
 LEFT JOIN {{ ref('dim_partners_logins') }} pl ON CAST(ta.bolt_company_id AS STRING) = pl.login_id
 WHERE

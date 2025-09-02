@@ -1,16 +1,3 @@
-WITH driver_engagement AS (
-    SELECT * FROM
-        (SELECT 
-            *, 
-            ROW_NUMBER() OVER (
-                PARTITION BY partner_account_uuid, date 
-                ORDER BY load_timestamp DESC
-            ) AS __row_number
-        FROM {{ ref("stg_bolt__driver_engagement") }} 
-        )
-    WHERE __row_number = 1
-)
-
 SELECT * FROM (
     SELECT
         a.date,
@@ -29,7 +16,7 @@ SELECT * FROM (
         a.distance_driven trip_distance,
         a.gross_revenue * 0.75 estimated_net_earnings
     FROM {{ ref('stg_bolt__performance') }} a
-    LEFT JOIN {{ ref('dim_users') }} u on a.contact_id = u.contact_id
+    LEFT JOIN bluwalk-analytics-hub.core.core_users u on a.contact_id = u.contact_id
     WHERE 
         a.online_minutes > 0 AND 
         a.nr_trips > 0 AND
@@ -53,9 +40,9 @@ SELECT * FROM (
         ROUND(a.average_driver_rating, 2) as rating,
         ROUND((a.average_ride_distance_meters *  a.completed_orders / 1000), 2)  trip_distance,
         ROUND(c.net_earnings, 2) net_earnings
-    FROM driver_engagement a
+    FROM bluwalk-analytics-hub.staging.stg_bolt_driver_engagement a
     LEFT JOIN {{ ref('dim_partners_accounts') }} b ON a.partner_account_uuid = b.partner_account_uuid
-    LEFT JOIN {{ ref('dim_users') }} u on b.contact_id = u.contact_id
-    LEFT JOIN {{ ref('base_bolt_earnings') }} c ON a.partner_account_uuid = c.partner_account_uuid AND a.date = c.date
+    LEFT JOIN bluwalk-analytics-hub.core.core_users u on b.contact_id = u.contact_id
+    LEFT JOIN bluwalk-analytics-hub.staging.stg_bolt_driver_earnings c ON a.partner_account_uuid = c.partner_account_uuid AND a.date = c.date
 )
 ORDER BY date DESC
