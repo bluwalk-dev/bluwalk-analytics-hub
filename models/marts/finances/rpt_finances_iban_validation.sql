@@ -1,7 +1,7 @@
 WITH ce_banks AS (
   select c.vat, a.sanitized_acc_number
   from {{ ref('stg_odoo__res_partner_banks') }} a 
-  left join {{ ref('stg_odoo__res_partners') }} c on a.partner_id = c.id
+  left join bluwalk-analytics-hub.staging.stg_odoo_bw_res_partners c on a.partner_id = c.id
 )
 
 select 

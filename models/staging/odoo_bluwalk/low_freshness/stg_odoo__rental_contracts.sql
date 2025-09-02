@@ -1,7 +1,7 @@
 {{ 
   config(
     materialized='table',
-    tags=['high_freshness']
+    tags=['medium_freshness']
   ) 
 }}
 
@@ -10,7 +10,7 @@ with
 source as (
     select
         *
-    from {{ source('odoo_bluwalk', 'transaction_category') }}
+    from {{ source('odoo_bluwalk', 'rental_contract') }}
 ),
 
 transformation as (

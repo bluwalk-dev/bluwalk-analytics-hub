@@ -19,7 +19,7 @@ SELECT
     a.cost,
     a.margin,
     a.statement
-FROM {{ ref('stg_odoo__fuel') }} a
+FROM bluwalk-analytics-hub.staging.stg_odoo_bw_fuel a
 LEFT JOIN {{ ref('dim_users') }} b ON a.contact_id = b.contact_id
 LEFT JOIN {{ ref('dim_partners') }} c ON a.service_partner_id = c.service_partner_id
 WHERE 

@@ -29,7 +29,7 @@ SELECT
     concat(if(length(rp.phone_sanitized)=9,'+351', if(left(rp.phone_sanitized,3)='351','+','')),rp.phone_sanitized) as contact_phone,
     rp.create_date as contact_create_date  -- Date when the contact was created
     
-FROM {{ ref('stg_odoo__res_partners') }} rp  -- Source table: staged res partners data
+FROM bluwalk-analytics-hub.staging.stg_odoo_bw_res_partners rp  -- Source table: staged res partners data
 LEFT JOIN {{ ref('dim_locations') }} l on rp.operation_city_id = l.location_id  -- Joining with location dimension table
 LEFT JOIN {{ ref('stg_odoo_enterprise__res_partners') }} rpe on rpe.vat = rp.vat  -- Source table: staged res partners data
 WHERE 
