@@ -1,8 +1,0 @@
-version: 2
-
-sources:
-  - name: talkdesk
-    database: bluwalk-data-warehouse
-    tables:
-      - name: calls
-      - name: flows
