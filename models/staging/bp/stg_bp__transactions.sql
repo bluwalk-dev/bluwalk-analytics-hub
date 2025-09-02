@@ -28,7 +28,7 @@ transformation as (
             ROUND(CAST(valor_talao AS NUMERIC),2) as value_station_price,
             TIMESTAMP_MILLIS(load_timestamp) as extraction_timestamp
             
-        from source
+        from bluwalk-analytics-hub.source_bp.src_bp_transactions
     )
 
 )
