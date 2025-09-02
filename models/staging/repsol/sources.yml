@@ -1,7 +1,0 @@
-version: 2
-
-sources:
-  - name: repsol
-    database: bluwalk-data-warehouse
-    tables:
-      - name: invoice_transactions
