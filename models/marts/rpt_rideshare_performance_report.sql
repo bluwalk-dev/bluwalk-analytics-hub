@@ -59,6 +59,12 @@ userDimension AS (
     contact_id 
   from {{ ref('stg_hubspot__deals') }} a
   where is_closed_won IS true and deal_pipeline_id = '155110085' and user_id is not null
+),
+
+last_statement AS (
+    SELECT 
+        CAST(period AS INT64) last_statement
+    FROM bluwalk-analytics-hub.staging.stg_odoo_bw_close_periods
 )
 
 
@@ -80,7 +86,7 @@ SELECT
     db.balance AS driver_balance,
     tpd.top_income,
     CASE WHEN
-        cd.statement = (SELECT last_statement FROM {{ ref('util_last_statement') }}) THEN ''
+        cd.statement = (SELECT last_statement FROM last_statement) THEN ''
         ELSE cl.Status
     END AS churn_status,
     CASE WHEN db.balance < 0 THEN "Low" ELSE CASE WHEN db.balance > 190 THEN "Top" ELSE "Regular" END END user_segment,
