@@ -8,7 +8,7 @@ WITH contract_conditions AS (
         end as termination_date
     from {{ ref('stg_odoo_drivfit__lease_contract_conditions') }}
     group by lease_contract_id
-    where active is true
+    
 )
 
 SELECT
