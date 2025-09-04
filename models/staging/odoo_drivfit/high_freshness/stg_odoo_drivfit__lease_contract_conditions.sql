@@ -20,6 +20,7 @@ transformation as (
         *
 
     from source
+    where active is true
     
 )
 
