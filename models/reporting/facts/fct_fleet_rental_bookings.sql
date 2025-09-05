@@ -3,7 +3,6 @@ SELECT
     a.name as booking_name,
     a.state as booking_state,
     a.booking_type,
-    a.active,
     a.driver_id,
     e.contact_name as driver_name,
     e.contact_vat as driver_vat,
