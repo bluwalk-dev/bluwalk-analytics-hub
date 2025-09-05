@@ -62,8 +62,7 @@ userDimension AS (
 ),
 
 last_statement AS (
-    SELECT 
-        CAST(period AS INT64) last_statement
+    SELECT CAST(MAX(period) AS INT64) AS last_statement
     FROM bluwalk-analytics-hub.staging.stg_odoo_bw_close_periods
 )
 
@@ -85,10 +84,7 @@ SELECT
     cd.user_id,
     db.balance AS driver_balance,
     tpd.top_income,
-    CASE WHEN
-        cd.statement = (SELECT last_statement FROM last_statement) THEN ''
-        ELSE cl.Status
-    END AS churn_status,
+    CASE WHEN cd.statement = ls.last_statement THEN '' ELSE cl.Status END AS churn_status,
     CASE WHEN db.balance < 0 THEN "Low" ELSE CASE WHEN db.balance > 190 THEN "Top" ELSE "Regular" END END user_segment,
     CASE WHEN ud.contact_id IS NULL THEN 'Rented' ELSE 'Connected' END user_dimension,
     m1.total_worked_days,
@@ -108,5 +104,6 @@ LEFT JOIN {{ ref('agg_wm_weekly_rideshare_earnings_over_130') }} m1 on cd.statem
 LEFT JOIN {{ ref('agg_wm_weekly_rideshare_trips_5TO9') }} m2 on cd.statement = m2.statement AND cd.contact_id = m2.contact_id
 LEFT JOIN {{ ref('agg_wm_weekly_rideshare_acceptance_rate') }} m3 on cd.statement = m3.statement AND cd.contact_id = m3.contact_id
 LEFT JOIN {{ ref('agg_wm_weekly_rideshare_work_on_weekends') }} m4 on cd.statement = m4.statement AND cd.contact_id = m4.contact_id
+CROSS JOIN last_statement ls
 WHERE COALESCE(ne.total_income, 0) > 0
 ORDER BY statement DESC, total_income DESC
