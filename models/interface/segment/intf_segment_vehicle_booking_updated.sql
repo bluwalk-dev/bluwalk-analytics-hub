@@ -19,7 +19,6 @@ latest_vehicle_bookings AS (
                 ORDER BY booking_create_date DESC
             ) AS __row_number
         FROM {{ ref("dim_vehicle_bookings") }}
-        WHERE booking_is_active IS TRUE
         )
     WHERE __row_number = 1
 )
