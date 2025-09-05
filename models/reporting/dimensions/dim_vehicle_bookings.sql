@@ -2,7 +2,6 @@ SELECT
     a.booking_name,
     a.booking_state,
     a.booking_type,
-    a.active as booking_is_active,
     a.booking_contract_type,
     b.contact_id as driver_contact_id,
     b.user_id as driver_user_id,
