@@ -1,17 +1,3 @@
-WITH last_version_documents AS (
-    SELECT * EXCEPT(__row_number) 
-    FROM
-        (SELECT 
-            *, 
-            ROW_NUMBER() OVER (
-                PARTITION BY vehicle_id, vehicle_owner_id, document_type_id
-                ORDER BY load_timestamp DESC
-            ) AS __row_number
-        FROM {{ ref("stg_uber__vehicle_documents") }} 
-        )
-    WHERE __row_number = 1
-)
-
 SELECT 
     a.vehicle_owner_id, 
     b.vehicle_plate,
@@ -21,6 +7,6 @@ SELECT
     a.document_expires_at,
     c.org_name as account_name,
     c.location_name
-FROM last_version_documents a
-LEFT JOIN {{ ref("base_uber_vehicles") }} b ON a.vehicle_id = b.vehicle_id
+FROM bluwalk-analytics-hub.staging.stg_uber_vehicle_documents a
+LEFT JOIN bluwalk-analytics-hub.staging.stg_uber_vehicles b ON a.vehicle_id = b.vehicle_id
 LEFT JOIN {{ ref("dim_partners_logins") }} c ON a.vehicle_owner_id = c.login_id
