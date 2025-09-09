@@ -1,8 +1,0 @@
-version: 2
-
-sources:
-  - name: free_now
-    database: bluwalk-data-warehouse
-    schema: free_now
-    tables:
-      - name: booking_history
