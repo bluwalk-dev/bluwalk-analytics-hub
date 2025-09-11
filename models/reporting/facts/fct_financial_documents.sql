@@ -13,5 +13,5 @@ SELECT
     a.amount_total,
     a.amount_residual,
     a.last_sync_time
-FROM {{ ref('stg_odoo__financial_documents') }} a
+FROM bluwalk-analytics-hub.staging.stg_odoo_bw_financial_documents a
 LEFT JOIN {{ ref('stg_odoo__financial_systems') }} b ON a.financial_system_id = b.id
