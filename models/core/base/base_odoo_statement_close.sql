@@ -13,7 +13,7 @@ WITH statement_log AS (
         period statement,
         CAST(write_date AS TIMESTAMP) last_update_timestamp,
         DATETIME(TIMESTAMP(write_date), 'Europe/Lisbon') last_update_localtime
-    FROM {{ source('snapshots', 'snap_odoo_statement_close') }}
+    FROM bluwalk-analytics-hub.core.core_finances_payment_cycle_close
 )
 
 
@@ -23,7 +23,7 @@ select
     c.date,
     max(last_update_localtime) as statement_close
 FROM statement_log cr
-LEFT JOIN {{ ref('util_week_intervals') }} we ON cr.statement = we.year_week
-LEFT JOIN {{ ref('util_calendar') }} c ON we.end_date = c.date
+LEFT JOIN bluwalk-analytics-hub.core.ref_calendar_weeks we ON cr.statement = we.year_week
+LEFT JOIN bluwalk-analytics-hub.core.ref_calendar c ON we.end_date = c.date
 GROUP BY date, year_week, year_month
 ORDER BY year_week DESC
