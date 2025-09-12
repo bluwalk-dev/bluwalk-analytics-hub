@@ -1,7 +1,6 @@
 {{ 
   config(
-    materialized='table',
-    tags=['insights']
+    materialized='table'
   ) 
 }}
 
