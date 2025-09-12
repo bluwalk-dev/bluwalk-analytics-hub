@@ -5,7 +5,7 @@ WITH fuel_card_log AS (
                 PARTITION BY name 
                 ORDER BY delivery_date DESC
             ) AS __row_number
-        FROM {{ ref("stg_odoo__fuel_card_log") }}
+        FROM bluwalk-analytics-hub.staging.stg_odoo_bw_fuel_card_log
     )
     WHERE __row_number = 1
 )

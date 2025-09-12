@@ -103,12 +103,12 @@ FROM {{ ref('stg_odoo__rental_contracts') }} rc  -- Source table: staged rental 
 LEFT JOIN {{ ref('stg_odoo__rate_bases') }} rb ON rc.rate_base_id = rb.id  -- Joining with rate bases
 LEFT JOIN {{ ref('dim_partners') }} c ON rb.partner_id = c.partner_contact_id  -- Joining with contacts for supplier details
 LEFT JOIN {{ ref('stg_odoo__vehicle_categories') }} vc ON rb.vehicle_category_id = vc.id  -- Joining with vehicle categories
-LEFT JOIN {{ ref('stg_odoo__segments') }} s ON vc.segment_id = s.id  -- Joining with segments for vehicle segment details
+LEFT JOIN bluwalk-analytics-hub.staging.stg_odoo_bw_segments s ON vc.segment_id = s.id  -- Joining with segments for vehicle segment details
 LEFT JOIN {{ ref('dim_accounting_analytic_accounts') }} aaa ON rc.billing_account_id = aaa.analytic_account_id  -- Joining with accounting analytic accounts
 LEFT JOIN vehicles fv ON rc.vehicle_id = fv.vehicle_id  -- Joining with vehicles for detailed vehicle information
 LEFT JOIN {{ ref('dim_users') }} u ON aaa.analytic_account_owner_contact_id = u.contact_id  -- Joining with users for user details
-WHERE 
-    rc.active IS TRUE AND -- Filtering only active rental contracts
+WHERE
+    rc.active IS TRUE AND
     (c.partner_category = 'Vehicles' OR c.partner_category IS NULL) AND
     rc.rental_contract = 'free_loan'
-ORDER BY start_date DESC  -- Ordering by start date in descending order
+ORDER BY start_date DESC
