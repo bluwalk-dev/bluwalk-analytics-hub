@@ -15,14 +15,14 @@ WITH
         SELECT
             a.user_id,
             CASE
-                WHEN a.deal_pipeline_name = 'Vehicle : Drivfit' THEN 'Drivfit'
+                WHEN a.deal_pipeline_name = 'Vehicle : Rent : Drivers' THEN 'Drivfit'
                 WHEN a.deal_pipeline_name = 'Vehicle : Personal Vehicle' THEN 'Personal Car'
                 ELSE NULL
             END partner_name,
             a.vehicle_plate
         FROM  {{ ref("fct_deals") }} a
         WHERE
-            a.deal_pipeline_name IN ('Vehicle : Drivfit', 'Vehicle : Personal Vehicle') AND
+            a.deal_pipeline_name IN ('Vehicle : Rent : Drivers', 'Vehicle : Personal Vehicle') AND
             a.is_closed = FALSE AND
             a.vehicle_plate IS NOT NULL
     )

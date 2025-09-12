@@ -9,7 +9,6 @@ exposures:
     description: ?????
     url: https://docs.google.com/spreadsheets/d/13G8KHJhiiW4EZHlxoqweW7AEGHxDTCgOB8_4YZj5ths
     depends_on:
-      - ref('rpt_customer_service_vehicle_documents')
       - ref('rpt_customer_service_parked_vehicle_documents')
   
   - name: google_sheet_fleet_invoicing
