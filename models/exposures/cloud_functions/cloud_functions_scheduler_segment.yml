@@ -58,16 +58,6 @@ exposures:
     depends_on:
       - ref('rpt_rideshare_performance_report')
 
-  - name: cloud_function_scheduler_segment_risk_profile_update
-    type: application
-    owner:
-      name: Bluwalk Dev
-    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
-    depends_on:
-      - ref('util_week_intervals')
-      - ref('snap_odoo_statement_close')
-      - ref('intf_segment_user_financial_risk')
-
   - name: cloud_function_scheduler_segment_new_uncollectible
     type: application
     owner:
