@@ -8,7 +8,7 @@ SELECT
     a.state AS partner_account_state,  -- Current state of the partner account
     a.create_date  -- Date when the partner account was created
 
-FROM {{ ref('stg_odoo__res_sales_partner_accounts') }} a  -- Source table: staged sales partner accounts data
-LEFT JOIN {{ ref('dim_partners') }} b ON a.res_sales_partner_id = b.sales_partner_id  -- Joining with partners dimension table for partner details
-LEFT JOIN {{ ref('dim_users') }} c ON a.partner_id = c.contact_id  -- Joining with users dimension table for user details
+FROM bluwalk-analytics-hub.staging.stg_odoo_bw_res_sales_partner_accounts a  -- Source table: staged sales partner accounts data
+LEFT JOIN bluwalk-analytics-hub.core.core_partners b ON a.res_sales_partner_id = b.sales_partner_id  -- Joining with partners dimension table for partner details
+LEFT JOIN bluwalk-analytics-hub.core.core_users c ON a.partner_id = c.contact_id  -- Joining with users dimension table for user details
 WHERE partner_marketplace = 'Work'

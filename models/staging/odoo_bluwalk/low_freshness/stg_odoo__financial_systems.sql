@@ -1,26 +1,23 @@
 {{ 
   config(
     materialized='table',
-    tags=['high_freshness']
+    tags=['medium_freshness']
   ) 
 }}
 
 with
 
 source as (
-    select
-        *
-    from {{ source('odoo_bluwalk', 'segment') }}
+    SELECT *
+    FROM {{ source('odoo_bluwalk', 'financial_system') }}
 ),
 
 transformation as (
 
     select
-        
         *
-
     from source
     
 )
 
-select * from transformation
+SELECT * FROM transformation

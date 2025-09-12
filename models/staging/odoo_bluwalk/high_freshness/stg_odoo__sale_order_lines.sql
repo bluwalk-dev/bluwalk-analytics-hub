@@ -14,13 +14,9 @@ source as (
 ),
 
 transformation as (
-
     select
-        
         *
-
     from source
-    
 )
 
 select * from transformation
