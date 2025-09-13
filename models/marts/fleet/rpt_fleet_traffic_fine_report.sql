@@ -18,9 +18,9 @@ SELECT
     lower(c.contact_email) email,
     c.contact_driver_license_nr drivers_license,
     c.contact_citizen_card_nr citizen_card,
-from {{ ref('fct_fleet_rental_contracts') }} a
-left join {{ ref('int_odoo_drivfit_contacts') }} c on a.driver_id = c.contact_id
-left join {{ ref('int_odoo_drivfit_contacts') }} e on a.customer_id = e.contact_id
+from bluwalk-analytics-hub.core.core_fleet_rental_contracts a
+left join bluwalk-analytics-hub.core.core_contacts_flt c on a.driver_id = c.contact_id
+left join bluwalk-analytics-hub.core.core_contacts_flt e on a.customer_id = e.contact_id
 order by 
     if(a.end_date is null, 2,1) desc, 
     a.start_date desc, 

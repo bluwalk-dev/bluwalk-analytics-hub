@@ -19,7 +19,7 @@ FROM (
     effective_date,
     termination_date,
     rate_base_wk_price as wk_price
-  FROM {{ ref('stg_odoo_drivfit__lease_contract_conditions') }}
+  FROM bluwalk-analytics-hub.staging.stg_odoo_flt_lease_contract_conditions
 
   UNION ALL
 
@@ -31,7 +31,7 @@ FROM (
     effective_date,
     termination_date,
     rate_mileage_wk_price as wk_price
-  FROM {{ ref('stg_odoo_drivfit__lease_contract_conditions') }}
+  FROM bluwalk-analytics-hub.staging.stg_odoo_flt_lease_contract_conditions
   WHERE rate_mileage_wk_price > 0
 
   UNION ALL
@@ -44,9 +44,9 @@ FROM (
     effective_date,
     termination_date,
     rate_protection_wk_price as wk_price
-  FROM {{ ref('stg_odoo_drivfit__lease_contract_conditions') }}
+  FROM bluwalk-analytics-hub.staging.stg_odoo_flt_lease_contract_conditions
   WHERE rate_protection_wk_price > 0
 ) a
-LEFT JOIN {{ ref('fct_fleet_rental_contracts') }} b ON a.lease_contract_id = b.vehicle_contract_id
+LEFT JOIN bluwalk-analytics-hub.core.core_fleet_rental_contracts b ON a.lease_contract_id = b.vehicle_contract_id
 WHERE vehicle_contract_length = 'mid-term'
 ORDER BY a.effective_date DESC

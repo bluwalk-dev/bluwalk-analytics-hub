@@ -50,7 +50,7 @@ SELECT
     5 as service_fee,
     6 as service_partner_id
     
-FROM {{ ref('fct_fleet_rental_contracts') }} a
+FROM bluwalk-analytics-hub.core.core_fleet_rental_contracts a
 LEFT JOIN {{ ref('dim_vehicles') }} b ON a.vehicle_plate = b.vehicle_plate
 LEFT JOIN {{ ref('dim_users') }} c ON a.contact_vat = c.user_vat
 LEFT JOIN analytic_accounts d ON c.contact_id = d.analytic_account_owner_contact_id

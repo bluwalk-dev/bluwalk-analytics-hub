@@ -9,7 +9,7 @@ select
     payment_cycle,
     SUM(amount) AS debited_amount
 from {{ ref('fct_fleet_billable_items') }} a
-left join {{ ref('fct_fleet_rental_contracts') }} b on a.contract_id = b.vehicle_contract_id
+left join bluwalk-analytics-hub.core.core_fleet_rental_contracts b on a.contract_id = b.vehicle_contract_id
 where 
   vehicle_contract_length = 'mid-term' and 
   status = 'invoiced' and

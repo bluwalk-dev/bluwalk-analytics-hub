@@ -10,6 +10,25 @@ hubspot_booking_created as (
     FROM {{ ref("fct_deals") }}
     WHERE deal_pipeline_stage_id = '307257316'
 ),
+fleet_rental_bookings AS (
+    SELECT
+        a.booking_name,
+        a.booking_state,
+        a.booking_type,
+        a.booking_contract_type,
+        b.contact_id as driver_contact_id,
+        b.user_id as driver_user_id,
+        a.vehicle_license_plate,
+        a.vehicle_name,
+        a.booking_pickup_datetime,
+        a.booking_pickup_station_name,
+        a.booking_rate_name,
+        a.booking_rate_weekly_price,
+        a.booking_mileage_limit,
+        a.create_date AS booking_create_date
+    FROM bluwalk-analytics-hub.core.core_fleet_rental_bookings a
+    LEFT JOIN bluwalk-analytics-hub.core.core_users b ON a.driver_vat = b.user_vat
+),
 latest_vehicle_bookings AS (
     SELECT * FROM
         (SELECT 
@@ -18,7 +37,7 @@ latest_vehicle_bookings AS (
                 PARTITION BY driver_user_id 
                 ORDER BY booking_create_date DESC
             ) AS __row_number
-        FROM {{ ref("dim_vehicle_bookings") }}
+        FROM fleet_rental_bookings
         )
     WHERE __row_number = 1
 )
