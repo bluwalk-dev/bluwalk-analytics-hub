@@ -66,14 +66,14 @@ SELECT DISTINCT
     k.marketing_point_score,              -- Marketing point score from pipelines table
     a.deal_value as activation_point_score              -- Activation point score from pipelines table
 
-FROM {{ ref("stg_hubspot__deals") }} a
+FROM bluwalk-analytics-hub.staging.stg_hubspot_deals a
 LEFT JOIN {{ ref("stg_hubspot__deal_pipelines") }} b ON a.deal_pipeline_id = b.pipeline_id
 LEFT JOIN {{ ref("stg_hubspot__owners") }} c ON a.owner_id = c.owner_id
 LEFT JOIN {{ ref("stg_hubspot__merged_deals") }} d ON a.deal_id = d.merged_deal_id
 LEFT JOIN {{ ref("stg_hubspot__deal_contacts") }} e ON a.deal_id = e.deal_id
 LEFT JOIN {{ ref("base_hubspot_contacts") }} f ON f.hs_contact_id = e.contact_id
-LEFT JOIN {{ ref("util_calendar") }} h ON CAST(a.close_date AS DATE) = h.date
-LEFT JOIN {{ ref("util_calendar") }} i ON CAST(a.create_date AS DATE) = i.date
+LEFT JOIN bluwalk-analytics-hub.core.ref_calendar h ON CAST(a.close_date AS DATE) = h.date
+LEFT JOIN bluwalk-analytics-hub.core.ref_calendar i ON CAST(a.create_date AS DATE) = i.date
 LEFT JOIN {{ ref("dim_partners") }} j ON j.partner_key = a.deal_partner_key
 LEFT JOIN {{ ref("fct_quarter_params") }} k ON i.year_quarter = k.year_quarter  AND k.partner_key = a.deal_partner_key
 WHERE a.is_deleted = FALSE AND d.deal_id IS NULL  -- Filters for non-deleted and non-merged deals

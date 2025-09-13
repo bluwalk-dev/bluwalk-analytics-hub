@@ -57,7 +57,7 @@ churn_list as (
 userDimension AS (
   select distinct
     contact_id 
-  from {{ ref('stg_hubspot__deals') }} a
+  from bluwalk-analytics-hub.staging.stg_hubspot_deals a
   where is_closed_won IS true and deal_pipeline_id = '155110085' and user_id is not null
 ),
 
