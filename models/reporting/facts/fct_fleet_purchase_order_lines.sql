@@ -12,4 +12,4 @@ SELECT
     a.price_subtotal as price_net,
     a.price_total as price_gross
 FROM {{ ref('stg_odoo_drivfit__purchase_order_lines') }} a
-LEFT JOIN {{ ref('int_odoo_drivfit_contacts') }} b ON a.partner_id = b.contact_id
+LEFT JOIN bluwalk-analytics-hub.core.core_contacts_flt b ON a.partner_id = b.contact_id

@@ -24,8 +24,8 @@ SELECT
   a.product_id,
   e.analytic_account_id
 from {{ ref("fct_fleet_billable_items") }} a
-left join {{ ref("base_fleet_lease_contracts") }} b on a.contract_id = b.lease_contract_id
-left join {{ ref("int_odoo_drivfit_contacts") }} c on b.driver_id = c.contact_id
+left join bluwalk-analytics-hub.core.core_fleet_rental_contracts_lease b on a.contract_id = b.lease_contract_id
+left join bluwalk-analytics-hub.core.core_contacts_flt c on b.driver_id = c.contact_id
 left join {{ ref("dim_contacts") }} d on c.contact_vat = d.contact_vat
 left join {{ ref("dim_accounting_analytic_accounts") }} e on d.contact_id = e.analytic_account_owner_contact_id
 where 
@@ -62,8 +62,8 @@ select
   a.product_id,
   e.analytic_account_id
 from {{ ref("fct_fleet_billable_items") }} a
-left join {{ ref("base_fleet_rental_contracts") }} b on a.contract_id = b.rental_contract_id
-left join {{ ref("int_odoo_drivfit_contacts") }} c on b.driver_id = c.contact_id
+left join bluwalk-analytics-hub.core.core_fleet_rental_contracts_rac b on a.contract_id = b.rental_contract_id
+left join bluwalk-analytics-hub.core.core_contacts_flt c on b.driver_id = c.contact_id
 left join {{ ref("dim_contacts") }} d on c.contact_vat = d.contact_vat
 left join {{ ref("dim_accounting_analytic_accounts") }} e on d.contact_id = e.analytic_account_owner_contact_id
 where

@@ -84,5 +84,5 @@ LEFT JOIN {{ ref('dim_accounting_journals') }} b ON
     a.journal_id = b.journal_id AND
     a.financial_system = b.journal_financial_system
 LEFT JOIN {{ ref('util_calendar') }} c ON c.date = a.date
-LEFT JOIN {{ ref('dim_accounting_contacts') }} d ON a.partner_id = d.accounting_contact_id
+LEFT JOIN bluwalk-analytics-hub.core.core_contacts_ee d ON a.partner_id = d.accounting_contact_id
 WHERE company_id = 4

@@ -2,7 +2,7 @@ SELECT
     
     -- Basic contact information
     rp.id as contact_id,  -- Unique identifier for the contact
-    rpe.id as contact_odoo_ee_id,
+    rpe.accounting_contact_id as contact_odoo_ee_id,
     rp.name as contact_full_name,  -- Full name of the contact
     rp.friendly_name as contact_short_name,  -- Short or informal name
     rp.email_normalized as contact_email,  -- Normalized email address
@@ -30,9 +30,8 @@ SELECT
     rp.create_date as contact_create_date  -- Date when the contact was created
     
 FROM bluwalk-analytics-hub.staging.stg_odoo_bw_res_partners rp  -- Source table: staged res partners data
-LEFT JOIN {{ ref('dim_locations') }} l on rp.operation_city_id = l.location_id  -- Joining with location dimension table
-LEFT JOIN {{ ref('stg_odoo_enterprise__res_partners') }} rpe on rpe.vat = rp.vat  -- Source table: staged res partners data
-WHERE 
-    rp.active is true AND
-    (rpe.active is true OR rpe.active is null)
+LEFT JOIN bluwalk-analytics-hub.core.core_locations_bw l on rp.operation_city_id = l.location_id  -- Joining with location dimension table
+LEFT JOIN bluwalk-analytics-hub.core.core_contacts_ee rpe on rpe.accounting_contact_vat = rp.vat  -- Source table: staged res partners data
+WHERE
+    rp.active is true
 ORDER BY contact_id DESC  -- Ordering by contact_id in descending order for recent entries first

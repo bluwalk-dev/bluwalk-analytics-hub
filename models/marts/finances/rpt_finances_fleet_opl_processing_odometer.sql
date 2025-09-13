@@ -10,7 +10,7 @@ contract_periods AS (
         COALESCE(end_date, CURRENT_DATE()) AS end_date,
         start_kms,
         end_kms
-    FROM {{ ref('base_fleet_lease_contracts') }}
+    FROM bluwalk-analytics-hub.core.core_fleet_rental_contracts_lease
     WHERE start_date <= COALESCE(end_date, CURRENT_DATE())
 ),
 vehicle_odometer AS (
@@ -86,7 +86,7 @@ SELECT
 
     
 FROM kms_calculations cp
-LEFT JOIN {{ ref('stg_odoo_drivfit__lease_contract_conditions') }} lcc ON 
+LEFT JOIN bluwalk-analytics-hub.staging.stg_odoo_flt_lease_contract_conditions lcc ON 
   cp.lease_contract_id = lcc.lease_contract_id AND 
   cp.period_start >= lcc.effective_date AND 
   cp.period_end <= COALESCE(lcc.termination_date, CURRENT_DATE())

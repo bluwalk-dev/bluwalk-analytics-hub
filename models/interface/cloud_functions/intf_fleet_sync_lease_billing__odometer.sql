@@ -20,8 +20,8 @@ WITH weekly_conditions AS (
       COALESCE(cond.termination_date, CURRENT_DATE("Europe/Lisbon")),
       COALESCE(c.end_date, CURRENT_DATE("Europe/Lisbon"))
     ) AS period_end
-  FROM {{ ref('base_fleet_lease_contracts') }} c
-  JOIN {{ ref('stg_odoo_drivfit__lease_contract_conditions') }} cond
+  FROM bluwalk-analytics-hub.core.core_fleet_rental_contracts_lease c
+  JOIN bluwalk-analytics-hub.staging.stg_odoo_flt_lease_contract_conditions cond
     ON c.lease_contract_id = cond.lease_contract_id
   LEFT JOIN {{ ref('stg_odoo_drivfit__rate_mileages') }} rm
     ON cond.rate_mileage_id = rm.id

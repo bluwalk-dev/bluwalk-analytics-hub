@@ -40,8 +40,8 @@ contact_info AS (
     child.contact_name AS workshop_name,
     COALESCE(parent.contact_name, child.contact_name) AS supplier_name,
     COALESCE(parent.contact_vat, child.contact_vat) AS supplier_vat
-  FROM {{ ref('int_odoo_drivfit_contacts') }} child
-  LEFT JOIN {{ ref('int_odoo_drivfit_contacts') }} parent ON child.contact_parent_id = parent.contact_id
+  FROM bluwalk-analytics-hub.core.core_contacts_flt child
+  LEFT JOIN bluwalk-analytics-hub.core.core_contacts_flt parent ON child.contact_parent_id = parent.contact_id
 )
 
 SELECT
