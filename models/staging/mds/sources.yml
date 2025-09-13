@@ -1,8 +1,0 @@
-version: 2
-
-sources:
-  - name: mds
-    database: bluwalk-data-warehouse
-    schema: mds
-    tables:
-      - name: reconciliation

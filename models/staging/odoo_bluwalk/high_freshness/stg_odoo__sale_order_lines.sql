@@ -2,7 +2,7 @@
   config(
     materialized='table',
     tags=['high_freshness']
-  ) 
+  )
 }}
 
 with
@@ -14,6 +14,7 @@ source as (
 ),
 
 transformation as (
+    
     select
         *
     from source
