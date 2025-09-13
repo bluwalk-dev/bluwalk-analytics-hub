@@ -13,7 +13,7 @@ SELECT
   d.close_date_month as year_month,
   d.owner_name as agent_name,
   SUM(COALESCE(fp.amount, 0)) AS first_payment_total
-FROM {{ ref('fct_deals') }}       AS d
+FROM bluwalk-analytics-hub.core.core_hubspot_deals AS d
 JOIN {{ ref('dim_insurance_policies') }} AS p
   ON d.insurance_policy_name = p.insurance_policy_name
 LEFT JOIN first_payments         AS fp

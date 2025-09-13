@@ -2,7 +2,7 @@ WITH
 
 users_in_current_debts AS (
     SELECT DISTINCT contact_id 
-    FROM {{ ref('fct_deals') }}
+    FROM bluwalk-analytics-hub.core.core_hubspot_deals
     WHERE deal_pipeline_id = '197150438' and is_closed = false
 ),
 
@@ -28,7 +28,7 @@ SELECT
     END to_invoice,
     d.invoice_link,
     a.risk_account_idle_time
-FROM {{ ref('base_hubspot_contacts') }} a
+FROM bluwalk-analytics-hub.staging.stg_hubspot_contacts a
 LEFT JOIN {{ ref('dim_users') }} b ON a.user_id = b.user_id
 LEFT JOIN users_in_current_debts c ON a.contact_id = c.contact_id
 LEFT JOIN user_debt_invoices d ON a.user_id = d.user_id

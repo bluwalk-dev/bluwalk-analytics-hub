@@ -34,7 +34,7 @@ FROM (
         b.user_id IS NOT NULL AND
         b.user_email IS NOT NULL 
 ) x
-LEFT JOIN {{ ref('base_hubspot_contacts') }} y ON x.user_id = y.user_id AND x.user_email = y.email
+LEFT JOIN bluwalk-analytics-hub.staging.stg_hubspot_contacts y ON x.user_id = y.user_id AND x.user_email = y.email
 WHERE
     y.user_id IS NOT NULL AND
     (

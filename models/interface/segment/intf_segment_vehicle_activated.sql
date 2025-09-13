@@ -20,7 +20,7 @@ WITH
                 ELSE NULL
             END partner_name,
             a.vehicle_plate
-        FROM  {{ ref("fct_deals") }} a
+        FROM  bluwalk-analytics-hub.core.core_hubspot_deals a
         WHERE
             a.deal_pipeline_name IN ('Vehicle : Rent : Drivers', 'Vehicle : Personal Vehicle') AND
             a.is_closed = FALSE AND

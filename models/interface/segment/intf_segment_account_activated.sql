@@ -13,7 +13,7 @@ WITH
             user_id,           -- User ID from the deals fact table
             partner_name,       -- Partner name from the deals fact table
             deal_partner_key AS partner_key
-        FROM {{ ref("fct_deals") }}
+        FROM bluwalk-analytics-hub.core.core_hubspot_deals
         WHERE
             is_closed = FALSE AND -- Filter for open deals
             partner_marketplace = 'Work' AND -- Filter for 'Work' marketplace

@@ -7,7 +7,7 @@ hubspot_booking_created as (
         vehicle_rental_pickup_date,
         vehicle_rental_pickup_station,
         vehicle_rental_booking_type,
-    FROM {{ ref("fct_deals") }}
+    FROM bluwalk-analytics-hub.core.core_hubspot_deals
     WHERE deal_pipeline_stage_id = '307257316'
 ),
 fleet_rental_bookings AS (

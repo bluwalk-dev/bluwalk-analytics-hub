@@ -5,7 +5,7 @@ hubspot_list AS (
         a.user_id,
         a.email user_email,
         a.active_vehicle_contracts 
-    FROM {{ ref('base_hubspot_contacts') }} a
+    FROM bluwalk-analytics-hub.staging.stg_hubspot_contacts a
     WHERE
         active_vehicle_contracts = TRUE
 ), 
