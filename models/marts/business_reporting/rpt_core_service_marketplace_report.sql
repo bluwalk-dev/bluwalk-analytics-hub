@@ -29,7 +29,7 @@ insurance AS (
                 b.year_month,
                 0                as revenue,
                 count(*)         as won_deals
-            from {{ ref('fct_deals') }}   a
+            from bluwalk-analytics-hub.core.core_hubspot_deals   a
             join {{ ref('util_calendar') }} b
                 on a.close_date = b.date
             where a.deal_pipeline_id = 'default'

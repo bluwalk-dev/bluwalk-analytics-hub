@@ -1,6 +1,6 @@
 WITH
 all_deals AS (
-    SELECT CAST(close_date AS DATE) AS close_date, deal_pipeline_id, deal_pipeline_name as pipeline_name FROM {{ ref('fct_deals') }} WHERE is_closed_won = TRUE
+    SELECT CAST(close_date AS DATE) AS close_date, deal_pipeline_id, deal_pipeline_name as pipeline_name FROM bluwalk-analytics-hub.core.core_hubspot_deals WHERE is_closed_won = TRUE
     UNION ALL
     SELECT CAST(close_date AS DATE) AS close_date, deal_pipeline_id, deal_pipeline_name as pipeline_name FROM {{ ref('int_hubspot_drivfit_deals') }} WHERE is_closed_won = TRUE
 ),
@@ -56,7 +56,7 @@ bonus_current AS (
         'Insurance : Vehicle Insurance' as pipeline_name,
         count(*) as won_deals,
         ROUND(SUM(c.amount) * 0.01,0) as deal_value
-    FROM {{ ref('fct_deals') }} a
+    FROM bluwalk-analytics-hub.core.core_hubspot_deals a
     LEFT JOIN {{ ref('dim_insurance_policies') }} b on a.insurance_policy_name = b.insurance_policy_name
     left join insurance_won c on b.insurance_policy_id = c.policy_id
     where 

@@ -6,7 +6,7 @@ insurance_quotes AS (
         insurance_entered_proposal_sent AS sent_date,
         insurer
     FROM 
-        {{ ref("fct_deals") }},
+        bluwalk-analytics-hub.core.core_hubspot_deals,
         UNNEST([
             STRUCT('Allianz' AS insurer, insurance_quote_allianz AS quote_status),
             STRUCT('Tranquilidade' AS insurer, insurance_quote_tranquilidade AS quote_status),

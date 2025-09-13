@@ -2,7 +2,7 @@ WITH new_deals AS (
     SELECT
         create_date,
         COUNT(*) AS new_deals
-    FROM {{ ref("fct_deals") }}
+    FROM bluwalk-analytics-hub.core.core_hubspot_deals
     WHERE deal_pipeline_id = 'default'
     GROUP BY create_date
 ),
@@ -11,7 +11,7 @@ close_deals AS (
         close_date,
         SUM(CASE WHEN is_closed_won = TRUE THEN 1 ELSE 0 END) AS won_deals,
         SUM(CASE WHEN is_closed_won = FALSE THEN 1 ELSE 0 END) AS lost_deals
-    FROM {{ ref("fct_deals") }}
+    FROM bluwalk-analytics-hub.core.core_hubspot_deals
     WHERE deal_pipeline_id = 'default' AND is_closed = TRUE
     GROUP BY close_date
 ),
@@ -19,7 +19,7 @@ staged_deals_open AS (
     SELECT
         c.date,
         COUNT(*) AS staged_deals_open
-    FROM {{ ref("fct_deals") }} d
+    FROM bluwalk-analytics-hub.core.core_hubspot_deals d
     JOIN {{ ref("util_calendar") }} c
     ON c.date >= DATE(d.insurance_entered_open) 
        AND c.date < COALESCE(DATE(d.insurance_exited_open), DATE_ADD(CURRENT_DATE(), INTERVAL 1 DAY))
@@ -37,7 +37,7 @@ accepted_deals AS (
     SELECT
         c.date,
         COUNT(*) AS accepted_deals
-    FROM {{ ref("fct_deals") }} d
+    FROM bluwalk-analytics-hub.core.core_hubspot_deals d
     JOIN {{ ref("util_calendar") }} c 
     ON c.date = DATE(d.insurance_entered_accepted)
     WHERE 

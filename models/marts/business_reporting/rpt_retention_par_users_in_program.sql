@@ -13,5 +13,5 @@ SELECT
     par_number_of_days_with_earnings_between_70_and_130,
     par_sms_friday_challenge,
     mktplace_last_activity_ridesharing
-FROM {{ ref("base_hubspot_contacts") }}
+FROM bluwalk-analytics-hub.staging.stg_hubspot_contacts
 WHERE par_has_been_on_the_program = TRUE

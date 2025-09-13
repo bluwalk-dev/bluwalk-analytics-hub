@@ -16,7 +16,7 @@ all_combinations AS (
     CROSS JOIN {{ ref("util_calendar") }} c
     CROSS JOIN (
         SELECT DISTINCT hs_owner_id, owner_name
-        FROM {{ ref("fct_deals") }}
+        FROM bluwalk-analytics-hub.core.core_hubspot_deals
     ) o
 ),
 policies AS (
@@ -27,7 +27,7 @@ policies AS (
         c.hs_owner_id as owner_id,
         COUNT(*) as policies_issued
     FROM {{ ref("dim_insurance_policies")}} b
-    LEFT JOIN {{ ref("fct_deals")}} c ON b.insurance_policy_name = c.insurance_policy_name
+    LEFT JOIN bluwalk-analytics-hub.core.core_hubspot_deals c ON b.insurance_policy_name = c.insurance_policy_name
     WHERE 
         c.deal_pipeline_id = 'default' AND 
         hs_owner_id IS NOT NULL
@@ -45,7 +45,7 @@ policies_accepted AS (
         hs_owner_id as owner_id,
         COUNT(*) as policies_accepted,
         SUM(insurance_annual_premium) as policies_premium
-    FROM {{ ref("fct_deals") }}
+    FROM bluwalk-analytics-hub.core.core_hubspot_deals
     WHERE 
         deal_pipeline_id = 'default' AND 
         insurance_entered_accepted IS NOT NULL AND 

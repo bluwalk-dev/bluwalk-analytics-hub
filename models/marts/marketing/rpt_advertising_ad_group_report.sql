@@ -53,5 +53,5 @@ FROM (
     SELECT * FROM facebook_ads
 ) a
 LEFT JOIN {{ ref("stg_google_sheets__ad_group_classification") }} b ON a.ad_group_id = b.ad_group_id
-LEFT JOIN {{ ref("stg_hubspot__deal_pipelines") }} c ON b.pipeline_id = c.pipeline_id
+LEFT JOIN bluwalk-analytics-hub.staging.stg_hubspot_deal_pipelines c ON b.pipeline_id = c.pipeline_id
 ORDER BY date DESC

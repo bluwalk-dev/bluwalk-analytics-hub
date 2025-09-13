@@ -4,7 +4,7 @@ SELECT
     b.partner_key,
     REPLACE(REPLACE(a.deal_pipeline_name, 'Fuel & Energy : ', ''), ' Card', '') card_type,
     MIN(b.start_date) activation_timestamp
-FROM {{ ref('fct_deals') }} a
+FROM bluwalk-analytics-hub.core.core_hubspot_deals a
 LEFT JOIN {{ ref('fct_service_orders_energy') }} b
 ON
   a.user_id = b.user_id AND
