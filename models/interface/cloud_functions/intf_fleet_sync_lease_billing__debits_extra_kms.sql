@@ -6,7 +6,7 @@ select
             CAST(payment_cycle AS STRING)
         ) AS INT64
     ) AS year_week,
-    payment_cycle,
+    CAST(payment_cycle AS INT64) AS payment_cycle,
     SUM(amount) AS debited_amount
 from {{ ref('fct_fleet_billable_items') }} a
 left join bluwalk-analytics-hub.core.core_fleet_rental_contracts b on a.contract_id = b.vehicle_contract_id
