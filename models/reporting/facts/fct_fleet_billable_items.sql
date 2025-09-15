@@ -1,3 +1,3 @@
 SELECT
     *
-FROM bluwalk-analytics-hub.staging.stg_odoo_fleet_billable_items a
+FROM bluwalk-analytics-hub.staging.stg_odoo_flt_billable_items a
