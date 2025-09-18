@@ -8,6 +8,5 @@ exposures:
     description: ?????
     url: https://docs.google.com/spreadsheets/d/16mAGc76O__56ufl3FotPuU6C8QJEYnNVQusPL9Gdt9o
     depends_on:
-      - ref('dm_business_report_monthly')
       - ref('dm_core_monthly_partner_category_users')
       
