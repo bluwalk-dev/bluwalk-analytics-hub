@@ -9,8 +9,8 @@ vehicle_usage AS (
         b.vehicle_plate,
         b.start_date,
         b.service_fee
-    FROM {{ ref('fct_user_rideshare_trips') }} a
-    LEFT JOIN {{ ref('dim_vehicle_contracts') }} b ON a.vehicle_contract_key = b.vehicle_contract_key
+    FROM bluwalk-analytics-hub.core.core_rideshare_user_trips a
+    LEFT JOIN bluwalk-analytics-hub.core.core_driver_vehicle_contracts b ON a.vehicle_contract_key = b.vehicle_contract_key
     WHERE
         a.user_id is not null AND 
         a.vehicle_contract_key is not null
@@ -34,10 +34,10 @@ FROM (
 ) a
 LEFT JOIN vehicle_usage b ON
     a.date = b.date AND 
-    a.user_id = b.user_id AND 
+    a.user_id = b.user_id AND
     a.start_date = b.start_date
-LEFT JOIN {{ ref('dim_users') }} c ON a.user_id = c.user_id
+LEFT JOIN bluwalk-analytics-hub.core.core_users c ON a.user_id = c.user_id
 
-ORDER BY 
+ORDER BY
     date DESC, 
     user_id DESC
