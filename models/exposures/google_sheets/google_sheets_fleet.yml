@@ -12,15 +12,6 @@ exposures:
       - ref('rpt_fleet_monthly_kpis')
       - ref('rpt_fleet_monthly_kpis_purchase_order_list')
       - ref('rpt_fleet_monthly_kpis_revenue_list')
-    
-  - name: google_sheet_fleet_insurance_commission
-    type: application
-    owner:
-      name: Fleet Team
-    description: ?????
-    url: https://docs.google.com/spreadsheets/d/1C5VLnUeStUpPOSsMM462I6FV_xyYlNTI-nR349rnSJ8/
-    depends_on:
-      - ref('rpt_fleet_insurance_commission_evaluation')
   
   - name: google_sheet_fleet_traffic_fine_report
     type: application

@@ -1,33 +1,6 @@
 version: 2
 
 exposures:
-
-  - name: odoo_insights_module
-    type: application
-    owner:
-      name: Devoteam
-    description: ?????
-    depends_on:
-      - ref('rpt_insights_airport_arrivals_list')
-      - ref('rpt_insights_airport_arrivals')
-      - ref('rpt_insights_events_list')
-      - ref('rpt_insights_events')
-      - ref('rpt_insights_when_all')
-      - ref('rpt_insights_when_timewindow')
-      - ref('rpt_insights_where_all')
-      - ref('rpt_insights_where_timewindow')
-      - ref('rpt_insights_where_weekday_timewindow')
-      - ref('rpt_insights_where_weekday')
-      - ref('intf_insights_airport_arrivals_list')
-      - ref('intf_insights_airport_arrivals')
-      - ref('intf_insights_events_list')
-      - ref('intf_insights_events')
-      - ref('intf_insights_when_all')
-      - ref('intf_insights_when_timewindow')
-      - ref('intf_insights_where_all')
-      - ref('intf_insights_where_timewindow')
-      - ref('intf_insights_where_weekday_timewindow')
-      - ref('intf_insights_where_weekday')
   
   - name: odoo_scheduler_financial_documents
     type: application

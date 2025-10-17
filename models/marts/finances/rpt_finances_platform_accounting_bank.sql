@@ -26,7 +26,7 @@ SELECT
 	a.amount,
     null
 FROM {{ ref('stg_odoo_enterprise__account_bank_statement_lines') }} a
-LEFT JOIN {{ ref('stg_odoo_enterprise__account_moves') }} b on a.move_id = b.id
+LEFT JOIN bluwalk-analytics-hub.staging.stg_odoo_ee_account_moves b on a.move_id = b.id
 where 
 	a.partner_id IN (1771, 2189) and
 	b.company_id = 4 and

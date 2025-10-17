@@ -84,6 +84,6 @@ SELECT
   COALESCE(f.rental_spending,    0) AS rental_spending
 
 FROM trips AS t
-LEFT JOIN vehicle_contract_type AS v ON t.contact_id = v.contact_id AND t.year_week   = v.year_week
+LEFT JOIN vehicle_contract_type AS v ON t.contact_id = v.contact_id AND t.year_week = v.year_week
 LEFT JOIN financials AS f ON t.contact_id = f.contact_id AND t.year_week   = f.year_week
 ORDER BY t.year_week, t.contact_id

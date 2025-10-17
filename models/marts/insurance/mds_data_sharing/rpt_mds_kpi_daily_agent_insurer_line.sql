@@ -10,9 +10,9 @@ all_combinations AS (
         o.owner_name
     FROM (
         SELECT DISTINCT insurer_contact_id, insurer_name
-        FROM {{ ref("dim_insurance_policies") }}
+        FROM bluwalk-analytics-hub.core.core_insurance_policies
     ) i
-    CROSS JOIN {{ ref("dim_insurance_types") }} it
+    CROSS JOIN bluwalk-analytics-hub.staging.stg_odoo_bw_insurance_policy_types it
     CROSS JOIN {{ ref("util_calendar") }} c
     CROSS JOIN (
         SELECT DISTINCT hs_owner_id, owner_name
@@ -26,7 +26,7 @@ policies AS (
         b.insurance_type_id,
         c.hs_owner_id as owner_id,
         COUNT(*) as policies_issued
-    FROM {{ ref("dim_insurance_policies")}} b
+    FROM bluwalk-analytics-hub.core.core_insurance_policies b
     LEFT JOIN bluwalk-analytics-hub.core.core_hubspot_deals c ON b.insurance_policy_name = c.insurance_policy_name
     WHERE 
         c.deal_pipeline_id = 'default' AND 

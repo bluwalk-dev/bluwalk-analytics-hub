@@ -40,9 +40,9 @@ UNION ALL
 
 -- Odoo EE transactions --
 select
-    a.key,
-    a.financial_system_id,
-    a.financial_system,
+    TO_HEX(MD5('odoo_ee' || 'account.move.line' || id)) as key,
+    4 as financial_system_id,
+    'odoo_ee' as financial_system,
     a.id,
     a.date,
     a.name,
@@ -65,14 +65,14 @@ select
     NULL as analytic_account_name,
     a.full_reconcile_id,
     a.payment_id,
-    a.create_date
-from {{ ref('stg_odoo_enterprise__account_move_lines') }} a
+    CAST(a.create_date AS DATETIME) AS create_date
+from bluwalk-analytics-hub.staging.stg_odoo_ee_account_move_lines a
 left join {{ ref('dim_accounting_journals') }} b ON 
     a.journal_id = b.journal_id AND 
-    a.financial_system_id = b.journal_financial_system_id
+    b.journal_financial_system_id = 4
 left join {{ ref('dim_accounting_accounts') }} c ON 
     a.account_id = c.account_id AND 
-    a.financial_system_id = c.account_financial_system_id
+    c.account_financial_system_id = 4
 LEFT JOIN bluwalk-analytics-hub.core.core_contacts_ee d ON 
     a.partner_id = d.accounting_contact_id
 WHERE a.company_id = 4
