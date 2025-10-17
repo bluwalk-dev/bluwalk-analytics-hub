@@ -4,8 +4,8 @@ WITH training_payments AS (
     COUNTIF(STRPOS(sol.name, 'ONLINE') > 0) AS online_trainings,
     COUNTIF(STRPOS(sol.name, 'ONLINE') = 0) AS onsite_trainings,
     COUNT(*) AS total_trainings
-  FROM {{ ref('stg_odoo__sale_order_lines') }} sol
-  JOIN {{ ref('stg_odoo__sale_orders') }} so
+  FROM bluwalk-analytics-hub.staging.stg_odoo_bw_sale_order_lines sol
+  JOIN bluwalk-analytics-hub.staging.stg_odoo_bw_sale_orders so
     ON sol.order_id = so.id
   WHERE sol.event_id IS NOT NULL
     AND sol.price_total = 50

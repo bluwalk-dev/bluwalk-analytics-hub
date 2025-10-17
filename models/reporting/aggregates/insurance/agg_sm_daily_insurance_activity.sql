@@ -5,9 +5,9 @@ WITH policies AS (
         u.user_id,
         ip.partner_id AS contact_id,
         INITCAP(ipt.insurance_type_line) AS partner_name
-    from {{ ref('stg_odoo__insurance_policy_payments') }} ipp
-    left join {{ ref('stg_odoo__insurance_policies') }} ip on ipp.policy_id = ip.id
-    left join {{ ref('dim_insurance_types') }} ipt on ip.policy_type_id = ipt.insurance_type_id
+    from bluwalk-analytics-hub.staging.stg_odoo_bw_insurance_policy_payments ipp
+    left join bluwalk-analytics-hub.staging.stg_odoo_bw_insurance_policies ip on ipp.policy_id = ip.id
+    left join bluwalk-analytics-hub.staging.stg_odoo_bw_insurance_policy_types ipt on ip.policy_type_id = ipt.insurance_type_id
     left join {{ ref('dim_users') }} u ON ip.partner_id = u.contact_id
 )
 

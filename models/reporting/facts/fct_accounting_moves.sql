@@ -45,9 +45,9 @@ UNION ALL
 
 -- Odoo EE transactions --
 SELECT
-    key,
-    financial_system_id,
-    financial_system,
+    TO_HEX(MD5('odoo_ee' || 'account.move' || id)) as key,
+    4 as financial_system_id,
+    'odoo_ee' as financial_system,
     a.id,
     a.name,
     a.date,
@@ -79,10 +79,10 @@ SELECT
     a.amount_residual_signed amount_due,
     a.payment_state payment_state,
     CONCAT("https://enterprise.bluwalk.com/pt/my/invoices/", a.id, "?access_token=", access_token) invoice_link
-FROM {{ ref('stg_odoo_enterprise__account_moves') }} a
+FROM bluwalk-analytics-hub.staging.stg_odoo_ee_account_moves a
 LEFT JOIN {{ ref('dim_accounting_journals') }} b ON
     a.journal_id = b.journal_id AND
-    a.financial_system = b.journal_financial_system
+    b.journal_financial_system = 'odoo_ee'
 LEFT JOIN {{ ref('util_calendar') }} c ON c.date = a.date
 LEFT JOIN bluwalk-analytics-hub.core.core_contacts_ee d ON a.partner_id = d.accounting_contact_id
 WHERE company_id = 4

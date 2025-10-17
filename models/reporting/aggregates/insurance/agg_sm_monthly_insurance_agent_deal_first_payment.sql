@@ -14,7 +14,7 @@ SELECT
   d.owner_name as agent_name,
   SUM(COALESCE(fp.amount, 0)) AS first_payment_total
 FROM bluwalk-analytics-hub.core.core_hubspot_deals AS d
-JOIN {{ ref('dim_insurance_policies') }} AS p
+JOIN bluwalk-analytics-hub.core.core_insurance_policies AS p
   ON d.insurance_policy_name = p.insurance_policy_name
 LEFT JOIN first_payments         AS fp
   ON p.insurance_policy_id = fp.policy_id

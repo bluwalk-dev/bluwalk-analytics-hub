@@ -5,7 +5,7 @@ FROM (
   SELECT 
     b.accounting_contact_vat as vat, 
     amount_residual_signed 
-  from {{ ref('stg_odoo_enterprise__account_moves') }} a
+  from bluwalk-analytics-hub.staging.stg_odoo_ee_account_moves a
   left join bluwalk-analytics-hub.core.core_contacts_ee b ON a.partner_id = b.accounting_contact_id
   where journal_id = 104 and partner_id != 1586 and amount_residual_signed > 0 and state = 'posted'
 
