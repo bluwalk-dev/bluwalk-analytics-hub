@@ -1,48 +1,33 @@
 WITH vehicles AS (
     SELECT 
-        fv.id as vehicle_id,  -- Unique identifier for the vehicle
+        fv.vehicle_id,  -- Unique identifier for the vehicle
         c.country_name as vehicle_country,  -- Country name where the vehicle is registered
-        fv.license_plate as vehicle_plate,  -- License plate number of the vehicle
-        fv.vin_sn as vehicle_vin,  -- Vehicle Identification Number (VIN)
+        fv.vehicle_plate,  -- License plate number of the vehicle
+        fv.vehicle_vin,  -- Vehicle Identification Number (VIN)
         fvmb.name as vehicle_brand,  -- Brand name of the vehicle
         fvm.name as vehicle_model,  -- Model name of the vehicle
 
-        fv.driver_id as current_driver_contract_id,
+        fv.current_driver_contract_id,
 
         -- Concatenating brand and model for a full name representation
         CONCAT(fvmb.name, ' ', fvm.name) as vehicle_brand_model,
 
         fv.vehicle_model_version,  -- Version of the vehicle model
-        fv.transmission as vehicle_transmission,  -- Transmission type of the vehicle
+        fv.vehicle_transmission,  -- Transmission type of the vehicle
 
-        -- Transmission code: 'M' for manual, 'A' for automatic, NULL for others
-        CASE 
-            WHEN fv.transmission = 'manual' THEN 'M'
-            WHEN fv.transmission = 'automatic' THEN 'A'
-            ELSE NULL 
-        END as vehicle_transmission_code,
+        fv.vehicle_transmission_code,
 
-        fv.fuel_type as vehicle_fuel_type,  -- Fuel type of the vehicle
+        fv.vehicle_fuel_type,  -- Fuel type of the vehicle
+        fv.vehicle_fuel_type_code,
 
-        -- Fuel type code: 'D' for diesel, 'E' for electric, etc.
-        CASE 
-            WHEN fv.fuel_type = 'diesel' THEN 'D'
-            WHEN fv.fuel_type = 'electric' THEN 'E'
-            WHEN fv.fuel_type = 'hybrid' THEN 'H'
-            WHEN fv.fuel_type = 'lpg' THEN 'L'
-            WHEN fv.fuel_type = 'gasoline' THEN 'G'
-            ELSE NULL 
-        END as vehicle_fuel_type_code,
+        fv.vehicle_color,  -- Color of the vehicle
+        fv.vehicle_nr_seats,  -- Number of seats in the vehicle
+        fv.vehicle_nr_doors  -- Number of doors in the vehicle
 
-        fv.color as vehicle_color,  -- Color of the vehicle
-        fv.seats as vehicle_nr_seats,  -- Number of seats in the vehicle
-        fv.doors as vehicle_nr_doors  -- Number of doors in the vehicle
-
-    FROM {{ ref("stg_odoo__fleet_vehicles") }}  fv  -- Source table: staged fleet vehicles data
-    LEFT JOIN {{ ref('stg_odoo__fleet_vehicle_models') }} fvm ON fv.model_id = fvm.id  -- Joining with vehicle models
-    LEFT JOIN {{ ref('stg_odoo__fleet_vehicle_model_brands') }} fvmb ON fv.brand_id = fvmb.id  -- Joining with vehicle brands
+    FROM bluwalk-analytics-hub.staging.stg_odoo_bw_fleet_vehicles  fv  -- Source table: staged fleet vehicles data
+    LEFT JOIN bluwalk-analytics-hub.staging.stg_odoo_bw_fleet_vehicle_models fvm ON fv.model_id = fvm.id  -- Joining with vehicle models
+    LEFT JOIN bluwalk-analytics-hub.staging.stg_odoo_bw_fleet_vehicle_model_brands fvmb ON fv.brand_id = fvmb.id  -- Joining with vehicle brands
     LEFT JOIN {{ ref('dim_countries') }} c ON fv.vehicle_country_id = c.country_id  -- Joining with country dimension table
-    WHERE active IS TRUE  -- Filtering only active vehicles
 )
 
 SELECT 

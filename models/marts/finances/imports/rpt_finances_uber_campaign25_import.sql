@@ -41,7 +41,7 @@ trips AS (
       END
     ) AS trips_off_peak
   FROM {{ ref("base_uber_trips") }} AS u
-  LEFT JOIN {{ ref("dim_vehicles") }} AS v ON u.vehicle_plate = v.vehicle_plate
+  LEFT JOIN bluwalk-analytics-hub.core.core_vehicles AS v ON u.vehicle_plate = v.vehicle_plate
   JOIN calendar AS c ON CAST(u.dropoff_local_time AS DATE) = c.date
   WHERE v.vehicle_fuel_type = 'electric'
   GROUP BY u.contact_id, u.partner_account_uuid, c.year_week
