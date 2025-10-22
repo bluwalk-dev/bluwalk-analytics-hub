@@ -1,30 +1,6 @@
 version: 2
 
 exposures:
-  
-  - name: cloud_function_scheduler_segment_account_activated
-    type: application
-    owner:
-      name: Bluwalk Dev
-    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
-    depends_on:
-      - ref('intf_segment_account_activated')
-
-  - name: cloud_function_scheduler_segment_fuel_card_activated
-    type: application
-    owner:
-      name: Bluwalk Dev
-    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
-    depends_on:
-      - ref('intf_segment_energy_card_activated')
-
-  - name: cloud_function_scheduler_segment_fuel_card_activity
-    type: application
-    owner:
-      name: Bluwalk Dev
-    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
-    depends_on:
-      - ref('intf_segment_energy_card_last_15_day_usage')
 
   - name: cloud_function_scheduler_segment_insurance_renewal
     type: application
@@ -34,29 +10,6 @@ exposures:
     depends_on:
       - ref('intf_segment_insurance_renewal_notification')
 
-  - name: cloud_function_scheduler_segment_marketplace_activity
-    type: application
-    owner:
-      name: Bluwalk Dev
-    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
-    depends_on:
-      - ref('intf_segment_user_work_activity')
-
-  - name: cloud_function_scheduler_segment_rideshare_performance_report
-    type: application
-    owner:
-      name: Bluwalk Dev
-    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
-    depends_on:
-      - ref('rpt_rideshare_performance_report')
-
-  - name: cloud_function_scheduler_segment_new_uncollectible
-    type: application
-    owner:
-      name: Bluwalk Dev
-    description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
-    depends_on:
-      - ref('intf_segment_debt_new')
 
   - name: cloud_function_scheduler_segment_vehicle_activated
     type: application
@@ -89,12 +42,6 @@ exposures:
     description: This model underpins the X-API endpoint at https://api.example.com/v1/foo.
     depends_on:
       - ref('intf_segment_fleet_rental_pickup')
-  
-  ####
-  # Scheduler - Bolt Data Extraction
-  ####
-
-
   
   ####
   # Scheduler - Other Services

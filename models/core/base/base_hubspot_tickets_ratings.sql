@@ -10,7 +10,7 @@ SELECT
     CAST(t.property_hs_feedback_last_ces_rating AS STRING) original_score,
     CAST((CAST(t.property_hs_feedback_last_ces_rating AS INT64) - 1) / 6 AS NUMERIC) normalized_score,
     CAST(t.property_hs_feedback_last_ces_follow_up AS STRING) feedback_comment
-FROM {{ ref("stg_hubspot__tickets") }} t
+FROM bluwalk-analytics-hub.staging.stg_hubspot_tickets t
 LEFT JOIN {{ ref("base_hubspot_users") }} e ON CAST(t.property_hs_all_owner_ids AS INT64) = e.hubspot_owner_id
 LEFT JOIN {{ ref('dim_users') }} u ON CAST(t.property_odoo_user_id AS INT64) = u.user_id
 WHERE property_hs_feedback_last_survey_date is not null

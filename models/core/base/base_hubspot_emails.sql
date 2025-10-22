@@ -11,6 +11,6 @@ SELECT
     a.email_name_to,
     a.email_address_from,
     a.email_name_from
-FROM {{ ref("stg_hubspot__engagement_emails") }} a
+FROM bluwalk-analytics-hub.staging.stg_hubspot_engagement_emails a
 LEFT JOIN {{ ref("base_hubspot_users") }} b ON a.hubspot_owner_id = b.hubspot_owner_id
 where b.hubspot_owner_id IS NOT NULL
