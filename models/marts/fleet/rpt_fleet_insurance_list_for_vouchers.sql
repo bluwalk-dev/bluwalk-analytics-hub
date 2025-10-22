@@ -4,8 +4,8 @@ SELECT
     vehicle_plate, 
     contact_full_name
 FROM bluwalk-analytics-hub.core.core_insurance_policies a
-LEFT JOIN {{ ref('dim_vehicles') }} b on a.insurance_vehicle_id = b.vehicle_id
-LEFT JOIN {{ ref('dim_contacts') }} c on a.insurance_contact_id = c.contact_id
+LEFT JOIN bluwalk-analytics-hub.core.core_vehicles b on a.insurance_vehicle_id = b.vehicle_id
+LEFT JOIN bluwalk-analytics-hub.core.core_contacts_bw c on a.insurance_contact_id = c.contact_id
 WHERE 
   insurance_renewal_date > date_sub(current_date(), INTERVAL 60 DAY) and
   insurance_state = 'active' and

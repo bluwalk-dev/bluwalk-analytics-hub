@@ -13,5 +13,4 @@ SELECT
         ELSE 'Accounting' -- Default category for other account names
     END AS analytic_account_type,
     state AS analytic_account_state -- Current state of the account
-FROM {{ ref('stg_odoo__account_analytic_accounts') }}
-WHERE active IS TRUE -- Filtering to include only active accounts
+FROM bluwalk-analytics-hub.staging.stg_odoo_bw_account_analytic_accounts

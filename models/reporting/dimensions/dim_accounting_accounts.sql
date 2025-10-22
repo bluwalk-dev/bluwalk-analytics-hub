@@ -8,8 +8,7 @@ SELECT
     deprecated AS account_deprecated,
     internal_type AS account_internal_type,
     internal_group AS account_internal_group
-FROM 
-    {{ ref('stg_odoo__account_accounts') }} a
+FROM {{ ref('stg_odoo__account_accounts') }} a
 
 UNION ALL
 

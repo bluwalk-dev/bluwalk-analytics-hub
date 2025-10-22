@@ -8,7 +8,7 @@ SELECT
     a.create_date as legal_agreement_created_timestamp,
     a.accepted_timestamp as legal_agreement_accepted_timestamp
 FROM bluwalk-analytics-hub.staging.stg_odoo_bw_contract_type_lines a
-LEFT JOIN {{ ref('stg_odoo__xml_reports') }} b on a.report_id = b.id
+LEFT JOIN bluwalk-analytics-hub.staging.stg_odoo_bw_xml_reports b on a.report_id = b.id
 LEFT JOIN bluwalk-analytics-hub.core.core_users c on a.partner_id = c.contact_id
 LEFT JOIN bluwalk-analytics-hub.staging.stg_odoo_bw_payment_profiles d on a.payment_profile_id = d.id
 ORDER BY a.id DESC

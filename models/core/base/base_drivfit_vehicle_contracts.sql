@@ -51,8 +51,8 @@ SELECT
     6 as service_partner_id
     
 FROM bluwalk-analytics-hub.core.core_fleet_rental_contracts a
-LEFT JOIN {{ ref('dim_vehicles') }} b ON a.vehicle_plate = b.vehicle_plate
-LEFT JOIN {{ ref('dim_users') }} c ON a.contact_vat = c.user_vat
+LEFT JOIN bluwalk-analytics-hub.core.core_vehicles b ON a.vehicle_plate = b.vehicle_plate
+LEFT JOIN bluwalk-analytics-hub.core.core_users c ON a.contact_vat = c.user_vat
 LEFT JOIN analytic_accounts d ON c.contact_id = d.analytic_account_owner_contact_id
 WHERE a.customer_id = 21
 ORDER BY start_date DESC
