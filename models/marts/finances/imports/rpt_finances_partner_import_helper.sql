@@ -27,8 +27,8 @@ SELECT
 FROM {{ ref("dim_partners_accounts") }} a
 LEFT JOIN {{ ref('dim_transaction_accounts') }} b on a.user_id = b.user_id
 LEFT JOIN {{ ref("dim_accounting_analytic_accounts") }} c ON a.contact_id = c.analytic_account_owner_contact_id
-LEFT JOIN {{ ref("base_odoo_transaction_account_forwarding") }} d ON a.contact_id = d.sender_contact_id
-LEFT JOIN {{ ref("dim_users") }} e ON a.contact_id = e.contact_id
+LEFT JOIN bluwalk-analytics-hub.core.core_finances_transaction_account_forwarding d ON a.contact_id = d.sender_contact_id
+LEFT JOIN bluwalk-analytics-hub.core.core_users e ON a.contact_id = e.contact_id
 LEFT JOIN legal_agreements f ON a.contact_id = f.contact_id
 WHERE 
     c.analytic_account_type = 'User'
