@@ -1,14 +1,6 @@
 version: 2
 
 exposures:
-  - name: google_sheet_import_driver_vehicle_rentals
-    type: application
-    owner:
-      name: Finances
-    description: ?????
-    url: https://docs.google.com/spreadsheets/d/1RPwv0HDL52dYYBfT76aWlDuDKQlNPsy2cHTqPm4Grts/
-    depends_on:
-      - ref('rpt_finances_driver_vehicle_rentals_import')
   
   - name: google_sheet_import_lease_contract_debits
     type: application
@@ -32,16 +24,6 @@ exposures:
       - ref('rpt_finances_partner_import_helper')
       - ref('rpt_finances_fuel_spending')
       - ref('rpt_finances_last_trip_loaded')
-    
-  - name: google_sheet_import_uber_campaign25
-    type: application
-    owner:
-      name: Finances
-    description: ?????
-    url: https://docs.google.com/spreadsheets/d/1njy_Dda5XX764roU9gDvcmPQx2YFpOO42d23h_dNTgY
-    depends_on:
-      - ref('rpt_finances_partner_import_helper')
-      - ref('rpt_finances_uber_campaign25_import')
   
   - name: google_sheet_import_uber_eats
     type: application
@@ -107,13 +89,3 @@ exposures:
     depends_on:
       - ref('dim_accounting_contacts')
       ## Tem uma ligação ao Drivfit Analytics Hub ##
-  
-  - name: google_sheet_accounting_import_tolls_movida
-    type: application
-    owner:
-      name: Finances
-    description: ?????
-    url: https://docs.google.com/spreadsheets/d/1hPmR65GftnJK_aixyQfl2WQ2_v5wLtch8SGsd0Vg2DU
-    depends_on:
-      - ref('fct_fleet_rental_contracts')
-      - ref('rpt_finances_movida_tolls_history')
