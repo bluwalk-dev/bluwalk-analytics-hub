@@ -10,13 +10,3 @@ exposures:
     url: https://docs.google.com/spreadsheets/d/13G8KHJhiiW4EZHlxoqweW7AEGHxDTCgOB8_4YZj5ths
     depends_on:
       - ref('rpt_customer_service_parked_vehicle_documents')
-
-  - name: google_sheet_service_team_performance_metrics
-    type: application
-    owner:
-      name: Customer Service Team
-    description: ?????
-    url: https://docs.google.com/spreadsheets/d/1u-__AXp9t-qARTLZBBEYsCdSTW7IyXpGJ2LOa4RXJk0
-    depends_on:
-      - ref('rpt_customer_service_monthly_team_brand_kpis')
-      - ref('rpt_customer_service_monthly_agent_kpis')
