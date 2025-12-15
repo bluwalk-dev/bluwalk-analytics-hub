@@ -62,10 +62,10 @@ FROM (
         a.raw_digits number_from,
         a.recording,
         a.duration as duration_sec,
-        a.assigned_to,
+        NULL as assigned_to,
         a.user_id,
-        a.transferred_by,
-        a.transferred_to,
+        NULL as transferred_by,
+        NULL as transferred_to,
         a.archived,
         a.asset
     FROM {{ ref('stg_aircallV3__calls') }} a
